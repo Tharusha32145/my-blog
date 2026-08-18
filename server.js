@@ -87,7 +87,7 @@ app.put('/api/articles/:id', verifyAdmin, async (req, res) => {
   }
 });
 
-// Public Articles
+// Public Articles - Ultra Fast Lean Projection (No heavy text)
 app.get('/api/articles', async (req, res) => {
   try {
     const now = new Date();
@@ -100,18 +100,27 @@ app.get('/api/articles', async (req, res) => {
       query.seriesName = req.query.series;
     }
 
-    const articles = await Article.find(query).sort({ publishAt: -1 });
+    // Heavy story text අයින් කර metadata පමණක් ගනී (Lightning Fast)
+    const articles = await Article.find(query)
+      .select('title author mainCategory seriesName imageUrl views publishAt')
+      .sort({ publishAt: -1 })
+      .lean();
+
     res.json(articles);
   } catch (err) {
     res.status(500).json([]);
   }
 });
 
-// Trending Stories
+// Trending Stories - Fast Lean
 app.get('/api/trending', async (req, res) => {
   try {
     const now = new Date();
-    const trending = await Article.find({ publishAt: { $lte: now } }).sort({ views: -1 }).limit(5);
+    const trending = await Article.find({ publishAt: { $lte: now } })
+      .select('title imageUrl views')
+      .sort({ views: -1 })
+      .limit(5)
+      .lean();
     res.json(trending);
   } catch (err) {
     res.status(500).json([]);
@@ -142,7 +151,7 @@ app.get('/api/categories-summary', async (req, res) => {
   }
 });
 
-// Single Story
+// Single Story by ID
 app.get('/api/articles/:id', async (req, res) => {
   try {
     const article = await Article.findByIdAndUpdate(
@@ -160,7 +169,7 @@ app.get('/api/articles/:id', async (req, res) => {
 // Admin All Stories
 app.get('/api/admin/articles', verifyAdmin, async (req, res) => {
   try {
-    const articles = await Article.find().sort({ publishAt: -1 });
+    const articles = await Article.find().sort({ publishAt: -1 }).lean();
     res.json(articles);
   } catch (err) {
     res.status(500).json([]);
@@ -177,6 +186,5 @@ app.delete('/api/articles/:id', verifyAdmin, async (req, res) => {
   }
 });
 
-// Hosting වලට ගැළපෙන Dynamic Port එක
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
