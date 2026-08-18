@@ -3,12 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sinhala Stories Hub</title>
+  <title>Sinhala Katha</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
-    tailwind.config = {
-      darkMode: 'class',
-    }
+    tailwind.config = { darkMode: 'class' }
   </script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -16,32 +14,44 @@
   <style>
     body { font-family: 'Inter', sans-serif; }
 
+    /* Guaranteed Rich Button Colors & Glow */
     .glow-btn {
       position: relative;
-      transition: all 0.3s ease;
-      z-index: 1;
-    }
-    .glow-btn::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      border-radius: inherit;
-      background: inherit;
-      filter: blur(10px);
-      opacity: 0;
-      transition: opacity 0.3s ease;
-      z-index: -1;
-    }
-    .glow-btn:hover::before {
-      opacity: 0.8;
+      transition: all 0.25s ease;
+      font-weight: 700;
+      color: #ffffff !important;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
     }
     .glow-btn:hover {
       transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba(0,0,0,0.25);
     }
+
+    /* Fixed Vibrant Gradients */
+    .btn-home { background: linear-gradient(135deg, #2563eb, #4f46e5) !important; }
+    .btn-series { background: linear-gradient(135deg, #f59e0b, #ea580c) !important; }
+    
+    .btn-all { background: linear-gradient(135deg, #3b82f6, #1d4ed8) !important; }
+    .btn-novels { background: linear-gradient(135deg, #ec4899, #be185d) !important; }
+    .btn-short { background: linear-gradient(135deg, #10b981, #047857) !important; }
+    .btn-eng { background: linear-gradient(135deg, #06b6d4, #0284c7) !important; }
+    .btn-tamil { background: linear-gradient(135deg, #ef4444, #b91c1c) !important; }
+    .btn-comic { background: linear-gradient(135deg, #f59e0b, #d97706) !important; }
+    .btn-japan { background: linear-gradient(135deg, #a855f7, #7e22ce) !important; }
+    .btn-china { background: linear-gradient(135deg, #f43f5e, #e11d48) !important; }
+
+    .btn-tg { background: linear-gradient(135deg, #38bdf8, #2563eb) !important; }
+    .btn-fb { background: linear-gradient(135deg, #1d4ed8, #312e81) !important; }
+    .btn-wa { background: linear-gradient(135deg, #22c55e, #15803d) !important; }
   </style>
 </head>
 <body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-100 transition-colors duration-300 min-h-screen">
 
+  <!-- Header -->
   <header class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-md shadow-sm border-b border-gray-200 dark:border-gray-700 sticky top-0 z-50 transition-colors duration-300">
     <div class="max-w-7xl mx-auto px-4 py-3.5 flex flex-col md:flex-row justify-between items-center gap-4">
       <div>
@@ -51,10 +61,10 @@
       </div>
 
       <nav class="flex flex-wrap gap-3 items-center justify-center">
-        <a href="/" class="glow-btn px-5 py-2 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-xs font-bold shadow-md flex items-center gap-1.5">
+        <a href="/" class="glow-btn btn-home px-5 py-2 text-xs gap-1.5">
           <i class="fa fa-home"></i> Home
         </a>
-        <a href="/categories.html" class="glow-btn px-5 py-2 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 text-white text-xs font-bold shadow-md flex items-center gap-1.5">
+        <a href="/categories.html" class="glow-btn btn-series px-5 py-2 text-xs gap-1.5">
           <i class="fa fa-layer-group"></i> All Series (කතා මාලා)
         </a>
       </nav>
@@ -76,14 +86,14 @@
     <div class="mb-8 text-center space-y-3">
       <p class="text-xs font-bold uppercase tracking-wider text-gray-400">ප්‍රවර්ග තෝරන්න (SELECT CATEGORY)</p>
       <div class="flex flex-wrap justify-center items-center gap-2.5 max-w-4xl mx-auto">
-        <button onclick="filterMainCategory('All')" class="glow-btn px-4 py-2 rounded-xl bg-blue-600 text-white text-xs font-bold shadow-sm">All Stories</button>
-        <button onclick="filterMainCategory('නවකතා')" class="glow-btn px-4 py-2 rounded-xl bg-gradient-to-r from-purple-600 to-pink-500 text-white text-xs font-bold shadow-sm">📖 නවකතා</button>
-        <button onclick="filterMainCategory('කෙටිකතා')" class="glow-btn px-4 py-2 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 text-white text-xs font-bold shadow-sm">📑 කෙටිකතා</button>
-        <button onclick="filterMainCategory('English Stories')" class="glow-btn px-4 py-2 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-500 text-white text-xs font-bold shadow-sm">🇬🇧 English</button>
-        <button onclick="filterMainCategory('Tamil Stories')" class="glow-btn px-4 py-2 rounded-xl bg-gradient-to-r from-red-500 to-rose-600 text-white text-xs font-bold shadow-sm">🇮🇳 Tamil</button>
-        <button onclick="filterMainCategory('චිත්‍රකතා')" class="glow-btn px-4 py-2 rounded-xl bg-gradient-to-r from-yellow-500 to-amber-600 text-white text-xs font-bold shadow-sm">🎨 චිත්‍රකතා</button>
-        <button onclick="filterMainCategory('Japan Stories')" class="glow-btn px-4 py-2 rounded-xl bg-gradient-to-r from-fuchsia-600 to-purple-600 text-white text-xs font-bold shadow-sm">🇯🇵 Japan</button>
-        <button onclick="filterMainCategory('China Stories')" class="glow-btn px-4 py-2 rounded-xl bg-gradient-to-r from-rose-600 to-orange-600 text-white text-xs font-bold shadow-sm">🇨🇳 China</button>
+        <button onclick="filterMainCategory('All')" class="glow-btn btn-all px-4 py-2 text-xs">All Stories</button>
+        <button onclick="filterMainCategory('නවකතා')" class="glow-btn btn-novels px-4 py-2 text-xs">📖 නවකතා</button>
+        <button onclick="filterMainCategory('කෙටිකතා')" class="glow-btn btn-short px-4 py-2 text-xs">📑 කෙටිකතා</button>
+        <button onclick="filterMainCategory('English Stories')" class="glow-btn btn-eng px-4 py-2 text-xs">🇬🇧 English</button>
+        <button onclick="filterMainCategory('Tamil Stories')" class="glow-btn btn-tamil px-4 py-2 text-xs">🇮🇳 Tamil</button>
+        <button onclick="filterMainCategory('චිත්‍රකතා')" class="glow-btn btn-comic px-4 py-2 text-xs">🎨 චිත්‍රකතා</button>
+        <button onclick="filterMainCategory('Japan Stories')" class="glow-btn btn-japan px-4 py-2 text-xs">🇯🇵 Japan</button>
+        <button onclick="filterMainCategory('China Stories')" class="glow-btn btn-china px-4 py-2 text-xs">🇨🇳 China</button>
       </div>
     </div>
 
@@ -114,13 +124,13 @@
           <h3 class="text-sm font-bold text-gray-900 dark:text-white flex items-center gap-2 mb-2">
             <i class="fa fa-users text-blue-500"></i> අපගේ සමාජ ජාල
           </h3>
-          <a href="https://t.me/apedesinhal" target="_blank" class="glow-btn w-full py-2.5 px-4 bg-gradient-to-r from-sky-400 to-blue-500 text-white text-xs font-bold rounded-xl flex items-center justify-center gap-2 shadow-sm">
+          <a href="https://t.me/apedesinhal" target="_blank" class="glow-btn btn-tg w-full py-2.5 px-4 text-xs gap-2">
             <i class="fab fa-telegram text-base"></i> Telegram Channel
           </a>
-          <a href="https://web.facebook.com/share/g/1FyeJTMwyP/" target="_blank" class="glow-btn w-full py-2.5 px-4 bg-gradient-to-r from-blue-700 to-indigo-800 text-white text-xs font-bold rounded-xl flex items-center justify-center gap-2 shadow-sm">
+          <a href="https://web.facebook.com/share/g/1FyeJTMwyP/" target="_blank" class="glow-btn btn-fb w-full py-2.5 px-4 text-xs gap-2">
             <i class="fab fa-facebook text-base"></i> Facebook Group
           </a>
-          <a href="https://whatsapp.com/channel/0029Vb6WiFD7Noa9ikoz4W0w" target="_blank" class="glow-btn w-full py-2.5 px-4 bg-gradient-to-r from-emerald-500 to-green-600 text-white text-xs font-bold rounded-xl flex items-center justify-center gap-2 shadow-sm">
+          <a href="https://whatsapp.com/channel/0029Vb6WiFD7Noa9ikoz4W0w" target="_blank" class="glow-btn btn-wa w-full py-2.5 px-4 text-xs gap-2">
             <i class="fab fa-whatsapp text-base"></i> WhatsApp Channel
           </a>
         </div>
@@ -143,7 +153,7 @@
 
   <script>
     const urlParams = new URLSearchParams(window.location.search);
-    let currentMainCat = 'All';
+    let currentMainCat = urlParams.get('mainCategory') || 'All';
     let currentSeries = urlParams.get('series') || 'All';
 
     if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
@@ -259,12 +269,12 @@
         });
     }
 
-    if (currentSeries !== 'All') {
+    if (currentMainCat !== 'All') {
+      updateBanner(currentMainCat);
+    } else if (currentSeries !== 'All') {
       updateBanner(currentSeries);
-      loadStories();
-    } else {
-      loadStories();
     }
+    loadStories();
     loadTrending();
   </script>
 </body>
