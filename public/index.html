@@ -12,43 +12,28 @@
   <style>
     body { font-family: 'Inter', sans-serif; }
 
-    /* Rich Solid Glow Buttons Matching Exact Screenshot Palette */
     .glow-btn {
       position: relative;
-      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-      font-weight: 700;
-      color: #ffffff !important;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 14px;
-      border: none;
-      cursor: pointer;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      transition: all 0.3s ease;
+      z-index: 1;
+    }
+    .glow-btn::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      border-radius: inherit;
+      background: inherit;
+      filter: blur(10px);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: -1;
+    }
+    .glow-btn:hover::before {
+      opacity: 0.8;
     }
     .glow-btn:hover {
       transform: translateY(-2px);
-      filter: brightness(1.1);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
     }
-
-    /* Exact Vibrant Color Mapping from Category Bar */
-    .btn-home      { background-color: #2b5cf6 !important; }
-    .btn-series    { background-color: #f57c00 !important; }
-
-    .btn-all       { background-color: #1a6dff !important; }
-    .btn-novels    { background-color: #b01268 !important; }
-    .btn-short     { background-color: #059669 !important; }
-    .btn-eng       { background-color: #0284c7 !important; }
-    .btn-tamil     { background-color: #dc2626 !important; }
-    .btn-comic     { background-color: #d97706 !important; }
-    .btn-japan     { background-color: #9333ea !important; }
-    .btn-china     { background-color: #e11d48 !important; }
-
-    /* Social Community Buttons */
-    .btn-telegram  { background-color: #2a85ff !important; }
-    .btn-facebook  { background-color: #2e44b8 !important; }
-    .btn-whatsapp  { background-color: #16a34a !important; }
   </style>
 </head>
 <body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-100 transition-colors duration-300 min-h-screen">
@@ -62,11 +47,12 @@
         </h1>
       </div>
 
+      <!-- Centered Navigation -->
       <nav class="flex flex-wrap gap-3 items-center justify-center">
-        <a href="/" class="glow-btn btn-home px-5 py-2 text-xs gap-1.5">
+        <a href="/" class="glow-btn px-5 py-2 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-xs font-bold shadow-md flex items-center gap-1.5">
           <i class="fa fa-home"></i> Home
         </a>
-        <a href="/categories.html" class="glow-btn btn-series px-5 py-2 text-xs gap-1.5">
+        <a href="/categories.html" class="glow-btn px-5 py-2 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 text-white text-xs font-bold shadow-md flex items-center gap-1.5">
           <i class="fa fa-layer-group"></i> All Series (කතා මාලා)
         </a>
       </nav>
@@ -88,14 +74,14 @@
     <div class="mb-8 text-center space-y-3">
       <p class="text-xs font-bold uppercase tracking-wider text-gray-400">ප්‍රවර්ග තෝරන්න (SELECT CATEGORY)</p>
       <div class="flex flex-wrap justify-center items-center gap-2.5 max-w-4xl mx-auto">
-        <button onclick="filterMainCategory('All')" class="glow-btn btn-all px-4 py-2 text-xs">All Stories</button>
-        <button onclick="filterMainCategory('නවකතා')" class="glow-btn btn-novels px-4 py-2 text-xs">📖 නවකතා</button>
-        <button onclick="filterMainCategory('කෙටිකතා')" class="glow-btn btn-short px-4 py-2 text-xs">📑 කෙටිකතා</button>
-        <button onclick="filterMainCategory('English Stories')" class="glow-btn btn-eng px-4 py-2 text-xs">🇬🇧 English</button>
-        <button onclick="filterMainCategory('Tamil Stories')" class="glow-btn btn-tamil px-4 py-2 text-xs">🇮🇳 Tamil</button>
-        <button onclick="filterMainCategory('චිත්‍රකතා')" class="glow-btn btn-comic px-4 py-2 text-xs">🎨 චිත්‍රකතා</button>
-        <button onclick="filterMainCategory('Japan Stories')" class="glow-btn btn-japan px-4 py-2 text-xs">🇯🇵 Japan</button>
-        <button onclick="filterMainCategory('China Stories')" class="glow-btn btn-china px-4 py-2 text-xs">🇨🇳 China</button>
+        <button onclick="filterMainCategory('All')" class="glow-btn px-4 py-2 rounded-xl bg-blue-600 text-white text-xs font-bold shadow-sm">All Stories</button>
+        <button onclick="filterMainCategory('නවකතා')" class="glow-btn px-4 py-2 rounded-xl bg-gradient-to-r from-purple-600 to-pink-500 text-white text-xs font-bold shadow-sm">📖 නවකතා</button>
+        <button onclick="filterMainCategory('කෙටිකතා')" class="glow-btn px-4 py-2 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 text-white text-xs font-bold shadow-sm">📑 කෙටිකතා</button>
+        <button onclick="filterMainCategory('English Stories')" class="glow-btn px-4 py-2 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-500 text-white text-xs font-bold shadow-sm">🇬🇧 English</button>
+        <button onclick="filterMainCategory('Tamil Stories')" class="glow-btn px-4 py-2 rounded-xl bg-gradient-to-r from-red-500 to-rose-600 text-white text-xs font-bold shadow-sm">🇮🇳 Tamil</button>
+        <button onclick="filterMainCategory('චිත්‍රකතා')" class="glow-btn px-4 py-2 rounded-xl bg-gradient-to-r from-yellow-500 to-amber-600 text-white text-xs font-bold shadow-sm">🎨 චිත්‍රකතා</button>
+        <button onclick="filterMainCategory('Japan Stories')" class="glow-btn px-4 py-2 rounded-xl bg-gradient-to-r from-fuchsia-600 to-purple-600 text-white text-xs font-bold shadow-sm">🇯🇵 Japan</button>
+        <button onclick="filterMainCategory('China Stories')" class="glow-btn px-4 py-2 rounded-xl bg-gradient-to-r from-rose-600 to-orange-600 text-white text-xs font-bold shadow-sm">🇨🇳 China</button>
       </div>
     </div>
 
@@ -105,7 +91,7 @@
         <span class="text-xs text-gray-500 uppercase font-bold">තෝරාගත් Category / Series එක:</span>
         <h3 id="currentCatName" class="text-xl font-extrabold text-blue-600 dark:text-blue-400"></h3>
       </div>
-      <button onclick="filterMainCategory('All')" class="text-xs bg-blue-600 text-white px-3 py-1.5 rounded-lg font-bold hover:bg-blue-700 transition">Show All</button>
+      <button onclick="filterMainCategory('All')" class="glow-btn px-4 py-1.5 rounded-xl bg-blue-600 text-white text-xs font-bold shadow-sm">Show All</button>
     </div>
 
     <!-- 2-Column Responsive Layout -->
@@ -126,13 +112,13 @@
           <h3 class="text-sm font-bold text-gray-900 dark:text-white flex items-center gap-2 mb-2">
             <i class="fa fa-users text-blue-500"></i> අපගේ සමාජ ජාල
           </h3>
-          <a href="https://t.me/apedesinhal" target="_blank" class="glow-btn btn-telegram w-full py-3 px-4 text-xs gap-2">
+          <a href="https://t.me/apedesinhal" target="_blank" class="glow-btn w-full py-2.5 px-4 bg-gradient-to-r from-sky-400 to-blue-500 text-white text-xs font-bold rounded-xl flex items-center justify-center gap-2 shadow-sm">
             <i class="fab fa-telegram text-base"></i> Telegram Channel
           </a>
-          <a href="https://web.facebook.com/share/g/1FyeJTMwyP/" target="_blank" class="glow-btn btn-facebook w-full py-3 px-4 text-xs gap-2">
+          <a href="https://web.facebook.com/share/g/1FyeJTMwyP/" target="_blank" class="glow-btn w-full py-2.5 px-4 bg-gradient-to-r from-blue-700 to-indigo-800 text-white text-xs font-bold rounded-xl flex items-center justify-center gap-2 shadow-sm">
             <i class="fab fa-facebook text-base"></i> Facebook Group
           </a>
-          <a href="https://whatsapp.com/channel/0029Vb6WiFD7Noa9ikoz4W0w" target="_blank" class="glow-btn btn-whatsapp w-full py-3 px-4 text-xs gap-2">
+          <a href="https://whatsapp.com/channel/0029Vb6WiFD7Noa9ikoz4W0w" target="_blank" class="glow-btn w-full py-2.5 px-4 bg-gradient-to-r from-emerald-500 to-green-600 text-white text-xs font-bold rounded-xl flex items-center justify-center gap-2 shadow-sm">
             <i class="fab fa-whatsapp text-base"></i> WhatsApp Channel
           </a>
         </div>
@@ -279,5 +265,7 @@
     loadStories();
     loadTrending();
   </script>
+</body>
+</html>
 </body>
 </html>
