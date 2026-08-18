@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="si" class="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Story Reader</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>tailwind.config = { darkMode: 'class' }</script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+
+    .glow-btn {
+      position: relative;
+      transition: all 0.3s ease;
+      z-index: 1;
+    }
+    .glow-btn::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      border-radius: inherit;
+      background: inherit;
+      filter: blur(10px);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: -1;
+    }
+    .glow-btn:hover::before {
+      opacity: 0.8;
+    }
+    .glow-btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .serverButton {
+      color: white; padding: 12px 24px; font-size: 14px; font-weight: 700; border: none; border-radius: 12px; cursor: pointer; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: all 0.3s;
+    }
+    .serverAd { background-color: #2563eb; }
+    .serverStory { background: linear-gradient(45deg, #16a34a, #15803d); }
+    .serverButton:hover { transform: translateY(-2px); box-shadow: 0 8px 12px rgba(0,0,0,0.15); }
+    .serverButton:disabled { background-color: #94a3b8 !important; cursor: not-allowed; opacity: 0.7; transform: none; }
+  </style>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-100 transition-colors duration-300 min-h-screen">
+
+  <!-- Header Bar -->
+  <header class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-md shadow-sm border-b border-gray-200 dark:border-gray-700 sticky top-0 z-50 transition-colors duration-300">
+    <div class="max-w-7xl mx-auto px-4 py-3.5 flex flex-col md:flex-row justify-between items-center gap-4">
+      <div>
+        <h1 class="text-2xl font-extrabold text-gray-900 dark:text-white tracking-tight">
+          <a href="/">Sinhala <span class="text-blue-600 dark:text-blue-400">Katha</span></a>
+        </h1>
+      </div>
+
+      <nav class="flex flex-wrap gap-3 items-center justify-center">
+        <a href="/" class="glow-btn px-5 py-2 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-xs font-bold shadow-md flex items-center gap-1.5">
+          <i class="fa fa-home"></i> Home
+        </a>
+        <a href="/categories.html" class="glow-btn px-5 py-2 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 text-white text-xs font-bold shadow-md flex items-center gap-1.5">
+          <i class="fa fa-layer-group"></i> All Series (කතා මාලා)
+        </a>
+      </nav>
+
+      <div class="flex items-center gap-3">
+        <button onclick="toggleDarkMode()" class="p-2.5 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-yellow-400 hover:scale-105 transition" title="Dark/Light Mode">
+          <i id="themeIcon" class="fa fa-moon"></i>
+        </button>
+        <a href="/admin.html" class="text-xs font-bold text-gray-500 dark:text-gray-400 hover:text-blue-600 transition flex items-center gap-1 bg-gray-100 dark:bg-gray-700 px-3.5 py-2 rounded-xl">
+          <i class="fa fa-lock"></i> Admin
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Grid -->
+  <main class="max-w-7xl mx-auto px-4 py-8">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+
+      <!-- Left: Story Reader -->
+      <div class="lg:col-span-2">
+        <div id="storyContainer" class="bg-white dark:bg-gray-800 rounded-3xl p-4 sm:p-8 shadow-sm border border-gray-200 dark:border-gray-700">
+          <div class="text-center py-12 text-gray-400">කතාව පැටවෙමින් පවතී...</div>
+        </div>
+      </div>
+
+      <!-- Right: Sidebar -->
+      <aside class="lg:col-span-1 space-y-6">
+        
+        <!-- Social Communities Box -->
+        <div class="bg-white dark:bg-gray-800 p-5 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 space-y-3">
+          <h3 class="text-sm font-bold text-gray-900 dark:text-white flex items-center gap-2 mb-2">
+            <i class="fa fa-users text-blue-500"></i> අපගේ සමාජ ජාල
+          </h3>
+          <a href="https://t.me/apedesinhal" target="_blank" class="glow-btn w-full py-2.5 px-4 bg-gradient-to-r from-sky-400 to-blue-500 text-white text-xs font-bold rounded-xl flex items-center justify-center gap-2 shadow-sm">
+            <i class="fab fa-telegram text-base"></i> Telegram Channel
+          </a>
+          <a href="https://web.facebook.com/share/g/1FyeJTMwyP/" target="_blank" class="glow-btn w-full py-2.5 px-4 bg-gradient-to-r from-blue-700 to-indigo-800 text-white text-xs font-bold rounded-xl flex items-center justify-center gap-2 shadow-sm">
+            <i class="fab fa-facebook text-base"></i> Facebook Group
+          </a>
+          <a href="https://whatsapp.com/channel/0029Vb6WiFD7Noa9ikoz4W0w" target="_blank" class="glow-btn w-full py-2.5 px-4 bg-gradient-to-r from-emerald-500 to-green-600 text-white text-xs font-bold rounded-xl flex items-center justify-center gap-2 shadow-sm">
+            <i class="fab fa-whatsapp text-base"></i> WhatsApp Channel
+          </a>
+        </div>
+
+        <!-- Trending Stories Box -->
+        <div class="bg-white dark:bg-gray-800 p-5 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700">
+          <h3 class="text-sm font-bold text-gray-900 dark:text-white flex items-center gap-2 border-b border-gray-100 dark:border-gray-700 pb-3 mb-4">
+            <i class="fa fa-fire text-amber-500"></i> වැඩිපුරම නැරඹූ කතා (Trending)
+          </h3>
+          <div id="trending-container" class="space-y-3.5">
+            <div class="text-xs text-gray-400">පැටවෙමින් පවතී...</div>
+          </div>
+        </div>
+
+      </aside>
+
+    </div>
+  </main>
+
+  <script>
+    if (localStorage.getItem('theme') === 'dark') {
+      document.documentElement.classList.add('dark');
+      document.getElementById('themeIcon').className = 'fa fa-sun';
+    }
+
+    function toggleDarkMode() {
+      const html = document.documentElement;
+      const icon = document.getElementById('themeIcon');
+      if (html.classList.contains('dark')) {
+        html.classList.remove('dark');
+        localStorage.setItem('theme', 'light');
+        icon.className = 'fa fa-moon';
+      } else {
+        html.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+        icon.className = 'fa fa-sun';
+      }
+    }
+
+    const storyId = new URLSearchParams(window.location.search).get('id');
+    let storyData = null;
+
+    const postPath = 'story_' + storyId;
+    const ad1Key = 'ad1_' + postPath;
+    const ad2Key = 'ad2_' + postPath;
+    const unlockKey = 'unlock_' + postPath;
+    const pendingAdKey = 'pending_ad_' + postPath;
+    const clickTimeKey = 'pending_time_' + postPath;
+    const lockTimeout = 5 * 60 * 1000;
+
+    fetch(`/api/articles/${storyId}`)
+      .then(res => res.json())
+      .then(data => {
+        storyData = data;
+        renderStoryUI();
+        updateUI();
+      });
+
+    function renderStoryUI() {
+      const container = document.getElementById('storyContainer');
+      const img = storyData.imageUrl || 'https://images.unsplash.com/photo-1544717305-2782549b5136?w=600';
+      const allPartsCategoryUrl = `/?series=${encodeURIComponent(storyData.seriesName || storyData.category)}`;
+
+      container.innerHTML = `
+        <h1 class="text-2xl sm:text-3xl font-extrabold text-gray-900 dark:text-white text-center mb-2">${storyData.title}</h1>
+        
+        <div class="flex flex-wrap justify-center items-center gap-3 text-xs sm:text-sm text-gray-500 dark:text-gray-400 mb-5">
+          <span>Story by <strong class="text-gray-700 dark:text-gray-200">${storyData.author}</strong> ✍️</span>
+          <span>•</span>
+          <span class="flex items-center gap-1 text-blue-500 font-semibold"><i class="fa fa-eye"></i> ${storyData.views || 1} Views</span>
+          ${storyData.authorEmail ? `<span>•</span><span class="text-xs">📧 ${storyData.authorEmail}</span>` : ''}
+        </div>
+
+        <!-- Scaled Compact Image -->
+        <div class="rounded-2xl overflow-hidden mb-5 bg-gray-50 dark:bg-gray-900/40 flex justify-center p-2 border border-gray-100 dark:border-gray-700/60 max-w-xs sm:max-w-sm mx-auto shadow-sm">
+          <img src="${img}" class="w-full h-auto max-h-[340px] object-contain rounded-xl" alt="Story Image" onerror="this.src='https://images.unsplash.com/photo-1544717305-2782549b5136?w=600'">
+        </div>
+
+        <!-- Public Preview Content -->
+        ${storyData.previewContent ? `
+          <div class="mb-6 p-4 sm:p-5 rounded-2xl bg-gray-50/80 dark:bg-gray-700/30 border border-gray-100 dark:border-gray-700 text-gray-800 dark:text-gray-200 text-sm sm:text-base leading-relaxed whitespace-pre-line font-normal">
+            ${storyData.previewContent}
+          </div>
+        ` : ''}
+
+        <!-- Timer / Unlock Buttons -->
+        <div class="text-center space-y-4 mb-8">
+          <div id="instructionArea" class="text-gray-700 dark:text-gray-200 font-bold text-xs sm:text-sm bg-blue-50 dark:bg-gray-700/50 border border-blue-200 dark:border-gray-600 p-4 rounded-xl">
+            👇 කතාවේ ඉතිරිය කියවීමට පහත Server 1 සහ Server 2 ක්ලික් කර තත්පර 15 බැගින් රැඳී සිටින්න.
+          </div>
+
+          <div id="errorMsg" class="hidden text-red-600 dark:text-red-400 font-bold text-xs sm:text-sm bg-red-50 dark:bg-red-950/30 p-3 rounded-xl border border-red-200 dark:border-red-900">
+            ❌ ඔබ Ad එකේ සිටි කාලය මදි! කරුණාකර තත්පර 15ක් රැඳී සිටින්න.
+          </div>
+
+          <div id="instructionTextUnlocked" class="hidden text-emerald-600 dark:text-emerald-400 font-bold text-sm bg-emerald-50 dark:bg-emerald-950/30 p-4 rounded-xl border border-emerald-200 dark:border-emerald-900">
+            ✅ සම්පූර්ණ කතාව පහතින් කියවිය හැකිය.
+          </div>
+
+          <div id="adButtonsWrapper" class="flex gap-4 justify-center">
+            <button class="serverButton serverAd glow-btn" id="server1Button" onclick="clickAd(1)">Server 1</button>
+            <button class="serverButton serverAd glow-btn" id="server2Button" onclick="clickAd(2)">Server 2</button>
+          </div>
+        </div>
+
+        <!-- Locked Story Content -->
+        <div id="storyContentBox" class="hidden border-t border-gray-100 dark:border-gray-700 pt-6">
+          <div class="text-gray-800 dark:text-gray-200 text-sm sm:text-base leading-relaxed whitespace-pre-line font-medium">
+            ${storyData.storyContent}
+          </div>
+        </div>
+
+        <!-- Social Action Buttons (Fully Mobile Responsive) -->
+        <div class="mt-8 bg-gray-50 dark:bg-gray-700/40 p-4 sm:p-6 rounded-2xl border border-gray-100 dark:border-gray-700 flex flex-col gap-3 items-center">
+          
+          <!-- All Parts Button -->
+          <a href="${storyData.allPartsLink || allPartsCategoryUrl}" class="glow-btn w-full py-3 px-4 bg-gradient-to-r from-rose-500 to-red-600 text-white font-bold rounded-xl text-center shadow-md flex items-center justify-center gap-2 text-xs sm:text-sm">
+            <i class="fa fa-book-open text-base"></i> "${storyData.seriesName || storyData.category}" සියලුම කොටස් බලන්න
+          </a>
+
+          <!-- Responsive Channels Grid (Mobile: Stacked, Desktop/Tablet: Inline) -->
+          <div class="flex flex-col sm:flex-row gap-2.5 w-full">
+            <a href="${storyData.telegramLink}" target="_blank" class="glow-btn flex-1 py-3 px-3 bg-gradient-to-r from-sky-400 to-blue-500 text-white font-bold rounded-xl shadow-md flex items-center justify-center gap-2 text-xs">
+              <i class="fab fa-telegram text-base"></i> <span>Telegram</span>
+            </a>
+            <a href="${storyData.facebookLink}" target="_blank" class="glow-btn flex-1 py-3 px-3 bg-gradient-to-r from-blue-700 to-indigo-800 text-white font-bold rounded-xl shadow-md flex items-center justify-center gap-2 text-xs">
+              <i class="fab fa-facebook text-base"></i> <span>Facebook</span>
+            </a>
+            <a href="${storyData.whatsappLink}" target="_blank" class="glow-btn flex-1 py-3 px-3 bg-gradient-to-r from-emerald-500 to-green-600 text-white font-bold rounded-xl shadow-md flex items-center justify-center gap-2 text-xs">
+              <i class="fab fa-whatsapp text-base"></i> <span>WhatsApp</span>
+            </a>
+          </div>
+
+        </div>
+      `;
+    }
+
+    function clickAd(serverNum) {
+      localStorage.setItem(pendingAdKey, serverNum);
+      localStorage.setItem(clickTimeKey, Date.now());
+      window.open(serverNum === 1 ? storyData.adLink1 : storyData.adLink2, '_blank');
+    }
+
+    function updateUI() {
+      let unlockedTimestamp = localStorage.getItem(unlockKey);
+      if (unlockedTimestamp && (Date.now() - Number(unlockedTimestamp) > lockTimeout)) {
+        localStorage.removeItem(unlockKey);
+        localStorage.removeItem(ad1Key);
+        localStorage.removeItem(ad2Key);
+        unlockedTimestamp = null;
+      }
+
+      const ad1Done = localStorage.getItem(ad1Key) === 'true';
+      const ad2Done = localStorage.getItem(ad2Key) === 'true';
+
+      const adButtonsWrapper = document.getElementById('adButtonsWrapper');
+      const instructionArea = document.getElementById('instructionArea');
+      const storyContentBox = document.getElementById('storyContentBox');
+      const unlockedText = document.getElementById('instructionTextUnlocked');
+
+      if (!adButtonsWrapper) return;
+
+      if (unlockedTimestamp) {
+        adButtonsWrapper.style.display = 'none';
+        instructionArea.style.display = 'none';
+        storyContentBox.classList.remove('hidden');
+        unlockedText.classList.remove('hidden');
+      } else {
+        adButtonsWrapper.style.display = 'flex';
+        instructionArea.style.display = 'block';
+        storyContentBox.classList.add('hidden');
+        unlockedText.classList.add('hidden');
+
+        const b1 = document.getElementById('server1Button');
+        const b2 = document.getElementById('server2Button');
+        b1.disabled = ad1Done;
+        b1.innerHTML = ad1Done ? 'Server 1 (Done ✅)' : 'Server 1';
+        b2.disabled = ad2Done;
+        b2.innerHTML = ad2Done ? 'Server 2 (Done ✅)' : 'Server 2';
+      }
+    }
+
+    function checkAdReturn() {
+      const activeAd = localStorage.getItem(pendingAdKey);
+      const clickStartTime = localStorage.getItem(clickTimeKey);
+
+      if (activeAd && clickStartTime) {
+        const timeSpent = (Date.now() - Number(clickStartTime)) / 1000;
+        if (timeSpent < 3) return;
+
+        if (timeSpent >= 15) {
+          localStorage.setItem(activeAd === '1' ? ad1Key : ad2Key, 'true');
+          document.getElementById('errorMsg')?.classList.add('hidden');
+          if (localStorage.getItem(ad1Key) === 'true' && localStorage.getItem(ad2Key) === 'true') {
+            localStorage.setItem(unlockKey, Date.now());
+          }
+        } else {
+          document.getElementById('errorMsg')?.classList.remove('hidden');
+        }
+
+        localStorage.removeItem(pendingAdKey);
+        localStorage.removeItem(clickTimeKey);
+        updateUI();
+      }
+    }
+
+    function loadTrending() {
+      fetch('/api/trending')
+        .then(res => res.json())
+        .then(data => {
+          const container = document.getElementById('trending-container');
+          container.innerHTML = '';
+          if (!data || data.length === 0) {
+            container.innerHTML = '<div class="text-xs text-gray-400">තවමත් නැත.</div>';
+            return;
+          }
+          data.forEach(item => {
+            container.innerHTML += `
+              <a href="/story.html?id=${item._id}" class="flex items-center gap-3 group">
+                <img src="${item.imageUrl}" class="w-12 h-12 rounded-xl object-cover border border-gray-200 dark:border-gray-700" onerror="this.src='https://images.unsplash.com/photo-1544717305-2782549b5136?w=600'">
+                <div class="flex-grow">
+                  <h4 class="text-xs font-bold text-gray-800 dark:text-gray-200 group-hover:text-blue-500 line-clamp-1">${item.title}</h4>
+                  <span class="text-[10px] text-gray-400 flex items-center gap-1 mt-0.5"><i class="fa fa-eye text-amber-500"></i> ${item.views || 0} views</span>
+                </div>
+              </a>
+            `;
+          });
+        });
+    }
+
+    window.addEventListener('focus', checkAdReturn);
+    setInterval(updateUI, 1000);
+    loadTrending();
+  </script>
+</body>
+</html>

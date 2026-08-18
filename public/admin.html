@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="si">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Panel</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body { background: #222D32; font-family: 'Roboto', sans-serif; }
+    .login-box { background: #1A2226; text-align: center; box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16); }
+    .login-key { height: 100px; font-size: 80px; line-height: 100px; background: -webkit-linear-gradient(#27EF9F, #0DB8DE); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+    .login-title { font-size: 27px; letter-spacing: 2px; font-weight: bold; color: #ECF0F5; }
+    .dark-input { background-color: #1A2226 !important; border: none !important; border-bottom: 2px solid #0DB8DE !important; border-radius: 0px !important; font-weight: bold !important; color: #ECF0F5 !important; }
+    .dark-input:focus { outline: none; border-bottom: 2px solid #27EF9F !important; }
+    .btn-login { background-color: transparent; border: 2px solid #0DB8DE; color: #0DB8DE; font-weight: bold; letter-spacing: 1px; }
+    .btn-login:hover { background-color: #0DB8DE; color: #1A2226; }
+  </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4">
+
+  <!-- LOGIN SCREEN -->
+  <div id="login-container" class="w-full max-w-md login-box p-8 rounded-2xl">
+    <div class="flex justify-start mb-2">
+      <a href="/" class="text-xs text-gray-400 hover:text-cyan-400 flex items-center gap-1"><i class="fa fa-arrow-left"></i> Home පිටුවට</a>
+    </div>
+    <div class="login-key mb-4"><i class="fa fa-key"></i></div>
+    <div class="login-title mb-6">ADMIN PANEL</div>
+    <form onsubmit="handleLogin(event)" class="space-y-6 text-left">
+      <div>
+        <label class="text-xs text-gray-400 font-bold tracking-widest block mb-2">USERNAME</label>
+        <input type="text" id="adminUser" required class="w-full px-3 py-2 dark-input">
+      </div>
+      <div>
+        <label class="text-xs text-gray-400 font-bold tracking-widest block mb-2">PASSWORD</label>
+        <input type="password" id="adminPass" required class="w-full px-3 py-2 dark-input">
+      </div>
+      <div id="loginErr" class="text-red-400 text-xs font-bold text-center hidden">Username හෝ Password වැරදියි!</div>
+      <button type="submit" class="w-full py-3 btn-login rounded-lg transition">LOGIN</button>
+    </form>
+  </div>
+
+  <!-- ADMIN DASHBOARD -->
+  <div id="dashboard-container" class="w-full max-w-4xl bg-gray-900 text-gray-100 p-8 rounded-2xl shadow-2xl border border-gray-800 hidden space-y-10">
+    <div class="flex justify-between items-center border-b border-gray-800 pb-4">
+      <div>
+        <h2 class="text-2xl font-bold text-cyan-400"><i class="fa fa-tachometer-alt mr-2"></i>Story Admin Panel</h2>
+        <p class="text-xs text-gray-400">අලුත් කතා පළ කිරීම, Edit කිරීම සහ Manage කිරීම</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="/" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-xs font-bold transition flex items-center gap-1">
+          <i class="fa fa-home"></i> Home View
+        </a>
+        <button onclick="logout()" class="px-4 py-2 bg-red-600/20 text-red-400 hover:bg-red-600 hover:text-white rounded-lg text-xs font-bold transition">LOGOUT</button>
+      </div>
+    </div>
+
+    <!-- Create / Edit Post Form -->
+    <div class="bg-gray-800/60 p-6 rounded-xl border border-gray-700" id="form-card">
+      <div class="flex justify-between items-center mb-4">
+        <h3 class="text-lg font-bold text-white flex items-center gap-2" id="formTitle">
+          <i class="fa fa-plus-circle text-emerald-400"></i> අලුත් කතාවක් එකතු කරන්න
+        </h3>
+        <button id="cancelEditBtn" onclick="resetForm()" class="hidden text-xs bg-gray-700 hover:bg-gray-600 px-3 py-1.5 rounded-lg text-gray-300">Edit අවලංගු කරන්න</button>
+      </div>
+
+      <form onsubmit="handleFormSubmit(event)" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <input type="hidden" id="editStoryId">
+
+        <div class="md:col-span-2">
+          <label class="text-xs text-gray-400 font-bold block mb-1">කතාවේ මාතෘකාව (Title & Part)</label>
+          <input type="text" id="title" required placeholder="උදා: සමාධි අක්කා 01" class="w-full p-2.5 bg-gray-900 border border-gray-700 rounded-lg text-sm text-white focus:border-cyan-400 outline-none">
+        </div>
+
+        <div>
+          <label class="text-xs text-gray-400 font-bold block mb-1">කර්තෘගේ නම (Author)</label>
+          <input type="text" id="author" placeholder="උදා: Rish Janzz" class="w-full p-2.5 bg-gray-900 border border-gray-700 rounded-lg text-sm text-white focus:border-cyan-400 outline-none">
+        </div>
+
+        <div>
+          <label class="text-xs text-gray-400 font-bold block mb-1">කර්තෘගේ Email එක (Author Email)</label>
+          <input type="email" id="authorEmail" placeholder="author@example.com" class="w-full p-2.5 bg-gray-900 border border-gray-700 rounded-lg text-sm text-white focus:border-cyan-400 outline-none">
+        </div>
+
+        <div>
+          <label class="text-xs text-pink-400 font-bold block mb-1">ප්‍රධාන ප්‍රවර්ගය (Main Category)</label>
+          <select id="mainCategory" class="w-full p-2.5 bg-gray-900 border border-gray-700 rounded-lg text-sm text-white focus:border-cyan-400 outline-none">
+            <option value="නවකතා">📖 නවකතා</option>
+            <option value="කෙටිකතා">📑 කෙටිකතා</option>
+            <option value="English Stories">🇬🇧 English</option>
+            <option value="Tamil Stories">🇮🇳 Tamil</option>
+            <option value="චිත්‍රකතා">🎨 චිත්‍රකතා</option>
+            <option value="Japan Stories">🇯🇵 Japan</option>
+            <option value="China Stories">🇨🇳 China</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="text-xs text-cyan-400 font-bold block mb-1">කතා මාලාවේ නම (Series Name)</label>
+          <input type="text" id="seriesName" required placeholder="උදා: සමාධි අක්කා" class="w-full p-2.5 bg-gray-900 border border-gray-700 rounded-lg text-sm text-white focus:border-cyan-400 outline-none">
+        </div>
+
+        <div class="md:col-span-2">
+          <label class="text-xs text-gray-400 font-bold block mb-1">Image URL (Direct Link)</label>
+          <input type="text" id="imageUrl" required placeholder="https://i.ibb.co/xxxx/photo.jpg" class="w-full p-2.5 bg-gray-900 border border-gray-700 rounded-lg text-sm text-white focus:border-cyan-400 outline-none">
+        </div>
+
+        <!-- NEW: Public Preview Paragraph (Before Buttons) -->
+        <div class="md:col-span-2">
+          <label class="text-xs text-amber-400 font-bold block mb-1">කතාවේ ආරම්භක ඡේදය / මුල් කොටස (Buttons වලට උඩින් නොමිලේ පෙන්වන කොටස)</label>
+          <textarea id="previewContent" rows="4" placeholder="කතාවේ මුල් ඡේද කිහිපය මෙතනට ඇතුළත් කරන්න..." class="w-full p-3 bg-gray-900 border border-gray-700 rounded-lg text-sm text-white focus:border-amber-400 outline-none"></textarea>
+        </div>
+
+        <!-- Locked Story Content -->
+        <div class="md:col-span-2">
+          <label class="text-xs text-emerald-400 font-bold block mb-1">කතාවේ ඉතිරි කොටස (Server 1 & 2 Unlock වූ පසු පෙන්වන කොටස)</label>
+          <textarea id="storyContent" rows="8" required placeholder="ඉතිරි සම්පූර්ණ කතාව මෙතනට Paste කරන්න..." class="w-full p-3 bg-gray-900 border border-gray-700 rounded-lg text-sm text-white focus:border-cyan-400 outline-none"></textarea>
+        </div>
+
+        <div>
+          <label class="text-xs text-gray-400 font-bold block mb-1">Ad 1 Link</label>
+          <input type="text" id="adLink1" value="https://omg10.com/4/10608751" class="w-full p-2.5 bg-gray-900 border border-gray-700 rounded-lg text-sm text-white outline-none">
+        </div>
+
+        <div>
+          <label class="text-xs text-gray-400 font-bold block mb-1">Ad 2 Link</label>
+          <input type="text" id="adLink2" value="https://omg10.com/4/10608752" class="w-full p-2.5 bg-gray-900 border border-gray-700 rounded-lg text-sm text-white outline-none">
+        </div>
+
+        <div class="md:col-span-2">
+          <label class="text-xs text-gray-400 font-bold block mb-1">සියලුම කොටස් Link (All Parts Link)</label>
+          <input type="text" id="allPartsLink" placeholder="හිස්ව තැබුවහොත් මෙම කතා මාලාවේ සියලුම කොටස් auto link වේ" class="w-full p-2.5 bg-gray-900 border border-gray-700 rounded-lg text-sm text-white outline-none">
+        </div>
+
+        <div class="md:col-span-2">
+          <label class="text-xs text-gray-400 font-bold block mb-1">Schedule Date & Time</label>
+          <input type="datetime-local" id="publishAt" class="w-full p-2.5 bg-gray-900 border border-gray-700 rounded-lg text-sm text-white outline-none">
+        </div>
+
+        <div class="md:col-span-2">
+          <button type="submit" id="submitBtn" class="w-full py-3 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white font-bold rounded-xl transition">කතාව පළ කරන්න</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Posts Manager Section -->
+    <div class="space-y-4">
+      <h3 class="text-lg font-bold text-white flex items-center gap-2"><i class="fa fa-list text-cyan-400"></i> පළ කර ඇති සියලුම කතා (Edit & Delete Manager)</h3>
+      <div id="postsList" class="space-y-3"></div>
+    </div>
+  </div>
+
+  <script>
+    let token = localStorage.getItem('admin_token') || '';
+    let allStoriesCache = [];
+
+    function checkAuth() {
+      if (token) {
+        document.getElementById('login-container').classList.add('hidden');
+        document.getElementById('dashboard-container').classList.remove('hidden');
+        loadAdminStories();
+      }
+    }
+
+    function handleLogin(e) {
+      e.preventDefault();
+      fetch('/api/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          username: document.getElementById('adminUser').value,
+          password: document.getElementById('adminPass').value
+        })
+      })
+      .then(res => res.json())
+      .then(data => {
+        if(data.success) {
+          token = data.token;
+          localStorage.setItem('admin_token', token);
+          checkAuth();
+        } else {
+          document.getElementById('loginErr').classList.remove('hidden');
+        }
+      });
+    }
+
+    function logout() {
+      localStorage.removeItem('admin_token');
+      location.reload();
+    }
+
+    function handleFormSubmit(e) {
+      e.preventDefault();
+      const editId = document.getElementById('editStoryId').value;
+      const isEdit = !!editId;
+
+      const payload = {
+        title: document.getElementById('title').value,
+        author: document.getElementById('author').value || 'Admin',
+        authorEmail: document.getElementById('authorEmail').value,
+        mainCategory: document.getElementById('mainCategory').value,
+        seriesName: document.getElementById('seriesName').value.trim(),
+        imageUrl: document.getElementById('imageUrl').value,
+        previewContent: document.getElementById('previewContent').value,
+        storyContent: document.getElementById('storyContent').value,
+        adLink1: document.getElementById('adLink1').value,
+        adLink2: document.getElementById('adLink2').value,
+        allPartsLink: document.getElementById('allPartsLink').value,
+        publishAt: document.getElementById('publishAt').value
+      };
+
+      const url = isEdit ? `/api/articles/${editId}` : '/api/articles';
+      const method = isEdit ? 'PUT' : 'POST';
+
+      fetch(url, {
+        method: method,
+        headers: { 'Content-Type': 'application/json', 'Authorization': token },
+        body: JSON.stringify(payload)
+      })
+      .then(res => res.json())
+      .then(data => {
+        alert(data.message);
+        resetForm();
+        loadAdminStories();
+      });
+    }
+
+    function loadAdminStories() {
+      fetch('/api/admin/articles', { headers: { 'Authorization': token } })
+      .then(res => res.json())
+      .then(data => {
+        allStoriesCache = data;
+        const list = document.getElementById('postsList');
+        list.innerHTML = '';
+        if (data.length === 0) {
+          list.innerHTML = '<div class="text-gray-500 text-sm">තවමත් කිසිදු කතාවක් දමා නැත.</div>';
+          return;
+        }
+        data.forEach(p => {
+          list.innerHTML += `
+            <div class="flex justify-between items-center bg-gray-800 p-4 rounded-xl border border-gray-700">
+              <div class="flex items-center gap-4">
+                <img src="${p.imageUrl}" class="w-12 h-12 object-cover rounded-lg" onerror="this.src='https://images.unsplash.com/photo-1544717305-2782549b5136?w=600'">
+                <div>
+                  <h4 class="font-bold text-white text-sm">${p.title}</h4>
+                  <p class="text-xs text-gray-400">Main: <span class="text-pink-400 font-semibold">${p.mainCategory || 'නවකතා'}</span> | Series: <span class="text-cyan-400 font-semibold">${p.seriesName || 'සාමාන්‍ය'}</span> | By: ${p.author}</p>
+                </div>
+              </div>
+              <div class="flex gap-2">
+                <button onclick="startEditStory('${p._id}')" class="px-3 py-1.5 bg-blue-600/20 text-blue-400 hover:bg-blue-600 hover:text-white rounded-lg text-xs font-bold transition"><i class="fa fa-edit mr-1"></i>Edit</button>
+                <button onclick="deleteStory('${p._id}')" class="px-3 py-1.5 bg-red-600/20 text-red-400 hover:bg-red-600 hover:text-white rounded-lg text-xs font-bold transition"><i class="fa fa-trash mr-1"></i>Delete</button>
+              </div>
+            </div>
+          `;
+        });
+      });
+    }
+
+    function startEditStory(id) {
+      const story = allStoriesCache.find(s => s._id === id);
+      if (!story) return;
+
+      document.getElementById('editStoryId').value = story._id;
+      document.getElementById('title').value = story.title;
+      document.getElementById('author').value = story.author;
+      document.getElementById('authorEmail').value = story.authorEmail || '';
+      document.getElementById('mainCategory').value = story.mainCategory || 'නවකතා';
+      document.getElementById('seriesName').value = story.seriesName || story.category || '';
+      document.getElementById('imageUrl').value = story.imageUrl;
+      document.getElementById('previewContent').value = story.previewContent || '';
+      document.getElementById('storyContent').value = story.storyContent;
+      document.getElementById('adLink1').value = story.adLink1;
+      document.getElementById('adLink2').value = story.adLink2;
+      document.getElementById('allPartsLink').value = story.allPartsLink || '';
+
+      if (story.publishAt) {
+        const d = new Date(story.publishAt);
+        d.setMinutes(d.getMinutes() - d.getTimezoneOffset());
+        document.getElementById('publishAt').value = d.toISOString().slice(0, 16);
+      }
+
+      document.getElementById('formTitle').innerHTML = '<i class="fa fa-edit text-blue-400"></i> කතාව Edit කරන්න';
+      document.getElementById('submitBtn').innerText = 'කතාව Update කරන්න';
+      document.getElementById('cancelEditBtn').classList.remove('hidden');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function resetForm() {
+      document.getElementById('editStoryId').value = '';
+      document.getElementById('title').value = '';
+      document.getElementById('author').value = '';
+      document.getElementById('authorEmail').value = '';
+      document.getElementById('seriesName').value = '';
+      document.getElementById('imageUrl').value = '';
+      document.getElementById('previewContent').value = '';
+      document.getElementById('storyContent').value = '';
+      document.getElementById('allPartsLink').value = '';
+      document.getElementById('publishAt').value = '';
+      document.getElementById('formTitle').innerHTML = '<i class="fa fa-plus-circle text-emerald-400"></i> අලුත් කතාවක් එකතු කරන්න';
+      document.getElementById('submitBtn').innerText = 'කතාව පළ කරන්න';
+      document.getElementById('cancelEditBtn').classList.add('hidden');
+    }
+
+    function deleteStory(id) {
+      if (!confirm("මෙම කතාව සම්පූර්ණයෙන්ම Delete කිරීමට අවශ්‍යද?")) return;
+      fetch(`/api/articles/${id}`, {
+        method: 'DELETE',
+        headers: { 'Authorization': token }
+      })
+      .then(res => res.json())
+      .then(data => {
+        alert(data.message);
+        loadAdminStories();
+      });
+    }
+
+    checkAuth();
+  </script>
+</body>
+</html>

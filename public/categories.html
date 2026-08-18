@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="si" class="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>සියලුම කතා මාලාවන් - Sinhala Katha</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>tailwind.config = { darkMode: 'class' }</script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+
+    .glow-btn {
+      position: relative;
+      transition: all 0.3s ease;
+      z-index: 1;
+    }
+    .glow-btn::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      border-radius: inherit;
+      background: inherit;
+      filter: blur(10px);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: -1;
+    }
+    .glow-btn:hover::before {
+      opacity: 0.8;
+    }
+    .glow-btn:hover {
+      transform: translateY(-2px);
+    }
+  </style>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-100 transition-colors duration-300 min-h-screen">
+
+  <!-- Header Bar -->
+  <header class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-md shadow-sm border-b border-gray-200 dark:border-gray-700 sticky top-0 z-50 transition-colors duration-300">
+    <div class="max-w-7xl mx-auto px-4 py-3.5 flex flex-col md:flex-row justify-between items-center gap-4">
+      <div>
+        <h1 class="text-2xl font-extrabold text-gray-900 dark:text-white tracking-tight">
+          <a href="/">Sinhala <span class="text-blue-600 dark:text-blue-400">Katha</span></a>
+        </h1>
+      </div>
+
+      <!-- Centered Navigation -->
+      <nav class="flex flex-wrap gap-3 items-center justify-center">
+        <a href="/" class="glow-btn px-5 py-2 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-xs font-bold shadow-md flex items-center gap-1.5">
+          <i class="fa fa-home"></i> Home
+        </a>
+        <a href="/categories.html" class="glow-btn px-5 py-2 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 text-white text-xs font-bold shadow-md flex items-center gap-1.5">
+          <i class="fa fa-layer-group"></i> All Series (කතා මාලා)
+        </a>
+      </nav>
+
+      <div class="flex items-center gap-3">
+        <button onclick="toggleDarkMode()" class="p-2.5 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-yellow-400 hover:scale-105 transition" title="Dark/Light Mode">
+          <i id="themeIcon" class="fa fa-moon"></i>
+        </button>
+        <a href="/admin.html" class="text-xs font-bold text-gray-500 dark:text-gray-400 hover:text-blue-600 transition flex items-center gap-1 bg-gray-100 dark:bg-gray-700 px-3.5 py-2 rounded-xl">
+          <i class="fa fa-lock"></i> Admin
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 py-6">
+
+    <!-- Categories Glow Filter Bar (Same as Home Page) -->
+    <div class="mb-8 text-center space-y-3">
+      <p class="text-xs font-bold uppercase tracking-wider text-gray-400">ප්‍රවර්ග තෝරන්න (SELECT CATEGORY)</p>
+      <div class="flex flex-wrap justify-center items-center gap-2.5 max-w-4xl mx-auto">
+        <a href="/" class="glow-btn px-4 py-2 rounded-xl bg-blue-600 text-white text-xs font-bold shadow-sm">All Stories</a>
+        <a href="/?mainCategory=නවකතා" class="glow-btn px-4 py-2 rounded-xl bg-gradient-to-r from-purple-600 to-pink-500 text-white text-xs font-bold shadow-sm">📖 නවකතා</a>
+        <a href="/?mainCategory=කෙටිකතා" class="glow-btn px-4 py-2 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 text-white text-xs font-bold shadow-sm">📑 කෙටිකතා</a>
+        <a href="/?mainCategory=English Stories" class="glow-btn px-4 py-2 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-500 text-white text-xs font-bold shadow-sm">🇬🇧 English</a>
+        <a href="/?mainCategory=Tamil Stories" class="glow-btn px-4 py-2 rounded-xl bg-gradient-to-r from-red-500 to-rose-600 text-white text-xs font-bold shadow-sm">🇮🇳 Tamil</a>
+        <a href="/?mainCategory=චිත්‍රකතා" class="glow-btn px-4 py-2 rounded-xl bg-gradient-to-r from-yellow-500 to-amber-600 text-white text-xs font-bold shadow-sm">🎨 චිත්‍රකතා</a>
+        <a href="/?mainCategory=Japan Stories" class="glow-btn px-4 py-2 rounded-xl bg-gradient-to-r from-fuchsia-600 to-purple-600 text-white text-xs font-bold shadow-sm">🇯🇵 Japan</a>
+        <a href="/?mainCategory=China Stories" class="glow-btn px-4 py-2 rounded-xl bg-gradient-to-r from-rose-600 to-orange-600 text-white text-xs font-bold shadow-sm">🇨🇳 China</a>
+      </div>
+    </div>
+
+    <!-- 2-Column Responsive Layout -->
+    <div class="grid grid-cols-1 lg:grid-cols-4 gap-8 items-start">
+      
+      <!-- Left: Categories Grid (3 Columns) -->
+      <div class="lg:col-span-3">
+        <div class="mb-4">
+          <h2 class="text-xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
+            <i class="fa fa-folder-open text-amber-500"></i> සියලුම කතා මාලාවන් (Series)
+          </h2>
+        </div>
+
+        <div id="categoriesContainer" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 items-stretch">
+          <div class="col-span-full py-16 text-center text-gray-400">කතා මාලාවන් පැටවෙමින් පවතී...</div>
+        </div>
+      </div>
+
+      <!-- Right: Sidebar (Socials + Trending Stories) -->
+      <aside class="lg:col-span-1 space-y-6">
+        
+        <!-- Social Communities Box -->
+        <div class="bg-white dark:bg-gray-800 p-5 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 space-y-3">
+          <h3 class="text-sm font-bold text-gray-900 dark:text-white flex items-center gap-2 mb-2">
+            <i class="fa fa-users text-blue-500"></i> අපගේ සමාජ ජාල
+          </h3>
+          <a href="https://t.me/apedesinhal" target="_blank" class="glow-btn w-full py-2.5 px-4 bg-gradient-to-r from-sky-400 to-blue-500 text-white text-xs font-bold rounded-xl flex items-center justify-center gap-2 shadow-sm">
+            <i class="fab fa-telegram text-base"></i> Telegram Channel
+          </a>
+          <a href="https://web.facebook.com/share/g/1FyeJTMwyP/" target="_blank" class="glow-btn w-full py-2.5 px-4 bg-gradient-to-r from-blue-700 to-indigo-800 text-white text-xs font-bold rounded-xl flex items-center justify-center gap-2 shadow-sm">
+            <i class="fab fa-facebook text-base"></i> Facebook Group
+          </a>
+          <a href="https://whatsapp.com/channel/0029Vb6WiFD7Noa9ikoz4W0w" target="_blank" class="glow-btn w-full py-2.5 px-4 bg-gradient-to-r from-emerald-500 to-green-600 text-white text-xs font-bold rounded-xl flex items-center justify-center gap-2 shadow-sm">
+            <i class="fab fa-whatsapp text-base"></i> WhatsApp Channel
+          </a>
+        </div>
+
+        <!-- Trending Stories Box -->
+        <div class="bg-white dark:bg-gray-800 p-5 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700">
+          <h3 class="text-sm font-bold text-gray-900 dark:text-white flex items-center gap-2 border-b border-gray-100 dark:border-gray-700 pb-3 mb-4">
+            <i class="fa fa-fire text-amber-500"></i> වැඩිපුරම නැරඹූ කතා (Trending)
+          </h3>
+          <div id="trending-container" class="space-y-3.5">
+            <div class="text-xs text-gray-400">පැටවෙමින් පවතී...</div>
+          </div>
+        </div>
+
+      </aside>
+
+    </div>
+
+  </main>
+
+  <script>
+    // Dark Mode
+    if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.classList.add('dark');
+      document.getElementById('themeIcon').className = 'fa fa-sun';
+    } else {
+      document.documentElement.classList.remove('dark');
+      document.getElementById('themeIcon').className = 'fa fa-moon';
+    }
+
+    function toggleDarkMode() {
+      const html = document.documentElement;
+      const icon = document.getElementById('themeIcon');
+      if (html.classList.contains('dark')) {
+        html.classList.remove('dark');
+        localStorage.setItem('theme', 'light');
+        icon.className = 'fa fa-moon';
+      } else {
+        html.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+        icon.className = 'fa fa-sun';
+      }
+    }
+
+    // Load Categories Summary
+    fetch('/api/categories-summary')
+      .then(res => res.json())
+      .then(data => {
+        const container = document.getElementById('categoriesContainer');
+        container.innerHTML = '';
+
+        if (!data || data.length === 0) {
+          container.innerHTML = '<div class="col-span-full py-16 text-center text-gray-400">තවමත් කිසිදු කතා මාලාවක් නැත.</div>';
+          return;
+        }
+
+        data.forEach(cat => {
+          const img = cat.latestImage || 'https://images.unsplash.com/photo-1544717305-2782549b5136?w=600';
+          container.innerHTML += `
+            <a href="/?series=${encodeURIComponent(cat._id)}" class="bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-200 dark:border-gray-700 flex flex-col group transform hover:-translate-y-1">
+              <div class="w-full h-64 overflow-hidden bg-gray-50 dark:bg-gray-900/40 relative flex items-center justify-center p-2">
+                <img src="${img}" alt="${cat._id}" class="max-w-full max-h-full object-contain group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://images.unsplash.com/photo-1544717305-2782549b5136?w=600'">
+                <span class="absolute top-3 right-3 bg-blue-600/90 text-white text-[11px] font-bold px-3 py-1 rounded-full shadow">
+                  ${cat.totalParts} කොටස්
+                </span>
+              </div>
+              <div class="p-5 text-center flex-grow flex flex-col justify-between border-t border-gray-100 dark:border-gray-700">
+                <h3 class="text-base font-bold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition">${cat._id}</h3>
+                <span class="text-xs text-gray-400 mt-1 block">By ${cat.author}</span>
+                <span class="mt-4 text-xs font-bold text-blue-600 dark:text-blue-400 flex items-center justify-center gap-1">
+                  සියලුම කොටස් බලන්න &raquo;
+                </span>
+              </div>
+            </a>
+          `;
+        });
+      });
+
+    // Load Trending in Sidebar
+    function loadTrending() {
+      fetch('/api/trending')
+        .then(res => res.json())
+        .then(data => {
+          const container = document.getElementById('trending-container');
+          container.innerHTML = '';
+          if (!data || data.length === 0) {
+            container.innerHTML = '<div class="text-xs text-gray-400">තවමත් නැත.</div>';
+            return;
+          }
+          data.forEach(item => {
+            container.innerHTML += `
+              <a href="/story.html?id=${item._id}" class="flex items-center gap-3 group">
+                <img src="${item.imageUrl}" class="w-12 h-12 rounded-xl object-cover border border-gray-200 dark:border-gray-700" onerror="this.src='https://images.unsplash.com/photo-1544717305-2782549b5136?w=600'">
+                <div class="flex-grow">
+                  <h4 class="text-xs font-bold text-gray-800 dark:text-gray-200 group-hover:text-blue-500 line-clamp-1">${item.title}</h4>
+                  <span class="text-[10px] text-gray-400 flex items-center gap-1 mt-0.5"><i class="fa fa-eye text-amber-500"></i> ${item.views || 0} views</span>
+                </div>
+              </a>
+            `;
+          });
+        });
+    }
+
+    loadTrending();
+  </script>
+</body>
+</html>
