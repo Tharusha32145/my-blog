@@ -47,14 +47,51 @@
         </h1>
       </div>
 
-      <!-- Centered Navigation -->
-      <nav class="flex flex-wrap gap-3 items-center justify-center">
-        <a href="/" class="glow-btn px-5 py-2 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-xs font-bold shadow-md flex items-center gap-1.5">
+      <!-- Top Navigation Bar with All 3 Buttons -->
+      <nav class="flex flex-wrap gap-3 items-center justify-center relative">
+        <a href="/" class="glow-btn px-4 py-2 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-xs font-bold shadow-md flex items-center gap-1.5">
           <i class="fa fa-home"></i> Home
         </a>
-        <a href="/categories.html" class="glow-btn px-5 py-2 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 text-white text-xs font-bold shadow-md flex items-center gap-1.5">
+        <a href="/categories.html" class="glow-btn px-4 py-2 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 text-white text-xs font-bold shadow-md flex items-center gap-1.5">
           <i class="fa fa-layer-group"></i> All Series (කතා මාලා)
         </a>
+
+        <!-- Category Dropdown Button in Navigation -->
+        <div class="relative inline-block text-left">
+          <button onclick="toggleDropdown()" id="categoryDropdownBtn" class="glow-btn px-4 py-2 rounded-xl bg-gradient-to-r from-purple-600 via-fuchsia-600 to-pink-600 text-white text-xs font-bold shadow-md flex items-center gap-2">
+            <i class="fa fa-list"></i>
+            <span id="selectedCategoryLabel">ප්‍රවර්ග තෝරන්න (Select Category)</span>
+            <i class="fa fa-chevron-down text-[10px] ml-0.5 transition-transform duration-300" id="dropdownArrow"></i>
+          </button>
+
+          <!-- Dropdown Menu List -->
+          <div id="categoryDropdownMenu" class="hidden absolute left-0 sm:left-auto sm:right-0 mt-2 w-64 bg-white dark:bg-gray-800 rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-700 py-2 overflow-hidden z-50 transition-all duration-200">
+            <button onclick="selectCategory('All', 'සියලුම කතා (All Stories)')" class="w-full text-left px-4 py-2.5 text-xs font-bold hover:bg-purple-50 dark:hover:bg-gray-700 flex items-center gap-2.5 transition">
+              <span class="w-2.5 h-2.5 rounded-full bg-blue-500"></span> All Stories (සියල්ල)
+            </button>
+            <button onclick="selectCategory('නවකතා', '📖 නවකතා (Novels)')" class="w-full text-left px-4 py-2.5 text-xs font-bold hover:bg-purple-50 dark:hover:bg-gray-700 flex items-center gap-2.5 transition">
+              <span class="w-2.5 h-2.5 rounded-full bg-pink-500"></span> 📖 නවකතා
+            </button>
+            <button onclick="selectCategory('කෙටිකතා', '📑 කෙටිකතා (Short Stories)')" class="w-full text-left px-4 py-2.5 text-xs font-bold hover:bg-purple-50 dark:hover:bg-gray-700 flex items-center gap-2.5 transition">
+              <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span> 📑 කෙටිකතා
+            </button>
+            <button onclick="selectCategory('English Stories', '🇬🇧 English Stories')" class="w-full text-left px-4 py-2.5 text-xs font-bold hover:bg-purple-50 dark:hover:bg-gray-700 flex items-center gap-2.5 transition">
+              <span class="w-2.5 h-2.5 rounded-full bg-cyan-500"></span> 🇬🇧 English Stories
+            </button>
+            <button onclick="selectCategory('Tamil Stories', '🇮🇳 Tamil Stories')" class="w-full text-left px-4 py-2.5 text-xs font-bold hover:bg-purple-50 dark:hover:bg-gray-700 flex items-center gap-2.5 transition">
+              <span class="w-2.5 h-2.5 rounded-full bg-red-500"></span> 🇮🇳 Tamil Stories
+            </button>
+            <button onclick="selectCategory('චිත්‍රකතා', '🎨 චිත්‍රකතා (Comics)')" class="w-full text-left px-4 py-2.5 text-xs font-bold hover:bg-purple-50 dark:hover:bg-gray-700 flex items-center gap-2.5 transition">
+              <span class="w-2.5 h-2.5 rounded-full bg-yellow-500"></span> 🎨 චිත්‍රකතා
+            </button>
+            <button onclick="selectCategory('Japan Stories', '🇯🇵 Japan Stories')" class="w-full text-left px-4 py-2.5 text-xs font-bold hover:bg-purple-50 dark:hover:bg-gray-700 flex items-center gap-2.5 transition">
+              <span class="w-2.5 h-2.5 rounded-full bg-purple-500"></span> 🇯🇵 Japan Stories
+            </button>
+            <button onclick="selectCategory('China Stories', '🇨🇳 China Stories')" class="w-full text-left px-4 py-2.5 text-xs font-bold hover:bg-purple-50 dark:hover:bg-gray-700 flex items-center gap-2.5 transition">
+              <span class="w-2.5 h-2.5 rounded-full bg-rose-500"></span> 🇨🇳 China Stories
+            </button>
+          </div>
+        </div>
       </nav>
 
       <div class="flex items-center gap-3">
@@ -70,52 +107,13 @@
 
   <main class="max-w-7xl mx-auto px-4 py-6">
 
-    <!-- Modern Single Category Dropdown Selector -->
-    <div class="mb-8 flex justify-center relative z-30">
-      <div class="relative inline-block text-left">
-        <button onclick="toggleDropdown()" id="categoryDropdownBtn" class="glow-btn px-6 py-3 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-sm font-bold shadow-lg flex items-center gap-3">
-          <i class="fa fa-layer-group text-base"></i>
-          <span id="selectedCategoryLabel">ප්‍රවර්ග තෝරන්න (Select Category)</span>
-          <i class="fa fa-chevron-down text-xs ml-1 transition-transform duration-300" id="dropdownArrow"></i>
-        </button>
-
-        <!-- Dropdown Menu List -->
-        <div id="categoryDropdownMenu" class="hidden absolute left-1/2 -translate-x-1/2 mt-2 w-64 bg-white dark:bg-gray-800 rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-700 py-2 overflow-hidden transition-all duration-200">
-          <button onclick="selectCategory('All', 'සියලුම කතා (All Stories)')" class="w-full text-left px-4 py-2.5 text-xs font-bold hover:bg-blue-50 dark:hover:bg-gray-700 flex items-center gap-2.5 transition">
-            <span class="w-2.5 h-2.5 rounded-full bg-blue-500"></span> All Stories (සියල්ල)
-          </button>
-          <button onclick="selectCategory('නවකතා', '📖 නවකතා (Novels)')" class="w-full text-left px-4 py-2.5 text-xs font-bold hover:bg-pink-50 dark:hover:bg-gray-700 flex items-center gap-2.5 transition">
-            <span class="w-2.5 h-2.5 rounded-full bg-pink-500"></span> 📖 නවකතා
-          </button>
-          <button onclick="selectCategory('කෙටිකතා', '📑 කෙටිකතා (Short Stories)')" class="w-full text-left px-4 py-2.5 text-xs font-bold hover:bg-emerald-50 dark:hover:bg-gray-700 flex items-center gap-2.5 transition">
-            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span> 📑 කෙටිකතා
-          </button>
-          <button onclick="selectCategory('English Stories', '🇬🇧 English Stories')" class="w-full text-left px-4 py-2.5 text-xs font-bold hover:bg-cyan-50 dark:hover:bg-gray-700 flex items-center gap-2.5 transition">
-            <span class="w-2.5 h-2.5 rounded-full bg-cyan-500"></span> 🇬🇧 English Stories
-          </button>
-          <button onclick="selectCategory('Tamil Stories', '🇮🇳 Tamil Stories')" class="w-full text-left px-4 py-2.5 text-xs font-bold hover:bg-red-50 dark:hover:bg-gray-700 flex items-center gap-2.5 transition">
-            <span class="w-2.5 h-2.5 rounded-full bg-red-500"></span> 🇮🇳 Tamil Stories
-          </button>
-          <button onclick="selectCategory('චිත්‍රකතා', '🎨 චිත්‍රකතා (Comics)')" class="w-full text-left px-4 py-2.5 text-xs font-bold hover:bg-yellow-50 dark:hover:bg-gray-700 flex items-center gap-2.5 transition">
-            <span class="w-2.5 h-2.5 rounded-full bg-yellow-500"></span> 🎨 චිත්‍රකතා
-          </button>
-          <button onclick="selectCategory('Japan Stories', '🇯🇵 Japan Stories')" class="w-full text-left px-4 py-2.5 text-xs font-bold hover:bg-purple-50 dark:hover:bg-gray-700 flex items-center gap-2.5 transition">
-            <span class="w-2.5 h-2.5 rounded-full bg-purple-500"></span> 🇯🇵 Japan Stories
-          </button>
-          <button onclick="selectCategory('China Stories', '🇨🇳 China Stories')" class="w-full text-left px-4 py-2.5 text-xs font-bold hover:bg-rose-50 dark:hover:bg-gray-700 flex items-center gap-2.5 transition">
-            <span class="w-2.5 h-2.5 rounded-full bg-rose-500"></span> 🇨🇳 China Stories
-          </button>
-        </div>
-      </div>
-    </div>
-
     <!-- Active Filter Banner -->
-    <div id="categoryBanner" class="hidden mb-6 bg-blue-50 dark:bg-gray-800 border border-blue-200 dark:border-gray-700 p-4 rounded-2xl flex justify-between items-center">
+    <div id="categoryBanner" class="hidden mb-6 bg-purple-50 dark:bg-gray-800 border border-purple-200 dark:border-gray-700 p-4 rounded-2xl flex justify-between items-center">
       <div>
         <span class="text-xs text-gray-500 uppercase font-bold">තෝරාගත් Category / Series එක:</span>
-        <h3 id="currentCatName" class="text-xl font-extrabold text-blue-600 dark:text-blue-400"></h3>
+        <h3 id="currentCatName" class="text-xl font-extrabold text-purple-600 dark:text-purple-400"></h3>
       </div>
-      <button onclick="selectCategory('All', 'ප්‍රවර්ග තෝරන්න (Select Category)')" class="glow-btn px-4 py-1.5 rounded-xl bg-blue-600 text-white text-xs font-bold shadow-sm">Show All</button>
+      <button onclick="selectCategory('All', 'ප්‍රවර්ග තෝරන්න (Select Category)')" class="glow-btn px-4 py-1.5 rounded-xl bg-purple-600 text-white text-xs font-bold shadow-sm">Show All</button>
     </div>
 
     <!-- 2-Column Responsive Layout -->
@@ -202,7 +200,7 @@
     window.addEventListener('click', function (e) {
       const btn = document.getElementById('categoryDropdownBtn');
       const menu = document.getElementById('categoryDropdownMenu');
-      if (!btn.contains(e.target) && !menu.contains(e.target)) {
+      if (btn && menu && !btn.contains(e.target) && !menu.contains(e.target)) {
         menu.classList.add('hidden');
         document.getElementById('dropdownArrow').classList.remove('rotate-180');
       }
