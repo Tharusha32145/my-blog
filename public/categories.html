@@ -47,14 +47,51 @@
         </h1>
       </div>
 
-      <!-- Centered Navigation -->
-      <nav class="flex flex-wrap gap-3 items-center justify-center">
-        <a href="/" class="glow-btn px-5 py-2 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-xs font-bold shadow-md flex items-center gap-1.5">
+      <!-- Top Navigation Bar with All 3 Buttons -->
+      <nav class="flex flex-wrap gap-3 items-center justify-center relative">
+        <a href="/" class="glow-btn px-4 py-2 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-xs font-bold shadow-md flex items-center gap-1.5">
           <i class="fa fa-home"></i> Home
         </a>
-        <a href="/categories.html" class="glow-btn px-5 py-2 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 text-white text-xs font-bold shadow-md flex items-center gap-1.5">
+        <a href="/categories.html" class="glow-btn px-4 py-2 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 text-white text-xs font-bold shadow-md flex items-center gap-1.5">
           <i class="fa fa-layer-group"></i> All Series (කතා මාලා)
         </a>
+
+        <!-- Category Dropdown Button in Navigation -->
+        <div class="relative inline-block text-left">
+          <button onclick="toggleDropdown()" id="categoryDropdownBtn" class="glow-btn px-4 py-2 rounded-xl bg-gradient-to-r from-purple-600 via-fuchsia-600 to-pink-600 text-white text-xs font-bold shadow-md flex items-center gap-2">
+            <i class="fa fa-list"></i>
+            <span>ප්‍රවර්ග තෝරන්න (Select Category)</span>
+            <i class="fa fa-chevron-down text-[10px] ml-0.5 transition-transform duration-300" id="dropdownArrow"></i>
+          </button>
+
+          <!-- Dropdown Menu List -->
+          <div id="categoryDropdownMenu" class="hidden absolute left-0 sm:left-auto sm:right-0 mt-2 w-64 bg-white dark:bg-gray-800 rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-700 py-2 overflow-hidden z-50 transition-all duration-200">
+            <a href="/" class="w-full text-left px-4 py-2.5 text-xs font-bold hover:bg-purple-50 dark:hover:bg-gray-700 flex items-center gap-2.5 transition block">
+              <span class="w-2.5 h-2.5 rounded-full bg-blue-500"></span> All Stories (සියල්ල)
+            </a>
+            <a href="/?mainCategory=නවකතා" class="w-full text-left px-4 py-2.5 text-xs font-bold hover:bg-purple-50 dark:hover:bg-gray-700 flex items-center gap-2.5 transition block">
+              <span class="w-2.5 h-2.5 rounded-full bg-pink-500"></span> 📖 නවකතා
+            </a>
+            <a href="/?mainCategory=කෙටිකතා" class="w-full text-left px-4 py-2.5 text-xs font-bold hover:bg-purple-50 dark:hover:bg-gray-700 flex items-center gap-2.5 transition block">
+              <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span> 📑 කෙටිකතා
+            </a>
+            <a href="/?mainCategory=English Stories" class="w-full text-left px-4 py-2.5 text-xs font-bold hover:bg-purple-50 dark:hover:bg-gray-700 flex items-center gap-2.5 transition block">
+              <span class="w-2.5 h-2.5 rounded-full bg-cyan-500"></span> 🇬🇧 English Stories
+            </a>
+            <a href="/?mainCategory=Tamil Stories" class="w-full text-left px-4 py-2.5 text-xs font-bold hover:bg-purple-50 dark:hover:bg-gray-700 flex items-center gap-2.5 transition block">
+              <span class="w-2.5 h-2.5 rounded-full bg-red-500"></span> 🇮🇳 Tamil Stories
+            </a>
+            <a href="/?mainCategory=චිත්‍රකතා" class="w-full text-left px-4 py-2.5 text-xs font-bold hover:bg-purple-50 dark:hover:bg-gray-700 flex items-center gap-2.5 transition block">
+              <span class="w-2.5 h-2.5 rounded-full bg-yellow-500"></span> 🎨 චිත්‍රකතා
+            </a>
+            <a href="/?mainCategory=Japan Stories" class="w-full text-left px-4 py-2.5 text-xs font-bold hover:bg-purple-50 dark:hover:bg-gray-700 flex items-center gap-2.5 transition block">
+              <span class="w-2.5 h-2.5 rounded-full bg-purple-500"></span> 🇯🇵 Japan Stories
+            </a>
+            <a href="/?mainCategory=China Stories" class="w-full text-left px-4 py-2.5 text-xs font-bold hover:bg-purple-50 dark:hover:bg-gray-700 flex items-center gap-2.5 transition block">
+              <span class="w-2.5 h-2.5 rounded-full bg-rose-500"></span> 🇨🇳 China Stories
+            </a>
+          </div>
+        </div>
       </nav>
 
       <div class="flex items-center gap-3">
@@ -70,29 +107,14 @@
 
   <main class="max-w-7xl mx-auto px-4 py-6">
 
-    <!-- Categories Glow Filter Bar (Same as Home Page) -->
-    <div class="mb-8 text-center space-y-3">
-      <p class="text-xs font-bold uppercase tracking-wider text-gray-400">ප්‍රවර්ග තෝරන්න (SELECT CATEGORY)</p>
-      <div class="flex flex-wrap justify-center items-center gap-2.5 max-w-4xl mx-auto">
-        <a href="/" class="glow-btn px-4 py-2 rounded-xl bg-blue-600 text-white text-xs font-bold shadow-sm">All Stories</a>
-        <a href="/?mainCategory=නවකතා" class="glow-btn px-4 py-2 rounded-xl bg-gradient-to-r from-purple-600 to-pink-500 text-white text-xs font-bold shadow-sm">📖 නවකතා</a>
-        <a href="/?mainCategory=කෙටිකතා" class="glow-btn px-4 py-2 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 text-white text-xs font-bold shadow-sm">📑 කෙටිකතා</a>
-        <a href="/?mainCategory=English Stories" class="glow-btn px-4 py-2 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-500 text-white text-xs font-bold shadow-sm">🇬🇧 English</a>
-        <a href="/?mainCategory=Tamil Stories" class="glow-btn px-4 py-2 rounded-xl bg-gradient-to-r from-red-500 to-rose-600 text-white text-xs font-bold shadow-sm">🇮🇳 Tamil</a>
-        <a href="/?mainCategory=චිත්‍රකතා" class="glow-btn px-4 py-2 rounded-xl bg-gradient-to-r from-yellow-500 to-amber-600 text-white text-xs font-bold shadow-sm">🎨 චිත්‍රකතා</a>
-        <a href="/?mainCategory=Japan Stories" class="glow-btn px-4 py-2 rounded-xl bg-gradient-to-r from-fuchsia-600 to-purple-600 text-white text-xs font-bold shadow-sm">🇯🇵 Japan</a>
-        <a href="/?mainCategory=China Stories" class="glow-btn px-4 py-2 rounded-xl bg-gradient-to-r from-rose-600 to-orange-600 text-white text-xs font-bold shadow-sm">🇨🇳 China</a>
-      </div>
-    </div>
-
     <!-- 2-Column Responsive Layout -->
     <div class="grid grid-cols-1 lg:grid-cols-4 gap-8 items-start">
       
       <!-- Left: Categories Grid (3 Columns) -->
       <div class="lg:col-span-3">
-        <div class="mb-4">
-          <h2 class="text-xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
-            <i class="fa fa-folder-open text-amber-500"></i> සියලුම කතා මාලාවන් (Series)
+        <div class="mb-6 flex items-center justify-between">
+          <h2 class="text-xl sm:text-2xl font-extrabold text-gray-900 dark:text-white flex items-center gap-2.5">
+            <i class="fa fa-folder-open text-amber-500"></i> සියලුම කතා මාලාවන් (All Series)
           </h2>
         </div>
 
@@ -160,6 +182,23 @@
       }
     }
 
+    // Dropdown Toggle
+    function toggleDropdown() {
+      const menu = document.getElementById('categoryDropdownMenu');
+      const arrow = document.getElementById('dropdownArrow');
+      menu.classList.toggle('hidden');
+      arrow.classList.toggle('rotate-180');
+    }
+
+    window.addEventListener('click', function (e) {
+      const btn = document.getElementById('categoryDropdownBtn');
+      const menu = document.getElementById('categoryDropdownMenu');
+      if (btn && menu && !btn.contains(e.target) && !menu.contains(e.target)) {
+        menu.classList.add('hidden');
+        document.getElementById('dropdownArrow').classList.remove('rotate-180');
+      }
+    });
+
     // Load Categories Summary
     fetch('/api/categories-summary')
       .then(res => res.json())
@@ -177,7 +216,7 @@
           container.innerHTML += `
             <a href="/?series=${encodeURIComponent(cat._id)}" class="bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-200 dark:border-gray-700 flex flex-col group transform hover:-translate-y-1">
               <div class="w-full h-64 overflow-hidden bg-gray-50 dark:bg-gray-900/40 relative flex items-center justify-center p-2">
-                <img src="${img}" alt="${cat._id}" class="max-w-full max-h-full object-contain group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://images.unsplash.com/photo-1544717305-2782549b5136?w=600'">
+                <img src="${img}" alt="${cat._id}" class="max-w-full max-h-full object-contain group-hover:scale-105 transition-transform duration-500 pointer-events-none" onerror="this.src='https://images.unsplash.com/photo-1544717305-2782549b5136?w=600'">
                 <span class="absolute top-3 right-3 bg-blue-600/90 text-white text-[11px] font-bold px-3 py-1 rounded-full shadow">
                   ${cat.totalParts} කොටස්
                 </span>
@@ -208,7 +247,7 @@
           data.forEach(item => {
             container.innerHTML += `
               <a href="/story.html?id=${item._id}" class="flex items-center gap-3 group">
-                <img src="${item.imageUrl}" class="w-12 h-12 rounded-xl object-cover border border-gray-200 dark:border-gray-700" onerror="this.src='https://images.unsplash.com/photo-1544717305-2782549b5136?w=600'">
+                <img src="${item.imageUrl}" class="w-12 h-12 rounded-xl object-cover border border-gray-200 dark:border-gray-700 pointer-events-none" onerror="this.src='https://images.unsplash.com/photo-1544717305-2782549b5136?w=600'">
                 <div class="flex-grow">
                   <h4 class="text-xs font-bold text-gray-800 dark:text-gray-200 group-hover:text-blue-500 line-clamp-1">${item.title}</h4>
                   <span class="text-[10px] text-gray-400 flex items-center gap-1 mt-0.5"><i class="fa fa-eye text-amber-500"></i> ${item.views || 0} views</span>
