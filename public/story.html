@@ -152,7 +152,7 @@
     const unlockKey = 'unlock_' + postPath;
     const pendingAdKey = 'pending_ad_' + postPath;
     const clickTimeKey = 'pending_time_' + postPath;
-    const lockTimeout = 5 * 60 * 1000;
+    const lockTimeout = 10 * 60 * 1000; // 10 minutes unlock
 
     fetch(`/api/articles/${storyId}`)
       .then(res => res.json())
@@ -242,22 +242,32 @@
     }
 
     function clickAd(serverNum) {
-      localStorage.setItem(pendingAdKey, serverNum);
-      localStorage.setItem(clickTimeKey, Date.now());
-      window.open(serverNum === 1 ? storyData.adLink1 : storyData.adLink2, '_blank');
+      localStorage.setItem(pendingAdKey, String(serverNum));
+      localStorage.setItem(clickTimeKey, String(Date.now()));
+      sessionStorage.setItem(pendingAdKey, String(serverNum));
+      sessionStorage.setItem(clickTimeKey, String(Date.now()));
+
+      // Open target URL
+      const targetUrl = (serverNum === 1 ? storyData.adLink1 : storyData.adLink2) || 'https://omg10.com/4/10608751';
+      window.open(targetUrl, '_blank');
+      
+      updateUI();
     }
 
     function updateUI() {
-      let unlockedTimestamp = localStorage.getItem(unlockKey);
+      let unlockedTimestamp = localStorage.getItem(unlockKey) || sessionStorage.getItem(unlockKey);
       if (unlockedTimestamp && (Date.now() - Number(unlockedTimestamp) > lockTimeout)) {
         localStorage.removeItem(unlockKey);
+        sessionStorage.removeItem(unlockKey);
         localStorage.removeItem(ad1Key);
         localStorage.removeItem(ad2Key);
+        sessionStorage.removeItem(ad1Key);
+        sessionStorage.removeItem(ad2Key);
         unlockedTimestamp = null;
       }
 
-      const ad1Done = localStorage.getItem(ad1Key) === 'true';
-      const ad2Done = localStorage.getItem(ad2Key) === 'true';
+      const ad1Done = localStorage.getItem(ad1Key) === 'true' || sessionStorage.getItem(ad1Key) === 'true';
+      const ad2Done = localStorage.getItem(ad2Key) === 'true' || sessionStorage.getItem(ad2Key) === 'true';
 
       const adButtonsWrapper = document.getElementById('adButtonsWrapper');
       const instructionArea = document.getElementById('instructionArea');
@@ -266,7 +276,7 @@
 
       if (!adButtonsWrapper) return;
 
-      if (unlockedTimestamp) {
+      if (unlockedTimestamp || (ad1Done && ad2Done)) {
         adButtonsWrapper.style.display = 'none';
         instructionArea.style.display = 'none';
         storyContentBox.classList.remove('hidden');
@@ -279,36 +289,88 @@
 
         const b1 = document.getElementById('server1Button');
         const b2 = document.getElementById('server2Button');
-        b1.disabled = ad1Done;
-        b1.innerHTML = ad1Done ? 'Server 1 (Done ✅)' : 'Server 1';
-        b2.disabled = ad2Done;
-        b2.innerHTML = ad2Done ? 'Server 2 (Done ✅)' : 'Server 2';
+
+        const activeAd = localStorage.getItem(pendingAdKey) || sessionStorage.getItem(pendingAdKey);
+        const clickStartTime = localStorage.getItem(clickTimeKey) || sessionStorage.getItem(clickTimeKey);
+
+        if (b1) {
+          b1.disabled = ad1Done;
+          if (ad1Done) {
+            b1.innerHTML = 'Server 1 (Done ✅)';
+          } else if (activeAd === '1' && clickStartTime) {
+            const left = Math.max(0, 15 - Math.floor((Date.now() - Number(clickStartTime)) / 1000));
+            b1.innerHTML = left > 0 ? `Server 1 (${left}s ⏳)` : 'Server 1 (Done ✅)';
+          } else {
+            b1.innerHTML = 'Server 1';
+          }
+        }
+
+        if (b2) {
+          b2.disabled = ad2Done;
+          if (ad2Done) {
+            b2.innerHTML = 'Server 2 (Done ✅)';
+          } else if (activeAd === '2' && clickStartTime) {
+            const left = Math.max(0, 15 - Math.floor((Date.now() - Number(clickStartTime)) / 1000));
+            b2.innerHTML = left > 0 ? `Server 2 (${left}s ⏳)` : 'Server 2 (Done ✅)';
+          } else {
+            b2.innerHTML = 'Server 2';
+          }
+        }
       }
     }
 
     function checkAdReturn() {
-      const activeAd = localStorage.getItem(pendingAdKey);
-      const clickStartTime = localStorage.getItem(clickTimeKey);
+      const activeAd = localStorage.getItem(pendingAdKey) || sessionStorage.getItem(pendingAdKey);
+      const clickStartTime = localStorage.getItem(clickTimeKey) || sessionStorage.getItem(clickTimeKey);
 
       if (activeAd && clickStartTime) {
         const timeSpent = (Date.now() - Number(clickStartTime)) / 1000;
-        if (timeSpent < 3) return;
-
+        
+        // When returned after 15 seconds
         if (timeSpent >= 15) {
-          localStorage.setItem(activeAd === '1' ? ad1Key : ad2Key, 'true');
-          document.getElementById('errorMsg')?.classList.add('hidden');
-          if (localStorage.getItem(ad1Key) === 'true' && localStorage.getItem(ad2Key) === 'true') {
-            localStorage.setItem(unlockKey, Date.now());
+          if (activeAd === '1') {
+            localStorage.setItem(ad1Key, 'true');
+            sessionStorage.setItem(ad1Key, 'true');
+          } else {
+            localStorage.setItem(ad2Key, 'true');
+            sessionStorage.setItem(ad2Key, 'true');
           }
-        } else {
+          
+          document.getElementById('errorMsg')?.classList.add('hidden');
+          
+          const ad1Done = localStorage.getItem(ad1Key) === 'true' || sessionStorage.getItem(ad1Key) === 'true';
+          const ad2Done = localStorage.getItem(ad2Key) === 'true' || sessionStorage.getItem(ad2Key) === 'true';
+
+          if (ad1Done && ad2Done) {
+            localStorage.setItem(unlockKey, String(Date.now()));
+            sessionStorage.setItem(unlockKey, String(Date.now()));
+          }
+
+          localStorage.removeItem(pendingAdKey);
+          localStorage.removeItem(clickTimeKey);
+          sessionStorage.removeItem(pendingAdKey);
+          sessionStorage.removeItem(clickTimeKey);
+        } else if (timeSpent > 3) {
+          // If came back too fast
           document.getElementById('errorMsg')?.classList.remove('hidden');
         }
 
-        localStorage.removeItem(pendingAdKey);
-        localStorage.removeItem(clickTimeKey);
         updateUI();
       }
     }
+
+    // Facebook in-app browser & Mobile events
+    window.addEventListener('focus', checkAdReturn);
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'visible') checkAdReturn();
+    });
+    window.addEventListener('pageshow', checkAdReturn);
+
+    // Continuous polling check
+    setInterval(() => {
+      checkAdReturn();
+      updateUI();
+    }, 1000);
 
     function loadTrending() {
       fetch('/api/trending')
@@ -334,8 +396,6 @@
         });
     }
 
-    window.addEventListener('focus', checkAdReturn);
-    setInterval(updateUI, 1000);
     loadTrending();
   </script>
 </body>
