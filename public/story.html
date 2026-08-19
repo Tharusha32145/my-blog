@@ -85,7 +85,7 @@
       <!-- Left: Story Reader -->
       <div class="lg:col-span-2">
         <div id="storyContainer" class="bg-white dark:bg-gray-800 rounded-3xl p-4 sm:p-8 shadow-sm border border-gray-200 dark:border-gray-700">
-          <div class="text-center py-12 text-gray-400">Loding...</div>
+          <div class="text-center py-12 text-gray-400">කතාව පැටවෙමින් පවතී...</div>
         </div>
       </div>
 
@@ -114,7 +114,7 @@
             <i class="fa fa-fire text-amber-500"></i> වැඩිපුරම නැරඹූ කතා (Trending)
           </h3>
           <div id="trending-container" class="space-y-3.5">
-            <div class="text-xs text-gray-400" Loding... </div>
+            <div class="text-xs text-gray-400">පැටවෙමින් පවතී...</div>
           </div>
         </div>
 
@@ -146,14 +146,15 @@
     const storyId = new URLSearchParams(window.location.search).get('id');
     let storyData = null;
 
-    // Keys specific ONLY to this single story
-    const prefix = 'katha_' + storyId + '_';
-    const ad1Key = prefix + 'ad1_done';
-    const ad2Key = prefix + 'ad2_done';
-    const unlockKey = prefix + 'unlocked_at';
-    const activeAdKey = prefix + 'active_ad';
-    const departureTimeKey = prefix + 'departed_at';
-    const lockDuration = 10 * 60 * 1000; // 10 minutes unlock per story
+    // Strict Unique Keys for THIS STORY ONLY
+    const KEY_S1_TIMESTAMP = `sk_story_${storyId}_s1_time`;
+    const KEY_S2_TIMESTAMP = `sk_story_${storyId}_s2_time`;
+    const KEY_UNLOCK_START = `sk_story_${storyId}_unlock_start`;
+    const KEY_PENDING_CLICK = `sk_story_${storyId}_pending_click`;
+    const KEY_PENDING_TIME = `sk_story_${storyId}_pending_time`;
+
+    const S1_VALIDITY = 5 * 60 * 1000;   // Server 1 stays valid for 5 minutes
+    const UNLOCK_DURATION = 10 * 60 * 1000; // Unlocked for exactly 10 minutes
 
     fetch(`/api/articles/${storyId}`)
       .then(res => res.json())
@@ -200,13 +201,14 @@
             ❌ ඔබ Ad එකේ තත්පර 15ක් රැඳී සිටියේ නැත! කරුණාකර නැවත උත්සාහ කරන්න.
           </div>
 
-          <div id="instructionTextUnlocked" class="hidden text-emerald-600 dark:text-emerald-400 font-bold text-sm bg-emerald-50 dark:bg-emerald-950/30 p-4 rounded-xl border border-emerald-200 dark:border-emerald-900">
-            ✅ ඔබගේ විනාඩි 10ක කියවීමේ කාලය ආරම්භ විය. සම්පූර්ණ කතාව පහතින් කියවන්න.
+          <div id="instructionTextUnlocked" class="hidden text-emerald-600 dark:text-emerald-400 font-bold text-sm bg-emerald-50 dark:bg-emerald-950/30 p-4 rounded-xl border border-emerald-200 dark:border-emerald-900 flex justify-between items-center">
+            <span>✅ සම්පූර්ණ කතාව පහතින් කියවන්න.</span>
+            <span id="countdownDisplay" class="bg-emerald-600 text-white px-3 py-1 rounded-lg text-xs font-mono font-bold">10:00</span>
           </div>
 
           <div id="adButtonsWrapper" class="flex gap-4 justify-center">
-            <button class="serverButton glow-btn px-6 py-3 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-sm font-bold shadow-md" id="server1Button" onclick="openAdLink(1)">Server 1</button>
-            <button class="serverButton glow-btn px-6 py-3 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-sm font-bold shadow-md" id="server2Button" onclick="openAdLink(2)">Server 2</button>
+            <button class="serverButton glow-btn px-6 py-3 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-sm font-bold shadow-md" id="server1Button" onclick="openAd(1)">Server 1</button>
+            <button class="serverButton glow-btn px-6 py-3 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-sm font-bold shadow-md" id="server2Button" onclick="openAd(2)">Server 2</button>
           </div>
         </div>
 
@@ -242,76 +244,90 @@
       `;
     }
 
-    function openAdLink(serverNum) {
-      // Record which button was clicked and time of departure
-      sessionStorage.setItem(activeAdKey, String(serverNum));
-      sessionStorage.setItem(departureTimeKey, String(Date.now()));
-      
+    function openAd(serverNum) {
+      localStorage.setItem(KEY_PENDING_CLICK, String(serverNum));
+      localStorage.setItem(KEY_PENDING_TIME, String(Date.now()));
+
       const targetUrl = (serverNum === 1 ? storyData.adLink1 : storyData.adLink2) || 'https://omg10.com/4/10608751';
       window.open(targetUrl, '_blank');
-      
       document.getElementById('errorMsg')?.classList.add('hidden');
     }
 
-    function checkReturnValidation() {
-      const activeAd = sessionStorage.getItem(activeAdKey);
-      const departureTime = sessionStorage.getItem(departureTimeKey);
+    function validateReturnFromAd() {
+      const pendingServer = localStorage.getItem(KEY_PENDING_CLICK);
+      const departureTime = localStorage.getItem(KEY_PENDING_TIME);
 
-      if (activeAd && departureTime) {
-        const timeSpentAway = (Date.now() - Number(departureTime)) / 1000;
+      if (pendingServer && departureTime) {
+        const timeAwaySeconds = (Date.now() - Number(departureTime)) / 1000;
 
-        // Strict 15 seconds away check
-        if (timeSpentAway >= 15) {
-          if (activeAd === '1') {
-            sessionStorage.setItem(ad1Key, 'true');
-          } else if (activeAd === '2') {
-            sessionStorage.setItem(ad2Key, 'true');
+        // Strict 15s away requirement
+        if (timeAwaySeconds >= 15) {
+          if (pendingServer === '1') {
+            localStorage.setItem(KEY_S1_TIMESTAMP, String(Date.now()));
+          } else if (pendingServer === '2') {
+            localStorage.setItem(KEY_S2_TIMESTAMP, String(Date.now()));
           }
 
           document.getElementById('errorMsg')?.classList.add('hidden');
 
-          // If both ads watched for 15s each, unlock for 10 minutes
-          if (sessionStorage.getItem(ad1Key) === 'true' && sessionStorage.getItem(ad2Key) === 'true') {
-            sessionStorage.setItem(unlockKey, String(Date.now()));
+          // Check if Server 1 is still valid within 5 minutes AND Server 2 is done
+          const s1Time = Number(localStorage.getItem(KEY_S1_TIMESTAMP) || 0);
+          const s2Time = Number(localStorage.getItem(KEY_S2_TIMESTAMP) || 0);
+          const isS1Valid = (Date.now() - s1Time) < S1_VALIDITY;
+          const isS2Valid = s2Time > 0;
+
+          if (isS1Valid && isS2Valid) {
+            localStorage.setItem(KEY_UNLOCK_START, String(Date.now()));
           }
         } else {
-          // Came back too early
+          // Returned before 15 seconds
           document.getElementById('errorMsg')?.classList.remove('hidden');
         }
 
-        // Always clear pending click
-        sessionStorage.removeItem(activeAdKey);
-        sessionStorage.removeItem(departureTimeKey);
+        // Clean up current click session
+        localStorage.removeItem(KEY_PENDING_CLICK);
+        localStorage.removeItem(KEY_PENDING_TIME);
         updateUI();
       }
     }
 
     function updateUI() {
-      let unlockTime = sessionStorage.getItem(unlockKey);
+      const now = Date.now();
+      const unlockStart = Number(localStorage.getItem(KEY_UNLOCK_START) || 0);
+      const isUnlocked = unlockStart > 0 && (now - unlockStart) < UNLOCK_DURATION;
 
-      // Check if 10 minutes expired for this specific story
-      if (unlockTime && (Date.now() - Number(unlockTime) > lockDuration)) {
-        sessionStorage.removeItem(unlockKey);
-        sessionStorage.removeItem(ad1Key);
-        sessionStorage.removeItem(ad2Key);
-        unlockTime = null;
+      // When 10 minutes expire -> Auto Lock Story
+      if (unlockStart > 0 && !isUnlocked) {
+        localStorage.removeItem(KEY_UNLOCK_START);
+        localStorage.removeItem(KEY_S1_TIMESTAMP);
+        localStorage.removeItem(KEY_S2_TIMESTAMP);
       }
 
-      const ad1Done = sessionStorage.getItem(ad1Key) === 'true';
-      const ad2Done = sessionStorage.getItem(ad2Key) === 'true';
+      const s1Time = Number(localStorage.getItem(KEY_S1_TIMESTAMP) || 0);
+      const isS1Done = s1Time > 0 && (now - s1Time) < S1_VALIDITY; // Valid for 5 mins
 
       const adButtonsWrapper = document.getElementById('adButtonsWrapper');
       const instructionArea = document.getElementById('instructionArea');
       const storyContentBox = document.getElementById('storyContentBox');
       const unlockedText = document.getElementById('instructionTextUnlocked');
+      const countdownDisplay = document.getElementById('countdownDisplay');
 
       if (!adButtonsWrapper) return;
 
-      if (unlockTime) {
+      if (isUnlocked) {
         adButtonsWrapper.style.display = 'none';
         instructionArea.style.display = 'none';
         storyContentBox.classList.remove('hidden');
         unlockedText.classList.remove('hidden');
+
+        // Countdown Timer format mm:ss
+        if (countdownDisplay) {
+          const remainingMs = UNLOCK_DURATION - (now - unlockStart);
+          const totalSecs = Math.max(0, Math.floor(remainingMs / 1000));
+          const mins = String(Math.floor(totalSecs / 60)).padStart(2, '0');
+          const secs = String(totalSecs % 60).padStart(2, '0');
+          countdownDisplay.innerText = `${mins}:${secs} ⏳`;
+        }
       } else {
         adButtonsWrapper.style.display = 'flex';
         instructionArea.style.display = 'block';
@@ -322,27 +338,27 @@
         const b2 = document.getElementById('server2Button');
 
         if (b1) {
-          b1.disabled = ad1Done;
-          b1.innerHTML = ad1Done ? 'Server 1 (Done ✅)' : 'Server 1';
+          b1.disabled = isS1Done;
+          b1.innerHTML = isS1Done ? 'Server 1 (Done ✅)' : 'Server 1';
         }
 
         if (b2) {
-          b2.disabled = ad2Done;
-          b2.innerHTML = ad2Done ? 'Server 2 (Done ✅)' : 'Server 2';
+          b2.disabled = false;
+          b2.innerHTML = 'Server 2';
         }
       }
     }
 
-    // Trigger validation when user comes back to the page/tab
-    window.addEventListener('focus', checkReturnValidation);
+    // Universal browser support (Facebook In-App, Telegram, Mobile WebViews)
+    window.addEventListener('focus', validateReturnFromAd);
+    window.addEventListener('pageshow', validateReturnFromAd);
     document.addEventListener('visibilitychange', () => {
       if (document.visibilityState === 'visible') {
-        checkReturnValidation();
+        validateReturnFromAd();
       }
     });
-    window.addEventListener('pageshow', checkReturnValidation);
 
-    // Auto check timer status every second
+    // Check timers continuously every 1 second
     setInterval(updateUI, 1000);
 
     function loadTrending() {
