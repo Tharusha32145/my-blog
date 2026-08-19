@@ -10,7 +10,23 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
   <style>
-    body { font-family: 'Inter', sans-serif; }
+    body { 
+      font-family: 'Inter', sans-serif;
+      /* Full Copy Protection CSS */
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-touch-callout: none;
+    }
+
+    .story-protected-text {
+      -webkit-user-select: none !important;
+      -moz-user-select: none !important;
+      -ms-user-select: none !important;
+      user-select: none !important;
+      -webkit-touch-callout: none !important;
+    }
 
     .glow-btn {
       position: relative;
@@ -46,7 +62,7 @@
     }
   </style>
 </head>
-<body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-100 transition-colors duration-300 min-h-screen">
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-100 transition-colors duration-300 min-h-screen" oncontextmenu="return false;" oncopy="return false;" oncut="return false;" onselectstart="return false;">
 
   <!-- Header Bar -->
   <header class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-md shadow-sm border-b border-gray-200 dark:border-gray-700 sticky top-0 z-50 transition-colors duration-300">
@@ -124,6 +140,19 @@
   </main>
 
   <script>
+    // Disable keyboard shortcuts for inspecting or copying
+    document.addEventListener('keydown', function (e) {
+      // Block Ctrl+C, Ctrl+A, Ctrl+U, Ctrl+S, Ctrl+P, F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+Shift+C
+      if (
+        (e.ctrlKey && (e.key === 'c' || e.key === 'C' || e.key === 'a' || e.key === 'A' || e.key === 'u' || e.key === 'U' || e.key === 's' || e.key === 'S' || e.key === 'p' || e.key === 'P')) ||
+        e.key === 'F12' ||
+        (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.key === 'J' || e.key === 'j' || e.key === 'C' || e.key === 'c'))
+      ) {
+        e.preventDefault();
+        return false;
+      }
+    });
+
     if (localStorage.getItem('theme') === 'dark') {
       document.documentElement.classList.add('dark');
       document.getElementById('themeIcon').className = 'fa fa-sun';
@@ -170,9 +199,9 @@
       const allPartsCategoryUrl = `/?series=${encodeURIComponent(storyData.seriesName || storyData.mainCategory || storyData.category)}`;
 
       container.innerHTML = `
-        <h1 class="text-2xl sm:text-3xl font-extrabold text-gray-900 dark:text-white text-center mb-2">${storyData.title}</h1>
+        <h1 class="text-2xl sm:text-3xl font-extrabold text-gray-900 dark:text-white text-center mb-2 story-protected-text">${storyData.title}</h1>
         
-        <div class="flex flex-wrap justify-center items-center gap-3 text-xs sm:text-sm text-gray-500 dark:text-gray-400 mb-5">
+        <div class="flex flex-wrap justify-center items-center gap-3 text-xs sm:text-sm text-gray-500 dark:text-gray-400 mb-5 story-protected-text">
           <span>Story by <strong class="text-gray-700 dark:text-gray-200">${storyData.author}</strong> ✍️</span>
           <span>•</span>
           <span class="flex items-center gap-1 text-blue-500 font-semibold"><i class="fa fa-eye"></i> ${storyData.views || 1} Views</span>
@@ -181,12 +210,12 @@
 
         <!-- Compact Story Image -->
         <div class="rounded-2xl overflow-hidden mb-5 bg-gray-50 dark:bg-gray-900/40 flex justify-center p-2 border border-gray-100 dark:border-gray-700/60 max-w-xs sm:max-w-sm mx-auto shadow-sm">
-          <img src="${img}" class="w-full h-auto max-h-[340px] object-contain rounded-xl" alt="Story Image" onerror="this.src='https://images.unsplash.com/photo-1544717305-2782549b5136?w=600'">
+          <img src="${img}" class="w-full h-auto max-h-[340px] object-contain rounded-xl pointer-events-none" alt="Story Image" onerror="this.src='https://images.unsplash.com/photo-1544717305-2782549b5136?w=600'">
         </div>
 
         <!-- Public Preview Content -->
         ${storyData.previewContent ? `
-          <div class="mb-6 p-4 sm:p-5 rounded-2xl bg-gray-50/80 dark:bg-gray-700/30 border border-gray-100 dark:border-gray-700 text-gray-800 dark:text-gray-200 text-sm sm:text-base leading-relaxed whitespace-pre-line font-normal">
+          <div class="mb-6 p-4 sm:p-5 rounded-2xl bg-gray-50/80 dark:bg-gray-700/30 border border-gray-100 dark:border-gray-700 text-gray-800 dark:text-gray-200 text-sm sm:text-base leading-relaxed whitespace-pre-line font-normal story-protected-text">
             ${storyData.previewContent}
           </div>
         ` : ''}
@@ -212,9 +241,9 @@
           </div>
         </div>
 
-        <!-- Locked Story Content -->
+        <!-- Locked Story Content Protected -->
         <div id="storyContentBox" class="hidden border-t border-gray-100 dark:border-gray-700 pt-6">
-          <div class="text-gray-800 dark:text-gray-200 text-sm sm:text-base leading-relaxed whitespace-pre-line font-medium">
+          <div class="text-gray-800 dark:text-gray-200 text-sm sm:text-base leading-relaxed whitespace-pre-line font-medium story-protected-text">
             ${storyData.storyContent}
           </div>
         </div>
@@ -374,9 +403,9 @@
           data.forEach(item => {
             container.innerHTML += `
               <a href="/story.html?id=${item._id}" class="flex items-center gap-3 group">
-                <img src="${item.imageUrl}" class="w-12 h-12 rounded-xl object-cover border border-gray-200 dark:border-gray-700" onerror="this.src='https://images.unsplash.com/photo-1544717305-2782549b5136?w=600'">
+                <img src="${item.imageUrl}" class="w-12 h-12 rounded-xl object-cover border border-gray-200 dark:border-gray-700 pointer-events-none" onerror="this.src='https://images.unsplash.com/photo-1544717305-2782549b5136?w=600'">
                 <div class="flex-grow">
-                  <h4 class="text-xs font-bold text-gray-800 dark:text-gray-200 group-hover:text-blue-500 line-clamp-1">${item.title}</h4>
+                  <h4 class="text-xs font-bold text-gray-800 dark:text-gray-200 group-hover:text-blue-500 line-clamp-1 story-protected-text">${item.title}</h4>
                   <span class="text-[10px] text-gray-400 flex items-center gap-1 mt-0.5"><i class="fa fa-eye text-amber-500"></i> ${item.views || 0} views</span>
                 </div>
               </a>
