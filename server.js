@@ -38,20 +38,20 @@ const Article = mongoose.model('Article', ArticleSchema);
 
 // Security Layer: Hashed Credentials & Secrets (Never exposed in plain-text)
 const SALT = "sinhala_katha_secure_salt_key_2026";
-const SECURE_USER_HASH = "f9a2798e25287e0fa19df8cb7bb264baec40f82d02c78fa7f7223b20757db6ef"; // Encrypted "Amila"
-const SECURE_PASS_HASH = "8f48512224cf62fc0bc02ee538740c06a382c78baae7fef1c479e00049e7bb38"; // Encrypted "Amila@1331"
-const JWT_SECRET = process.env.JWT_SECRET || crypto.randomBytes(32).toString('hex');
+const SECURE_USER_HASH = "aa2f1597592e8c2a3b98fec383acef7d476ae13086ad09a55d94e17c15337d98"; // Hashed "Amila"
+const SECURE_PASS_HASH = "dc5c7312059b99352eb22026d48fcbb30a93020b6f2fee86905cc41084301a7c"; // Hashed "Amila@1331"
+const JWT_SECRET = process.env.JWT_SECRET || "jwt_secret_token_key_secure_2026";
 
 // Password Hash Checker
 function hashInput(val) {
-  return crypto.createHash('sha256').update(val + SALT).digest('hex');
+  if (!val) return '';
+  return crypto.createHash('sha256').update(String(val).trim() + SALT).digest('hex');
 }
 
 // Admin Login Route
 app.post('/api/login', (req, res) => {
   const { username, password } = req.body;
 
-  // Custom environment override or encrypted hash match
   const isUserValid = (process.env.ADMIN_USER && username === process.env.ADMIN_USER) || hashInput(username) === SECURE_USER_HASH;
   const isPassValid = (process.env.ADMIN_PASS && password === process.env.ADMIN_PASS) || hashInput(password) === SECURE_PASS_HASH;
 
