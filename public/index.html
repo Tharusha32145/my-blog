@@ -70,18 +70,42 @@
 
   <main class="max-w-7xl mx-auto px-4 py-6">
 
-    <!-- Categories Glow Filter Bar -->
-    <div class="mb-8 text-center space-y-3">
-      <p class="text-xs font-bold uppercase tracking-wider text-gray-400">ප්‍රවර්ග තෝරන්න (SELECT CATEGORY)</p>
-      <div class="flex flex-wrap justify-center items-center gap-2.5 max-w-4xl mx-auto">
-        <button onclick="filterMainCategory('All')" class="glow-btn px-4 py-2 rounded-xl bg-blue-600 text-white text-xs font-bold shadow-sm">All Stories</button>
-        <button onclick="filterMainCategory('නවකතා')" class="glow-btn px-4 py-2 rounded-xl bg-gradient-to-r from-purple-600 to-pink-500 text-white text-xs font-bold shadow-sm">📖 නවකතා</button>
-        <button onclick="filterMainCategory('කෙටිකතා')" class="glow-btn px-4 py-2 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 text-white text-xs font-bold shadow-sm">📑 කෙටිකතා</button>
-        <button onclick="filterMainCategory('English Stories')" class="glow-btn px-4 py-2 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-500 text-white text-xs font-bold shadow-sm">🇬🇧 English</button>
-        <button onclick="filterMainCategory('Tamil Stories')" class="glow-btn px-4 py-2 rounded-xl bg-gradient-to-r from-red-500 to-rose-600 text-white text-xs font-bold shadow-sm">🇮🇳 Tamil</button>
-        <button onclick="filterMainCategory('චිත්‍රකතා')" class="glow-btn px-4 py-2 rounded-xl bg-gradient-to-r from-yellow-500 to-amber-600 text-white text-xs font-bold shadow-sm">🎨 චිත්‍රකතා</button>
-        <button onclick="filterMainCategory('Japan Stories')" class="glow-btn px-4 py-2 rounded-xl bg-gradient-to-r from-fuchsia-600 to-purple-600 text-white text-xs font-bold shadow-sm">🇯🇵 Japan</button>
-        <button onclick="filterMainCategory('China Stories')" class="glow-btn px-4 py-2 rounded-xl bg-gradient-to-r from-rose-600 to-orange-600 text-white text-xs font-bold shadow-sm">🇨🇳 China</button>
+    <!-- Modern Single Category Dropdown Selector -->
+    <div class="mb-8 flex justify-center relative z-30">
+      <div class="relative inline-block text-left">
+        <button onclick="toggleDropdown()" id="categoryDropdownBtn" class="glow-btn px-6 py-3 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-sm font-bold shadow-lg flex items-center gap-3">
+          <i class="fa fa-layer-group text-base"></i>
+          <span id="selectedCategoryLabel">ප්‍රවර්ග තෝරන්න (Select Category)</span>
+          <i class="fa fa-chevron-down text-xs ml-1 transition-transform duration-300" id="dropdownArrow"></i>
+        </button>
+
+        <!-- Dropdown Menu List -->
+        <div id="categoryDropdownMenu" class="hidden absolute left-1/2 -translate-x-1/2 mt-2 w-64 bg-white dark:bg-gray-800 rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-700 py-2 overflow-hidden transition-all duration-200">
+          <button onclick="selectCategory('All', 'සියලුම කතා (All Stories)')" class="w-full text-left px-4 py-2.5 text-xs font-bold hover:bg-blue-50 dark:hover:bg-gray-700 flex items-center gap-2.5 transition">
+            <span class="w-2.5 h-2.5 rounded-full bg-blue-500"></span> All Stories (සියල්ල)
+          </button>
+          <button onclick="selectCategory('නවකතා', '📖 නවකතා (Novels)')" class="w-full text-left px-4 py-2.5 text-xs font-bold hover:bg-pink-50 dark:hover:bg-gray-700 flex items-center gap-2.5 transition">
+            <span class="w-2.5 h-2.5 rounded-full bg-pink-500"></span> 📖 නවකතා
+          </button>
+          <button onclick="selectCategory('කෙටිකතා', '📑 කෙටිකතා (Short Stories)')" class="w-full text-left px-4 py-2.5 text-xs font-bold hover:bg-emerald-50 dark:hover:bg-gray-700 flex items-center gap-2.5 transition">
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span> 📑 කෙටිකතා
+          </button>
+          <button onclick="selectCategory('English Stories', '🇬🇧 English Stories')" class="w-full text-left px-4 py-2.5 text-xs font-bold hover:bg-cyan-50 dark:hover:bg-gray-700 flex items-center gap-2.5 transition">
+            <span class="w-2.5 h-2.5 rounded-full bg-cyan-500"></span> 🇬🇧 English Stories
+          </button>
+          <button onclick="selectCategory('Tamil Stories', '🇮🇳 Tamil Stories')" class="w-full text-left px-4 py-2.5 text-xs font-bold hover:bg-red-50 dark:hover:bg-gray-700 flex items-center gap-2.5 transition">
+            <span class="w-2.5 h-2.5 rounded-full bg-red-500"></span> 🇮🇳 Tamil Stories
+          </button>
+          <button onclick="selectCategory('චිත්‍රකතා', '🎨 චිත්‍රකතා (Comics)')" class="w-full text-left px-4 py-2.5 text-xs font-bold hover:bg-yellow-50 dark:hover:bg-gray-700 flex items-center gap-2.5 transition">
+            <span class="w-2.5 h-2.5 rounded-full bg-yellow-500"></span> 🎨 චිත්‍රකතා
+          </button>
+          <button onclick="selectCategory('Japan Stories', '🇯🇵 Japan Stories')" class="w-full text-left px-4 py-2.5 text-xs font-bold hover:bg-purple-50 dark:hover:bg-gray-700 flex items-center gap-2.5 transition">
+            <span class="w-2.5 h-2.5 rounded-full bg-purple-500"></span> 🇯🇵 Japan Stories
+          </button>
+          <button onclick="selectCategory('China Stories', '🇨🇳 China Stories')" class="w-full text-left px-4 py-2.5 text-xs font-bold hover:bg-rose-50 dark:hover:bg-gray-700 flex items-center gap-2.5 transition">
+            <span class="w-2.5 h-2.5 rounded-full bg-rose-500"></span> 🇨🇳 China Stories
+          </button>
+        </div>
       </div>
     </div>
 
@@ -91,7 +115,7 @@
         <span class="text-xs text-gray-500 uppercase font-bold">තෝරාගත් Category / Series එක:</span>
         <h3 id="currentCatName" class="text-xl font-extrabold text-blue-600 dark:text-blue-400"></h3>
       </div>
-      <button onclick="filterMainCategory('All')" class="glow-btn px-4 py-1.5 rounded-xl bg-blue-600 text-white text-xs font-bold shadow-sm">Show All</button>
+      <button onclick="selectCategory('All', 'ප්‍රවර්ග තෝරන්න (Select Category)')" class="glow-btn px-4 py-1.5 rounded-xl bg-blue-600 text-white text-xs font-bold shadow-sm">Show All</button>
     </div>
 
     <!-- 2-Column Responsive Layout -->
@@ -166,10 +190,31 @@
       }
     }
 
-    function filterMainCategory(cat) {
+    // Dropdown Toggle
+    function toggleDropdown() {
+      const menu = document.getElementById('categoryDropdownMenu');
+      const arrow = document.getElementById('dropdownArrow');
+      menu.classList.toggle('hidden');
+      arrow.classList.toggle('rotate-180');
+    }
+
+    // Close Dropdown when clicked outside
+    window.addEventListener('click', function (e) {
+      const btn = document.getElementById('categoryDropdownBtn');
+      const menu = document.getElementById('categoryDropdownMenu');
+      if (!btn.contains(e.target) && !menu.contains(e.target)) {
+        menu.classList.add('hidden');
+        document.getElementById('dropdownArrow').classList.remove('rotate-180');
+      }
+    });
+
+    function selectCategory(cat, label) {
       currentMainCat = cat;
       currentSeries = 'All';
-      updateBanner(cat);
+      document.getElementById('selectedCategoryLabel').innerText = cat === 'All' ? 'ප්‍රවර්ග තෝරන්න (Select Category)' : label;
+      document.getElementById('categoryDropdownMenu').classList.add('hidden');
+      document.getElementById('dropdownArrow').classList.remove('rotate-180');
+      updateBanner(cat === 'All' ? 'All' : label);
       loadStories();
     }
 
@@ -207,8 +252,8 @@
               <div onclick="location.href='/story.html?id=${story._id}'" class="cursor-pointer bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-200 dark:border-gray-700 flex flex-col group transform hover:-translate-y-1">
                 
                 <div class="w-full h-64 overflow-hidden bg-gray-50 dark:bg-gray-900/40 relative flex items-center justify-center p-2">
-                  <img src="${img}" alt="${story.title}" class="max-w-full max-h-full object-contain group-hover:scale-105 transition-transform duration-300" onerror="this.src='https://images.unsplash.com/photo-1544717305-2782549b5136?w=600'">
-                  <button onclick="event.stopPropagation(); filterMainCategory('${story.mainCategory}')" class="absolute top-3 right-3 bg-black/70 hover:bg-blue-600 transition backdrop-blur-md text-white text-[11px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">${displayBadge}</button>
+                  <img src="${img}" alt="${story.title}" class="max-w-full max-h-full object-contain group-hover:scale-105 transition-transform duration-300 pointer-events-none" onerror="this.src='https://images.unsplash.com/photo-1544717305-2782549b5136?w=600'">
+                  <button onclick="event.stopPropagation(); selectCategory('${story.mainCategory}', '${story.mainCategory}')" class="absolute top-3 right-3 bg-black/70 hover:bg-blue-600 transition backdrop-blur-md text-white text-[11px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">${displayBadge}</button>
                 </div>
 
                 <div class="p-4 flex flex-col flex-grow justify-between bg-white dark:bg-gray-800 border-t border-gray-100 dark:border-gray-700">
@@ -246,7 +291,7 @@
           data.forEach(item => {
             container.innerHTML += `
               <a href="/story.html?id=${item._id}" class="flex items-center gap-3 group">
-                <img src="${item.imageUrl}" class="w-12 h-12 rounded-xl object-cover border border-gray-200 dark:border-gray-700" onerror="this.src='https://images.unsplash.com/photo-1544717305-2782549b5136?w=600'">
+                <img src="${item.imageUrl}" class="w-12 h-12 rounded-xl object-cover border border-gray-200 dark:border-gray-700 pointer-events-none" onerror="this.src='https://images.unsplash.com/photo-1544717305-2782549b5136?w=600'">
                 <div class="flex-grow">
                   <h4 class="text-xs font-bold text-gray-800 dark:text-gray-200 group-hover:text-blue-500 line-clamp-1">${item.title}</h4>
                   <span class="text-[10px] text-gray-400 flex items-center gap-1 mt-0.5"><i class="fa fa-eye text-amber-500"></i> ${item.views || 0} views</span>
@@ -259,13 +304,12 @@
 
     if (currentMainCat !== 'All') {
       updateBanner(currentMainCat);
+      document.getElementById('selectedCategoryLabel').innerText = currentMainCat;
     } else if (currentSeries !== 'All') {
       updateBanner(currentSeries);
     }
     loadStories();
     loadTrending();
   </script>
-</body>
-</html>
 </body>
 </html>
