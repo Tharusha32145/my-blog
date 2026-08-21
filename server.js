@@ -9,8 +9,13 @@ app.use(express.json());
 app.use(cors());
 app.use(express.static('public'));
 
-// MongoDB Atlas Connection
-const MONGO_URI = process.env.MONGO_URI || 'mongodb+srv://amilasaranga909_db_user:nM2cZuf4kDFsOgM6@cluster0.zztpoyr.mongodb.net/blog_db?retryWrites=true&w=majority&appName=Cluster0';
+// MongoDB Atlas Secure Connection (Read from Environment)
+const MONGO_URI = process.env.MONGO_URI;
+
+if (!MONGO_URI) {
+  console.error("CRITICAL: MONGO_URI පරිසර විචල්‍යය සකසා නැත!");
+}
+
 mongoose.connect(MONGO_URI)
   .then(() => console.log("Database එක සාර්ථකව සම්බන්ධ විය!"))
   .catch(err => console.error("DB Connection Error: ", err));
@@ -36,13 +41,12 @@ const ArticleSchema = new mongoose.Schema({
 
 const Article = mongoose.model('Article', ArticleSchema);
 
-// Security Layer: Hashed Credentials & Secrets (Never exposed in plain-text)
+// Security Layer: Hashed Credentials
 const SALT = "sinhala_katha_secure_salt_key_2026";
 const SECURE_USER_HASH = "aa2f1597592e8c2a3b98fec383acef7d476ae13086ad09a55d94e17c15337d98"; // Hashed "Amila"
 const SECURE_PASS_HASH = "dc5c7312059b99352eb22026d48fcbb30a93020b6f2fee86905cc41084301a7c"; // Hashed "Amila@1331"
 const JWT_SECRET = process.env.JWT_SECRET || "jwt_secret_token_key_secure_2026";
 
-// Password Hash Checker
 function hashInput(val) {
   if (!val) return '';
   return crypto.createHash('sha256').update(String(val).trim() + SALT).digest('hex');
