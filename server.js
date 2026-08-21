@@ -2,16 +2,14 @@ const express = require('express');
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 const cors = require('cors');
-const crypto = require('crypto');
 
 const app = express();
 app.use(express.json());
 app.use(cors());
 app.use(express.static('public'));
 
-// MongoDB Atlas Secure Connection (Read from Environment)
+// MongoDB Atlas Connection from Environment
 const MONGO_URI = process.env.MONGO_URI;
-
 if (!MONGO_URI) {
   console.error("CRITICAL: MONGO_URI පරිසර විචල්‍යය සකසා නැත!");
 }
@@ -41,25 +39,15 @@ const ArticleSchema = new mongoose.Schema({
 
 const Article = mongoose.model('Article', ArticleSchema);
 
-// Security Layer: Hashed Credentials
-const SALT = "sinhala_katha_secure_salt_key_2026";
-const SECURE_USER_HASH = "aa2f1597592e8c2a3b98fec383acef7d476ae13086ad09a55d94e17c15337d98"; // Hashed "Amila"
-const SECURE_PASS_HASH = "dc5c7312059b99352eb22026d48fcbb30a93020b6f2fee86905cc41084301a7c"; // Hashed "Amila@1331"
 const JWT_SECRET = process.env.JWT_SECRET || "jwt_secret_token_key_secure_2026";
 
-function hashInput(val) {
-  if (!val) return '';
-  return crypto.createHash('sha256').update(String(val).trim() + SALT).digest('hex');
-}
-
-// Admin Login Route
+// Secure Admin Login Route (Pure Environment Based)
 app.post('/api/login', (req, res) => {
   const { username, password } = req.body;
+  const adminUser = process.env.ADMIN_USER;
+  const adminPass = process.env.ADMIN_PASS;
 
-  const isUserValid = (process.env.ADMIN_USER && username === process.env.ADMIN_USER) || hashInput(username) === SECURE_USER_HASH;
-  const isPassValid = (process.env.ADMIN_PASS && password === process.env.ADMIN_PASS) || hashInput(password) === SECURE_PASS_HASH;
-
-  if (isUserValid && isPassValid) {
+  if (adminUser && adminPass && username === adminUser && password === adminPass) {
     const token = jwt.sign({ user: username }, JWT_SECRET, { expiresIn: '7d' });
     return res.json({ success: true, token });
   }
@@ -106,7 +94,7 @@ app.put('/api/articles/:id', verifyAdmin, async (req, res) => {
   }
 });
 
-// Public Articles - Fast Query
+// Public Articles
 app.get('/api/articles', async (req, res) => {
   try {
     const now = new Date();
