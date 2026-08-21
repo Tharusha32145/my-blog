@@ -41,11 +41,11 @@
   </div>
 
   <!-- ADMIN DASHBOARD -->
-  <div id="dashboard-container" class="w-full max-w-4xl bg-gray-900 text-gray-100 p-8 rounded-2xl shadow-2xl border border-gray-800 hidden space-y-10">
+  <div id="dashboard-container" class="w-full max-w-5xl bg-gray-900 text-gray-100 p-6 sm:p-8 rounded-2xl shadow-2xl border border-gray-800 hidden space-y-10">
     <div class="flex justify-between items-center border-b border-gray-800 pb-4">
       <div>
         <h2 class="text-2xl font-bold text-cyan-400"><i class="fa fa-tachometer-alt mr-2"></i>Story Admin Panel</h2>
-        <p class="text-xs text-gray-400">අලුත් කතා පළ කිරීම, Edit කිරීම සහ Manage කිරීම</p>
+        <p class="text-xs text-gray-400">අලුත් කතා පළ කිරීම, Schedule කිරීම සහ දින අනුව කළමනාකරණය</p>
       </div>
       <div class="flex items-center gap-3">
         <a href="/" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-xs font-bold transition flex items-center gap-1">
@@ -134,7 +134,7 @@
         <div class="md:col-span-2">
           <label class="text-xs text-amber-400 font-bold block mb-1">📅 Schedule / Publish Date & Time</label>
           <input type="datetime-local" id="publishAt" class="w-full p-2.5 bg-gray-900 border border-gray-700 rounded-lg text-sm text-white outline-none focus:border-amber-400">
-          <span class="text-[11px] text-gray-400 mt-1 block">💡 හිස්ව තැබුවහොත් දැන්ම Live වේ. අනාගත දිනයක්/වෙලාවක් දැමුවහොත් Schedule වේ.</span>
+          <span class="text-[11px] text-gray-400 mt-1 block">💡 හිස්ව තැබුවහොත් දැන්ම Live වේ. අනාගත දිනයක් සහ වෙලාවක් (උදා: උදේ 07:00, දවල් 01:00, හවස 06:00) දැමුවහොත් Schedule වේ.</span>
         </div>
 
         <div class="md:col-span-2 pt-2">
@@ -143,24 +143,43 @@
       </form>
     </div>
 
-    <!-- Posts Manager Section with Scheduling Badges -->
-    <div class="space-y-4">
-      <div class="flex justify-between items-center">
-        <h3 class="text-lg font-bold text-white flex items-center gap-2">
-          <i class="fa fa-list text-cyan-400"></i> පළ කර ඇති සියලුම කතා & Schedule විස්තර
-        </h3>
-        <span id="totalPostsCount" class="text-xs bg-gray-800 border border-gray-700 text-cyan-400 px-3 py-1 rounded-full font-bold">0 Stories</span>
-      </div>
+    <!-- Posts Manager Section with Dedicated View Tabs -->
+    <div class="space-y-6">
       
-      <div id="postsList" class="space-y-3">
-        <div class="text-gray-500 text-sm text-center py-6">කතා පැටවෙමින් පවතී...</div>
+      <!-- Top Manager Filter Tabs -->
+      <div class="flex flex-wrap items-center justify-between gap-3 border-b border-gray-800 pb-4">
+        <div>
+          <h3 class="text-lg font-bold text-white flex items-center gap-2">
+            <i class="fa fa-calendar-alt text-amber-400"></i> කතා කළමනාකරණය (Story Manager)
+          </h3>
+          <p class="text-xs text-gray-400">දින අනුව Schedule කළ කතා සහ පළ කළ කතා වෙන් වෙන්ව බලන්න</p>
+        </div>
+
+        <div class="flex bg-gray-800 p-1 rounded-xl border border-gray-700">
+          <button onclick="switchViewTab('scheduled')" id="tabBtnScheduled" class="px-4 py-2 rounded-lg text-xs font-bold transition bg-amber-500 text-gray-900 shadow">
+            ⏳ Schedule කළ කතා (<span id="scheduledCount">0</span>)
+          </button>
+          <button onclick="switchViewTab('published')" id="tabBtnPublished" class="px-4 py-2 rounded-lg text-xs font-bold transition text-gray-400 hover:text-white">
+            🟢 Live කතා (<span id="publishedCount">0</span>)
+          </button>
+          <button onclick="switchViewTab('all')" id="tabBtnAll" class="px-4 py-2 rounded-lg text-xs font-bold transition text-gray-400 hover:text-white">
+            📂 සියල්ල (<span id="allCount">0</span>)
+          </button>
+        </div>
       </div>
+
+      <!-- Container where stories render -->
+      <div id="postsList" class="space-y-6">
+        <div class="text-gray-500 text-sm text-center py-8">කතා පැටවෙමින් පවතී...</div>
+      </div>
+
     </div>
   </div>
 
   <script>
     let token = localStorage.getItem('admin_token') || '';
     let allStoriesCache = [];
+    let activeViewTab = 'scheduled'; // Default view: Scheduled stories by date
 
     function checkAuth() {
       if (token) {
@@ -195,6 +214,20 @@
     function logout() {
       localStorage.removeItem('admin_token');
       location.reload();
+    }
+
+    function switchViewTab(tab) {
+      activeViewTab = tab;
+      
+      const btnSch = document.getElementById('tabBtnScheduled');
+      const btnPub = document.getElementById('tabBtnPublished');
+      const btnAll = document.getElementById('tabBtnAll');
+
+      btnSch.className = tab === 'scheduled' ? 'px-4 py-2 rounded-lg text-xs font-bold transition bg-amber-500 text-gray-900 shadow' : 'px-4 py-2 rounded-lg text-xs font-bold transition text-gray-400 hover:text-white';
+      btnPub.className = tab === 'published' ? 'px-4 py-2 rounded-lg text-xs font-bold transition bg-emerald-500 text-gray-900 shadow' : 'px-4 py-2 rounded-lg text-xs font-bold transition text-gray-400 hover:text-white';
+      btnAll.className = tab === 'all' ? 'px-4 py-2 rounded-lg text-xs font-bold transition bg-blue-600 text-white shadow' : 'px-4 py-2 rounded-lg text-xs font-bold transition text-gray-400 hover:text-white';
+
+      renderStoriesView();
     }
 
     function handleFormSubmit(e) {
@@ -237,37 +270,138 @@
       fetch('/api/admin/articles', { headers: { 'Authorization': token } })
       .then(res => res.json())
       .then(data => {
-        allStoriesCache = data;
-        const list = document.getElementById('postsList');
-        document.getElementById('totalPostsCount').innerText = `${data.length} Stories`;
-        list.innerHTML = '';
+        allStoriesCache = data || [];
+        renderStoriesView();
+      });
+    }
 
-        if (!data || data.length === 0) {
-          list.innerHTML = '<div class="text-gray-500 text-sm text-center py-6">තවමත් කිසිදු කතාවක් දමා නැත.</div>';
+    function renderStoriesView() {
+      const list = document.getElementById('postsList');
+      list.innerHTML = '';
+
+      const now = new Date();
+      const scheduledPosts = allStoriesCache.filter(p => new Date(p.publishAt || 0) > now);
+      const publishedPosts = allStoriesCache.filter(p => new Date(p.publishAt || 0) <= now);
+
+      document.getElementById('scheduledCount').innerText = scheduledPosts.length;
+      document.getElementById('publishedCount').innerText = publishedPosts.length;
+      document.getElementById('allCount').innerText = allStoriesCache.length;
+
+      if (allStoriesCache.length === 0) {
+        list.innerHTML = '<div class="text-gray-500 text-sm text-center py-10">තවමත් කිසිදු කතාවක් දමා නැත.</div>';
+        return;
+      }
+
+      // 1. SCHEDULED TAB - GROUPED BY EXACT DATE
+      if (activeViewTab === 'scheduled') {
+        if (scheduledPosts.length === 0) {
+          list.innerHTML = '<div class="text-gray-500 text-sm text-center py-10 bg-gray-800/40 rounded-xl border border-gray-800">⏳ Schedule කළ කතා කිසිවක් නැත. (සියල්ල දැනටමත් Live වී ඇත)</div>';
           return;
         }
 
-        const now = new Date();
+        // Sort chronologically ascending (earliest scheduled date first)
+        scheduledPosts.sort((a, b) => new Date(a.publishAt) - new Date(b.publishAt));
 
-        data.forEach(p => {
+        // Group by Date string (e.g., "2026-08-22")
+        const groups = {};
+        scheduledPosts.forEach(p => {
+          const d = new Date(p.publishAt);
+          const dateKey = d.toISOString().split('T')[0]; // YYYY-MM-DD
+          if (!groups[dateKey]) groups[dateKey] = [];
+          groups[dateKey].push(p);
+        });
+
+        // Render Each Day Card
+        Object.keys(groups).forEach(dateKey => {
+          const postsForDay = groups[dateKey];
+          const sampleDate = new Date(postsForDay[0].publishAt);
+          
+          // Formatted Sinhala Day Name: e.g., "2026 අගෝස්තු 22 (සෙනසුරාදා)"
+          const dateDisplay = sampleDate.toLocaleDateString('si-LK', {
+            weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+          });
+
+          let itemsHtml = '';
+          postsForDay.forEach(p => {
+            const pTime = new Date(p.publishAt);
+            const timeString = pTime.toLocaleTimeString('si-LK', { hour: '2-digit', minute: '2-digit', hour12: true });
+            
+            // Time Slot Indicator (Morning / Noon / Evening)
+            const hours = pTime.getHours();
+            let slotBadge = '<span class="px-2 py-0.5 rounded bg-blue-950 text-blue-300 text-[10px] font-bold border border-blue-800">🌅 උදෑසන</span>';
+            if (hours >= 11 && hours < 16) {
+              slotBadge = '<span class="px-2 py-0.5 rounded bg-amber-950 text-amber-300 text-[10px] font-bold border border-amber-800">☀️ දහවල්</span>';
+            } else if (hours >= 16) {
+              slotBadge = '<span class="px-2 py-0.5 rounded bg-purple-950 text-purple-300 text-[10px] font-bold border border-purple-800">🌙 සවස / රාත්‍රී</span>';
+            }
+
+            itemsHtml += `
+              <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center bg-gray-900/80 p-3.5 rounded-xl border border-gray-700/60 hover:border-amber-500/50 transition gap-3">
+                <div class="flex items-center gap-3">
+                  <img src="${p.imageUrl}" class="w-12 h-12 object-cover rounded-lg border border-gray-700 flex-shrink-0" onerror="this.src='https://images.unsplash.com/photo-1544717305-2782549b5136?w=600'">
+                  <div>
+                    <h4 class="font-bold text-white text-sm line-clamp-1">${p.title}</h4>
+                    <p class="text-xs text-gray-400 mt-0.5">
+                      Main: <span class="text-pink-400 font-semibold">${p.mainCategory}</span> | 
+                      Series: <span class="text-cyan-400 font-semibold">${p.seriesName}</span>
+                    </p>
+                  </div>
+                </div>
+
+                <div class="flex items-center gap-3 w-full sm:w-auto justify-between sm:justify-end">
+                  <div class="flex items-center gap-2">
+                    ${slotBadge}
+                    <span class="text-amber-400 font-bold text-xs bg-amber-950/40 px-2.5 py-1 rounded-md border border-amber-800/80">
+                      <i class="fa fa-clock text-[10px] mr-1"></i> ${timeString}
+                    </span>
+                  </div>
+                  <div class="flex gap-1.5">
+                    <button onclick="startEditStory('${p._id}')" class="p-2 bg-blue-600/20 text-blue-400 hover:bg-blue-600 hover:text-white rounded-lg text-xs font-bold transition" title="Edit"><i class="fa fa-edit"></i></button>
+                    <button onclick="deleteStory('${p._id}')" class="p-2 bg-red-600/20 text-red-400 hover:bg-red-600 hover:text-white rounded-lg text-xs font-bold transition" title="Delete"><i class="fa fa-trash"></i></button>
+                  </div>
+                </div>
+              </div>
+            `;
+          });
+
+          list.innerHTML += `
+            <div class="bg-gray-800/90 rounded-2xl border border-gray-700 p-5 space-y-3 shadow-lg">
+              <div class="flex justify-between items-center border-b border-gray-700 pb-3">
+                <h4 class="text-sm sm:text-base font-extrabold text-amber-300 flex items-center gap-2">
+                  <i class="fa fa-calendar-day text-amber-400"></i> ${dateDisplay}
+                </h4>
+                <span class="px-3 py-1 bg-amber-500/20 text-amber-300 border border-amber-500/40 rounded-full text-xs font-bold">
+                  ${postsForDay.length} කතා ඇත
+                </span>
+              </div>
+              <div class="space-y-2.5">
+                ${itemsHtml}
+              </div>
+            </div>
+          `;
+        });
+      }
+
+      // 2. PUBLISHED TAB OR ALL TAB
+      else {
+        const postsToRender = activeViewTab === 'published' ? publishedPosts : allStoriesCache;
+        if (postsToRender.length === 0) {
+          list.innerHTML = '<div class="text-gray-500 text-sm text-center py-10">කතා කිසිවක් නැත.</div>';
+          return;
+        }
+
+        postsToRender.forEach(p => {
           const img = p.imageUrl || 'https://images.unsplash.com/photo-1544717305-2782549b5136?w=600';
           const pubDate = new Date(p.publishAt || p.createdAt || Date.now());
           const isScheduled = pubDate > now;
-
-          // Format Exact Date and Time
           const formattedDateTime = pubDate.toLocaleString('si-LK', {
             year: 'numeric', month: 'short', day: 'numeric',
             hour: '2-digit', minute: '2-digit', hour12: true
           });
 
-          // Schedule or Published Badge
           const statusBadge = isScheduled
-            ? `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-amber-950/80 text-amber-300 border border-amber-600">
-                <i class="fa fa-clock animate-pulse"></i> ⏳ Scheduled: ${formattedDateTime}
-               </span>`
-            : `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-emerald-950/80 text-emerald-300 border border-emerald-600">
-                <i class="fa fa-check-circle"></i> 🟢 Published: ${formattedDateTime}
-               </span>`;
+            ? `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-amber-950/80 text-amber-300 border border-amber-600"><i class="fa fa-clock"></i> ⏳ Scheduled: ${formattedDateTime}</span>`
+            : `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-emerald-950/80 text-emerald-300 border border-emerald-600"><i class="fa fa-check-circle"></i> 🟢 Live: ${formattedDateTime}</span>`;
 
           list.innerHTML += `
             <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center bg-gray-800 p-4 rounded-xl border border-gray-700 gap-4">
@@ -276,8 +410,8 @@
                 <div class="space-y-1">
                   <h4 class="font-bold text-white text-sm">${p.title}</h4>
                   <p class="text-xs text-gray-400">
-                    Main: <span class="text-pink-400 font-semibold">${p.mainCategory || 'නවකතා'}</span> | 
-                    Series: <span class="text-cyan-400 font-semibold">${p.seriesName || 'සාමාන්‍ය'}</span> | 
+                    Main: <span class="text-pink-400 font-semibold">${p.mainCategory}</span> | 
+                    Series: <span class="text-cyan-400 font-semibold">${p.seriesName}</span> | 
                     By: ${p.author} | 
                     <span class="text-amber-400 font-semibold"><i class="fa fa-eye text-[10px]"></i> ${p.views || 0}</span>
                   </p>
@@ -295,7 +429,7 @@
             </div>
           `;
         });
-      });
+      }
     }
 
     function startEditStory(id) {
