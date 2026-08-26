@@ -3,6 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Anti-Cache Headers to prevent old cached stories -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+
   <title>අපේ දේ</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script>tailwind.config = { darkMode: 'class' }</script>
@@ -10,7 +16,14 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
   <style>
-    body { font-family: 'Inter', sans-serif; }
+    /* Smooth Scrolling */
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body { 
+      font-family: 'Inter', sans-serif; 
+    }
 
     .glow-btn {
       position: relative;
@@ -43,7 +56,7 @@
     <div class="max-w-7xl mx-auto px-4 py-3.5 flex flex-col md:flex-row justify-between items-center gap-4">
       <div>
         <h1 class="text-2xl font-extrabold text-gray-900 dark:text-white tracking-tight">
-          <a href="/"> අපේ  <span class="text-blue-600 dark:text-blue-400"> දේ </span></a>
+          <a href="/">අපේ  <span class="text-blue-600 dark:text-blue-400"> දේ</span></a>
         </h1>
       </div>
 
@@ -53,19 +66,19 @@
           <i class="fa fa-home"></i> Home
         </a>
         <a href="/categories.html" class="glow-btn px-4 py-2 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 text-white text-xs font-bold shadow-md flex items-center gap-1.5">
-          <i class="fa fa-layer-group"></i> All Series 
+          <i class="fa fa-layer-group"></i> All Series (කතා මාලා)
         </a>
 
         <!-- Category Dropdown Button in Navigation -->
         <div class="relative inline-block text-left">
           <button onclick="toggleDropdown()" id="categoryDropdownBtn" class="glow-btn px-4 py-2 rounded-xl bg-gradient-to-r from-purple-600 via-fuchsia-600 to-pink-600 text-white text-xs font-bold shadow-md flex items-center gap-2">
             <i class="fa fa-list"></i>
-            <span id="selectedCategoryLabel"> Select Category </span>
+            <span id="selectedCategoryLabel">ප්‍රවර්ග තෝරන්න (Select Category)</span>
             <i class="fa fa-chevron-down text-[10px] ml-0.5 transition-transform duration-300" id="dropdownArrow"></i>
           </button>
 
           <!-- Dropdown Menu List -->
-          <div id="categoryDropdownMenu" class="hidden absolute left-0 sm:left-auto sm:right-0 mt-2 w-64 bg-white dark:bg-gray-800 rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-700 py-2 overflow-hidden z-50 transition-all duration-200">
+           <div id="categoryDropdownMenu" class="hidden absolute left-0 sm:left-auto sm:right-0 mt-2 w-64 bg-white dark:bg-gray-800 rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-700 py-2 overflow-hidden z-50 transition-all duration-200">
             <button onclick="selectCategory('All', ' All Stories ')" class="w-full text-left px-4 py-2.5 text-xs font-bold hover:bg-purple-50 dark:hover:bg-gray-700 flex items-center gap-2.5 transition">
               <span class="w-2.5 h-2.5 rounded-full bg-blue-500"></span> All Stories 
             </button>
@@ -125,7 +138,7 @@
       <!-- Main Stories Grid -->
       <div class="lg:col-span-3">
         <div id="articles-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 items-start">
-          <div class="col-span-full py-20 text-center text-gray-400 font-semibold"> අපේ දේ... </div>
+          <div class="col-span-full py-20 text-center text-gray-400 font-semibold">අපේ දේ...</div>
         </div>
       </div>
 
@@ -154,7 +167,7 @@
             <i class="fa fa-fire text-amber-500"></i> වැඩිපුරම නැරඹූ කතා (Trending)
           </h3>
           <div id="trending-container" class="space-y-3.5">
-            <div class="text-xs text-gray-400"> අපේ දේ... </div>
+            <div class="text-xs text-gray-400">පඅපේ දේ...</div>
           </div>
         </div>
 
@@ -229,12 +242,13 @@
       }
     }
 
+    // Always fetch fresh data with timestamp query
     function loadStories() {
-      let queryUrl = '/api/articles?';
+      let queryUrl = `/api/articles?_t=${Date.now()}&`;
       if (currentMainCat !== 'All') queryUrl += `mainCategory=${encodeURIComponent(currentMainCat)}&`;
       if (currentSeries !== 'All') queryUrl += `series=${encodeURIComponent(currentSeries)}&`;
 
-      fetch(queryUrl)
+      fetch(queryUrl, { cache: 'no-store' })
         .then(res => res.json())
         .then(data => {
           const container = document.getElementById('articles-container');
@@ -280,7 +294,7 @@
     }
 
     function loadTrending() {
-      fetch('/api/trending')
+      fetch(`/api/trending?_t=${Date.now()}`, { cache: 'no-store' })
         .then(res => res.json())
         .then(data => {
           const container = document.getElementById('trending-container');
@@ -309,8 +323,28 @@
     } else if (currentSeries !== 'All') {
       updateBanner(currentSeries);
     }
+    
     loadStories();
     loadTrending();
+
+    // Auto-refresh when user returns to tab / app
+    window.addEventListener('focus', () => {
+      loadStories();
+      loadTrending();
+    });
+    
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'visible') {
+        loadStories();
+        loadTrending();
+      }
+    });
+
+    // Auto refresh every 2 minutes in background
+    setInterval(() => {
+      loadStories();
+      loadTrending();
+    }, 120000);
   </script>
 </body>
 </html>
