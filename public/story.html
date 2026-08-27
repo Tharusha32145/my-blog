@@ -3,6 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+
   <title>Story Reader</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script>tailwind.config = { darkMode: 'class' }</script>
@@ -10,9 +15,10 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
   <style>
+    html { scroll-behavior: smooth; }
+    
     body { 
       font-family: 'Inter', sans-serif;
-      /* Full Copy Protection CSS */
       -webkit-user-select: none;
       -moz-user-select: none;
       -ms-user-select: none;
@@ -28,9 +34,35 @@
       -webkit-touch-callout: none !important;
     }
 
+    /* Guaranteed Instant-Load Solid Gradients */
+    .btn-blue-gradient {
+      background: linear-gradient(135deg, #2563eb, #4f46e5) !important;
+      color: #ffffff !important;
+    }
+    .btn-orange-gradient {
+      background: linear-gradient(135deg, #f59e0b, #ea580c) !important;
+      color: #ffffff !important;
+    }
+    .btn-red-gradient {
+      background: linear-gradient(135deg, #e11d48, #be123c) !important;
+      color: #ffffff !important;
+    }
+    .btn-telegram-gradient {
+      background: linear-gradient(135deg, #0ea5e9, #2563eb) !important;
+      color: #ffffff !important;
+    }
+    .btn-facebook-gradient {
+      background: linear-gradient(135deg, #1d4ed8, #3730a3) !important;
+      color: #ffffff !important;
+    }
+    .btn-whatsapp-gradient {
+      background: linear-gradient(135deg, #10b981, #059669) !important;
+      color: #ffffff !important;
+    }
+
     .glow-btn {
       position: relative;
-      transition: all 0.3s ease;
+      transition: all 0.25s ease;
       z-index: 1;
     }
     .glow-btn::before {
@@ -39,13 +71,13 @@
       top: 0; left: 0; right: 0; bottom: 0;
       border-radius: inherit;
       background: inherit;
-      filter: blur(10px);
+      filter: blur(8px);
       opacity: 0;
-      transition: opacity 0.3s ease;
+      transition: opacity 0.25s ease;
       z-index: -1;
     }
     .glow-btn:hover::before {
-      opacity: 0.8;
+      opacity: 0.7;
     }
     .glow-btn:hover {
       transform: translateY(-2px);
@@ -69,16 +101,16 @@
     <div class="max-w-7xl mx-auto px-4 py-3.5 flex flex-col md:flex-row justify-between items-center gap-4">
       <div>
         <h1 class="text-2xl font-extrabold text-gray-900 dark:text-white tracking-tight">
-          <a href="/"> අපේ <span class="text-blue-600 dark:text-blue-400"> දේ </span></a>
+          <a href="/">අපේ  <span class="text-blue-600 dark:text-blue-400"> දේ</span></a>
         </h1>
       </div>
 
-      <!-- Centered Navigation -->
+      <!-- Navigation -->
       <nav class="flex flex-wrap gap-3 items-center justify-center">
-        <a href="/" class="glow-btn px-5 py-2 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-xs font-bold shadow-md flex items-center gap-1.5">
+        <a href="/" class="glow-btn btn-blue-gradient px-5 py-2 rounded-xl text-white text-xs font-bold shadow-md flex items-center gap-1.5">
           <i class="fa fa-home"></i> Home
         </a>
-        <a href="/categories.html" class="glow-btn px-5 py-2 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 text-white text-xs font-bold shadow-md flex items-center gap-1.5">
+        <a href="/categories.html" class="glow-btn btn-orange-gradient px-5 py-2 rounded-xl text-white text-xs font-bold shadow-md flex items-center gap-1.5">
           <i class="fa fa-layer-group"></i> All Series 
         </a>
       </nav>
@@ -94,18 +126,18 @@
     </div>
   </header>
 
-  <!-- Main Grid -->
+  <!-- Main Content Grid -->
   <main class="max-w-7xl mx-auto px-4 py-8">
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
 
-      <!-- Left: Story Reader -->
+      <!-- Story Container -->
       <div class="lg:col-span-2">
         <div id="storyContainer" class="bg-white dark:bg-gray-800 rounded-3xl p-4 sm:p-8 shadow-sm border border-gray-200 dark:border-gray-700">
-          <div class="text-center py-12 text-gray-400">අපේ දේ...</div>
+          <div class="text-center py-12 text-gray-400"> අපේ දේ...</div>
         </div>
       </div>
 
-      <!-- Right: Sidebar -->
+      <!-- Sidebar -->
       <aside class="lg:col-span-1 space-y-6">
         
         <!-- Social Communities Box -->
@@ -113,13 +145,13 @@
           <h3 class="text-sm font-bold text-gray-900 dark:text-white flex items-center gap-2 mb-2">
             <i class="fa fa-users text-blue-500"></i> අපගේ සමාජ ජාල
           </h3>
-          <a href="https://t.me/apedesinhal" target="_blank" class="glow-btn w-full py-2.5 px-4 bg-gradient-to-r from-sky-400 to-blue-500 text-white text-xs font-bold rounded-xl flex items-center justify-center gap-2 shadow-sm">
+          <a href="https://t.me/apedesinhal" target="_blank" class="glow-btn btn-telegram-gradient w-full py-2.5 px-4 text-white text-xs font-bold rounded-xl flex items-center justify-center gap-2 shadow-sm">
             <i class="fab fa-telegram text-base"></i> Telegram Channel
           </a>
-          <a href="https://web.facebook.com/share/g/1FyeJTMwyP/" target="_blank" class="glow-btn w-full py-2.5 px-4 bg-gradient-to-r from-blue-700 to-indigo-800 text-white text-xs font-bold rounded-xl flex items-center justify-center gap-2 shadow-sm">
+          <a href="https://web.facebook.com/share/g/1FyeJTMwyP/" target="_blank" class="glow-btn btn-facebook-gradient w-full py-2.5 px-4 text-white text-xs font-bold rounded-xl flex items-center justify-center gap-2 shadow-sm">
             <i class="fab fa-facebook text-base"></i> Facebook Group
           </a>
-          <a href="https://whatsapp.com/channel/0029Vb6WiFD7Noa9ikoz4W0w" target="_blank" class="glow-btn w-full py-2.5 px-4 bg-gradient-to-r from-emerald-500 to-green-600 text-white text-xs font-bold rounded-xl flex items-center justify-center gap-2 shadow-sm">
+          <a href="https://whatsapp.com/channel/0029Vb6WiFD7Noa9ikoz4W0w" target="_blank" class="glow-btn btn-whatsapp-gradient w-full py-2.5 px-4 text-white text-xs font-bold rounded-xl flex items-center justify-center gap-2 shadow-sm">
             <i class="fab fa-whatsapp text-base"></i> WhatsApp Channel
           </a>
         </div>
@@ -130,7 +162,7 @@
             <i class="fa fa-fire text-amber-500"></i> වැඩිපුරම නැරඹූ කතා (Trending)
           </h3>
           <div id="trending-container" class="space-y-3.5">
-            <div class="text-xs text-gray-400"> අපේ දේ... </div>
+            <div class="text-xs text-gray-400"> අපේ දේ...</div>
           </div>
         </div>
 
@@ -140,9 +172,8 @@
   </main>
 
   <script>
-    // Disable keyboard shortcuts for inspecting or copying
+    // Copy Protection Keydown Listener
     document.addEventListener('keydown', function (e) {
-      // Block Ctrl+C, Ctrl+A, Ctrl+U, Ctrl+S, Ctrl+P, F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+Shift+C
       if (
         (e.ctrlKey && (e.key === 'c' || e.key === 'C' || e.key === 'a' || e.key === 'A' || e.key === 'u' || e.key === 'U' || e.key === 's' || e.key === 'S' || e.key === 'p' || e.key === 'P')) ||
         e.key === 'F12' ||
@@ -175,17 +206,16 @@
     const storyId = new URLSearchParams(window.location.search).get('id');
     let storyData = null;
 
-    // Strict Unique Keys for THIS STORY ONLY
     const KEY_S1_TIMESTAMP = `sk_story_${storyId}_s1_time`;
     const KEY_S2_TIMESTAMP = `sk_story_${storyId}_s2_time`;
     const KEY_UNLOCK_START = `sk_story_${storyId}_unlock_start`;
     const KEY_PENDING_CLICK = `sk_story_${storyId}_pending_click`;
     const KEY_PENDING_TIME = `sk_story_${storyId}_pending_time`;
 
-    const S1_VALIDITY = 5 * 60 * 1000;   // Server 1 stays valid for 5 minutes
-    const UNLOCK_DURATION = 10 * 60 * 1000; // Unlocked for exactly 10 minutes
+    const S1_VALIDITY = 5 * 60 * 1000;
+    const UNLOCK_DURATION = 10 * 60 * 1000;
 
-    fetch(`/api/articles/${storyId}`)
+    fetch(`/api/articles/${storyId}?_t=${Date.now()}`, { cache: 'no-store' })
       .then(res => res.json())
       .then(data => {
         storyData = data;
@@ -208,19 +238,16 @@
           ${storyData.authorEmail ? `<span>•</span><span class="text-xs">📧 ${storyData.authorEmail}</span>` : ''}
         </div>
 
-        <!-- Compact Story Image -->
         <div class="rounded-2xl overflow-hidden mb-5 bg-gray-50 dark:bg-gray-900/40 flex justify-center p-2 border border-gray-100 dark:border-gray-700/60 max-w-xs sm:max-w-sm mx-auto shadow-sm">
           <img src="${img}" class="w-full h-auto max-h-[340px] object-contain rounded-xl pointer-events-none" alt="Story Image" onerror="this.src='https://images.unsplash.com/photo-1544717305-2782549b5136?w=600'">
         </div>
 
-        <!-- Public Preview Content -->
         ${storyData.previewContent ? `
           <div class="mb-6 p-4 sm:p-5 rounded-2xl bg-gray-50/80 dark:bg-gray-700/30 border border-gray-100 dark:border-gray-700 text-gray-800 dark:text-gray-200 text-sm sm:text-base leading-relaxed whitespace-pre-line font-normal story-protected-text">
             ${storyData.previewContent}
           </div>
         ` : ''}
 
-        <!-- Timer / Unlock System -->
         <div class="text-center space-y-4 mb-8">
           <div id="instructionArea" class="text-gray-700 dark:text-gray-200 font-bold text-xs sm:text-sm bg-blue-50 dark:bg-gray-700/50 border border-blue-200 dark:border-gray-600 p-4 rounded-xl">
             👇 කතාවේ ඉතිරිය කියවීමට පහත Server 1 සහ Server 2 ක්ලික් කර එම වෙබ් අඩවියේ තත්පර 15 බැගින් රැඳී සිටින්න.
@@ -236,35 +263,31 @@
           </div>
 
           <div id="adButtonsWrapper" class="flex gap-4 justify-center">
-            <button class="serverButton glow-btn px-6 py-3 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-sm font-bold shadow-md" id="server1Button" onclick="openAd(1)">Server 1</button>
-            <button class="serverButton glow-btn px-6 py-3 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-sm font-bold shadow-md" id="server2Button" onclick="openAd(2)">Server 2</button>
+            <button class="serverButton glow-btn btn-blue-gradient px-6 py-3 rounded-xl text-white text-sm font-bold shadow-md" id="server1Button" onclick="openAd(1)">Server 1</button>
+            <button class="serverButton glow-btn btn-blue-gradient px-6 py-3 rounded-xl text-white text-sm font-bold shadow-md" id="server2Button" onclick="openAd(2)">Server 2</button>
           </div>
         </div>
 
-        <!-- Locked Story Content Protected -->
         <div id="storyContentBox" class="hidden border-t border-gray-100 dark:border-gray-700 pt-6">
           <div class="text-gray-800 dark:text-gray-200 text-sm sm:text-base leading-relaxed whitespace-pre-line font-medium story-protected-text">
             ${storyData.storyContent}
           </div>
         </div>
 
-        <!-- Bottom Social & Series Buttons -->
         <div class="mt-8 bg-gray-50 dark:bg-gray-700/40 p-4 sm:p-6 rounded-2xl border border-gray-100 dark:border-gray-700 flex flex-col gap-3 items-center">
           
-          <!-- All Parts Button -->
-          <a href="${storyData.allPartsLink || allPartsCategoryUrl}" class="glow-btn w-full py-3.5 px-4 rounded-xl bg-gradient-to-r from-red-600 to-rose-600 text-white text-xs sm:text-sm font-bold shadow-md flex items-center justify-center gap-2">
+          <a href="${storyData.allPartsLink || allPartsCategoryUrl}" class="glow-btn btn-red-gradient w-full py-3.5 px-4 rounded-xl text-white text-xs sm:text-sm font-bold shadow-md flex items-center justify-center gap-2">
             <i class="fa fa-book-open text-base"></i> "${storyData.seriesName || storyData.mainCategory || 'කතා'}" සියලුම කොටස් බලන්න
           </a>
 
-          <!-- Social Buttons Matching Palette -->
           <div class="flex flex-col sm:flex-row gap-2.5 w-full">
-            <a href="${storyData.telegramLink}" target="_blank" class="glow-btn flex-1 py-2.5 px-3 bg-gradient-to-r from-sky-400 to-blue-500 text-white text-xs font-bold rounded-xl flex items-center justify-center gap-2 shadow-sm">
+            <a href="${storyData.telegramLink || 'https://t.me/apedesinhal'}" target="_blank" class="glow-btn btn-telegram-gradient flex-1 py-2.5 px-3 text-white text-xs font-bold rounded-xl flex items-center justify-center gap-2 shadow-sm">
               <i class="fab fa-telegram text-base"></i> <span>Telegram Channel</span>
             </a>
-            <a href="${storyData.facebookLink}" target="_blank" class="glow-btn flex-1 py-2.5 px-3 bg-gradient-to-r from-blue-700 to-indigo-800 text-white text-xs font-bold rounded-xl flex items-center justify-center gap-2 shadow-sm">
+            <a href="${storyData.facebookLink || 'https://web.facebook.com/share/g/1FyeJTMwyP/'}" target="_blank" class="glow-btn btn-facebook-gradient flex-1 py-2.5 px-3 text-white text-xs font-bold rounded-xl flex items-center justify-center gap-2 shadow-sm">
               <i class="fab fa-facebook text-base"></i> <span>Facebook Group</span>
             </a>
-            <a href="${storyData.whatsappLink}" target="_blank" class="glow-btn flex-1 py-2.5 px-3 bg-gradient-to-r from-emerald-500 to-green-600 text-white text-xs font-bold rounded-xl flex items-center justify-center gap-2 shadow-sm">
+            <a href="${storyData.whatsappLink || 'https://whatsapp.com/channel/0029Vb6WiFD7Noa9ikoz4W0w'}" target="_blank" class="glow-btn btn-whatsapp-gradient flex-1 py-2.5 px-3 text-white text-xs font-bold rounded-xl flex items-center justify-center gap-2 shadow-sm">
               <i class="fab fa-whatsapp text-base"></i> <span>WhatsApp Channel</span>
             </a>
           </div>
@@ -289,7 +312,6 @@
       if (pendingServer && departureTime) {
         const timeAwaySeconds = (Date.now() - Number(departureTime)) / 1000;
 
-        // Strict 15s away requirement
         if (timeAwaySeconds >= 15) {
           if (pendingServer === '1') {
             localStorage.setItem(KEY_S1_TIMESTAMP, String(Date.now()));
@@ -299,7 +321,6 @@
 
           document.getElementById('errorMsg')?.classList.add('hidden');
 
-          // Check if Server 1 is still valid within 5 minutes AND Server 2 is done
           const s1Time = Number(localStorage.getItem(KEY_S1_TIMESTAMP) || 0);
           const s2Time = Number(localStorage.getItem(KEY_S2_TIMESTAMP) || 0);
           const isS1Valid = (Date.now() - s1Time) < S1_VALIDITY;
@@ -309,11 +330,9 @@
             localStorage.setItem(KEY_UNLOCK_START, String(Date.now()));
           }
         } else {
-          // Returned before 15 seconds
           document.getElementById('errorMsg')?.classList.remove('hidden');
         }
 
-        // Clean up current click session
         localStorage.removeItem(KEY_PENDING_CLICK);
         localStorage.removeItem(KEY_PENDING_TIME);
         updateUI();
@@ -325,7 +344,6 @@
       const unlockStart = Number(localStorage.getItem(KEY_UNLOCK_START) || 0);
       const isUnlocked = unlockStart > 0 && (now - unlockStart) < UNLOCK_DURATION;
 
-      // When 10 minutes expire -> Auto Lock Story
       if (unlockStart > 0 && !isUnlocked) {
         localStorage.removeItem(KEY_UNLOCK_START);
         localStorage.removeItem(KEY_S1_TIMESTAMP);
@@ -333,7 +351,7 @@
       }
 
       const s1Time = Number(localStorage.getItem(KEY_S1_TIMESTAMP) || 0);
-      const isS1Done = s1Time > 0 && (now - s1Time) < S1_VALIDITY; // Valid for 5 mins
+      const isS1Done = s1Time > 0 && (now - s1Time) < S1_VALIDITY;
 
       const adButtonsWrapper = document.getElementById('adButtonsWrapper');
       const instructionArea = document.getElementById('instructionArea');
@@ -349,7 +367,6 @@
         storyContentBox.classList.remove('hidden');
         unlockedText.classList.remove('hidden');
 
-        // Countdown Timer format mm:ss
         if (countdownDisplay) {
           const remainingMs = UNLOCK_DURATION - (now - unlockStart);
           const totalSecs = Math.max(0, Math.floor(remainingMs / 1000));
@@ -378,7 +395,6 @@
       }
     }
 
-    // Universal browser support (Facebook In-App, Telegram, Mobile WebViews)
     window.addEventListener('focus', validateReturnFromAd);
     window.addEventListener('pageshow', validateReturnFromAd);
     document.addEventListener('visibilitychange', () => {
@@ -387,11 +403,10 @@
       }
     });
 
-    // Check timers continuously every 1 second
     setInterval(updateUI, 1000);
 
     function loadTrending() {
-      fetch('/api/trending')
+      fetch(`/api/trending?_t=${Date.now()}`, { cache: 'no-store' })
         .then(res => res.json())
         .then(data => {
           const container = document.getElementById('trending-container');
@@ -416,5 +431,7 @@
 
     loadTrending();
   </script>
+</body>
+</html>
 </body>
 </html>
