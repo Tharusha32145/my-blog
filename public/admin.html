@@ -4,25 +4,132 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin Panel</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+  <link rel="dns-prefetch" href="https://cdn.tailwindcss.com">
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    body { background: #222D32; font-family: 'Roboto', sans-serif; }
-    .login-box { background: #1A2226; text-align: center; box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16); }
-    .login-key { height: 100px; font-size: 80px; line-height: 100px; background: -webkit-linear-gradient(#27EF9F, #0DB8DE); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
-    .login-title { font-size: 27px; letter-spacing: 2px; font-weight: bold; color: #ECF0F5; }
-    .dark-input { background-color: #1A2226 !important; border: none !important; border-bottom: 2px solid #0DB8DE !important; border-radius: 0px !important; font-weight: bold !important; color: #ECF0F5 !important; }
-    .dark-input:focus { outline: none; border-bottom: 2px solid #27EF9F !important; }
-    .btn-login { background-color: transparent; border: 2px solid #0DB8DE; color: #0DB8DE; font-weight: bold; letter-spacing: 1px; }
-    .btn-login:hover { background-color: #0DB8DE; color: #1A2226; }
+    body {
+      background: #222D32;
+      font-family: 'Roboto', sans-serif;
+    }
+
+    .login-box {
+      background: #1A2226;
+      text-align: center;
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+    }
+
+    .login-key {
+      height: 100px;
+      font-size: 80px;
+      line-height: 100px;
+      background: -webkit-linear-gradient(#27EF9F, #0DB8DE);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .login-title {
+      font-size: 27px;
+      letter-spacing: 2px;
+      font-weight: bold;
+      color: #ECF0F5;
+    }
+
+    .dark-input {
+      background-color: #1A2226 !important;
+      border: none !important;
+      border-bottom: 2px solid #0DB8DE !important;
+      border-radius: 0px !important;
+      font-weight: bold !important;
+      color: #ECF0F5 !important;
+    }
+
+    .dark-input:focus {
+      outline: none;
+      border-bottom: 2px solid #27EF9F !important;
+    }
+
+    .btn-login {
+      background-color: transparent;
+      border: 2px solid #0DB8DE;
+      color: #0DB8DE;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+
+    .btn-login:hover {
+      background-color: #0DB8DE;
+      color: #1A2226;
+    }
+
+    /* Guaranteed Instant-Load Solid Gradients */
+    .btn-blue-gradient {
+      background: linear-gradient(135deg, #2563eb, #4f46e5) !important;
+      color: #ffffff !important;
+    }
+
+    .btn-orange-gradient {
+      background: linear-gradient(135deg, #f59e0b, #ea580c) !important;
+      color: #ffffff !important;
+    }
+
+    .btn-purple-gradient {
+      background: linear-gradient(135deg, #9333ea, #db2777) !important;
+      color: #ffffff !important;
+    }
+
+    .btn-red-gradient {
+      background: linear-gradient(135deg, #e11d48, #be123c) !important;
+      color: #ffffff !important;
+    }
+
+    .btn-cyan-gradient {
+      background: linear-gradient(135deg, #06b6d4, #2563eb) !important;
+      color: #ffffff !important;
+    }
+
+    .glow-btn {
+      position: relative;
+      transition: all 0.25s ease;
+      z-index: 1;
+    }
+
+    .glow-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      border-radius: inherit;
+      background: inherit;
+      filter: blur(8px);
+      opacity: 0;
+      transition: opacity 0.25s ease;
+      z-index: -1;
+    }
+
+    .glow-btn:hover::before {
+      opacity: 0.7;
+    }
+
+    .glow-btn:hover {
+      transform: translateY(-2px);
+    }
   </style>
 </head>
+
 <body class="min-h-screen flex items-center justify-center p-4">
 
   <!-- LOGIN SCREEN -->
   <div id="login-container" class="w-full max-w-md login-box p-8 rounded-2xl">
     <div class="flex justify-start mb-2">
-      <a href="/" class="text-xs text-gray-400 hover:text-cyan-400 flex items-center gap-1"><i class="fa fa-arrow-left"></i> Home </a>
+      <a href="/" class="text-xs text-gray-400 hover:text-cyan-400 flex items-center gap-1"><i
+          class="fa fa-arrow-left"></i> Home </a>
     </div>
     <div class="login-key mb-4"><i class="fa fa-key"></i></div>
     <div class="login-title mb-6">ADMIN PANEL</div>
@@ -41,17 +148,20 @@
   </div>
 
   <!-- ADMIN DASHBOARD -->
-  <div id="dashboard-container" class="w-full max-w-5xl bg-gray-900 text-gray-100 p-6 sm:p-8 rounded-2xl shadow-2xl border border-gray-800 hidden space-y-10">
+  <div id="dashboard-container"
+    class="w-full max-w-5xl bg-gray-900 text-gray-100 p-6 sm:p-8 rounded-2xl shadow-2xl border border-gray-800 hidden space-y-10">
     <div class="flex justify-between items-center border-b border-gray-800 pb-4">
       <div>
         <h2 class="text-2xl font-bold text-cyan-400"><i class="fa fa-tachometer-alt mr-2"></i>Story Admin Panel</h2>
         <p class="text-xs text-gray-400">අලුත් කතා පළ කිරීම, Schedule කිරීම සහ දින අනුව කළමනාකරණය</p>
       </div>
       <div class="flex items-center gap-3">
-        <a href="/" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-xs font-bold transition flex items-center gap-1">
+        <a href="/"
+          class="glow-btn btn-blue-gradient px-4 py-2 text-white rounded-xl text-xs font-bold transition flex items-center gap-1">
           <i class="fa fa-home"></i> Home View
         </a>
-        <button onclick="logout()" class="px-4 py-2 bg-red-600/20 text-red-400 hover:bg-red-600 hover:text-white rounded-lg text-xs font-bold transition">LOGOUT</button>
+        <button onclick="logout()"
+          class="px-4 py-2 bg-red-600/20 text-red-400 hover:bg-red-600 hover:text-white rounded-xl text-xs font-bold transition">LOGOUT</button>
       </div>
     </div>
 
@@ -61,7 +171,9 @@
         <h3 class="text-lg font-bold text-white flex items-center gap-2" id="formTitle">
           <i class="fa fa-plus-circle text-emerald-400"></i> අලුත් කතාවක් එකතු කරන්න
         </h3>
-        <button id="cancelEditBtn" onclick="resetForm()" class="hidden text-xs bg-gray-700 hover:bg-gray-600 px-3 py-1.5 rounded-lg text-gray-300">Edit අවලංගු කරන්න</button>
+        <button id="cancelEditBtn" onclick="resetForm()"
+          class="hidden text-xs bg-gray-700 hover:bg-gray-600 px-3 py-1.5 rounded-lg text-gray-300">Edit අවලංගු
+          කරන්න</button>
       </div>
 
       <form onsubmit="handleFormSubmit(event)" class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -69,22 +181,26 @@
 
         <div class="md:col-span-2">
           <label class="text-xs text-gray-400 font-bold block mb-1">කතාවේ මාතෘකාව (Title & Part) *</label>
-          <input type="text" id="title" required placeholder="උදා: සමාධි අක්කා 01" class="w-full p-2.5 bg-gray-900 border border-gray-700 rounded-lg text-sm text-white focus:border-cyan-400 outline-none">
+          <input type="text" id="title" required placeholder="උදා: සමාධි අක්කා 01"
+            class="w-full p-2.5 bg-gray-900 border border-gray-700 rounded-lg text-sm text-white focus:border-cyan-400 outline-none">
         </div>
 
         <div>
           <label class="text-xs text-gray-400 font-bold block mb-1">කර්තෘගේ නම (Author)</label>
-          <input type="text" id="author" placeholder="උදා: Rish Janzz" class="w-full p-2.5 bg-gray-900 border border-gray-700 rounded-lg text-sm text-white focus:border-cyan-400 outline-none">
+          <input type="text" id="author" placeholder="උදා: Rish Janzz"
+            class="w-full p-2.5 bg-gray-900 border border-gray-700 rounded-lg text-sm text-white focus:border-cyan-400 outline-none">
         </div>
 
         <div>
           <label class="text-xs text-gray-400 font-bold block mb-1">කර්තෘගේ Email එක (Author Email)</label>
-          <input type="email" id="authorEmail" placeholder="author@example.com" class="w-full p-2.5 bg-gray-900 border border-gray-700 rounded-lg text-sm text-white focus:border-cyan-400 outline-none">
+          <input type="email" id="authorEmail" placeholder="author@example.com"
+            class="w-full p-2.5 bg-gray-900 border border-gray-700 rounded-lg text-sm text-white focus:border-cyan-400 outline-none">
         </div>
 
         <div>
           <label class="text-xs text-pink-400 font-bold block mb-1">ප්‍රධාන ප්‍රවර්ගය (Main Category)</label>
-          <select id="mainCategory" class="w-full p-2.5 bg-gray-900 border border-gray-700 rounded-lg text-sm text-white focus:border-cyan-400 outline-none">
+          <select id="mainCategory"
+            class="w-full p-2.5 bg-gray-900 border border-gray-700 rounded-lg text-sm text-white focus:border-cyan-400 outline-none">
             <option value="අම්ම පුතා">අම්ම පුතා</option>
             <option value="තාත්ත දුව">තාත්ත දුව</option>
             <option value="සහෝදර/සහෝදරී">සහෝදර/සහෝදරී</option>
@@ -98,54 +214,67 @@
 
         <div>
           <label class="text-xs text-cyan-400 font-bold block mb-1">කතා මාලාවේ නම (Series Name) *</label>
-          <input type="text" id="seriesName" required placeholder="උදා: සමාධි අක්කා" class="w-full p-2.5 bg-gray-900 border border-gray-700 rounded-lg text-sm text-white focus:border-cyan-400 outline-none">
+          <input type="text" id="seriesName" required placeholder="උදා: සමාධි අක්කා"
+            class="w-full p-2.5 bg-gray-900 border border-gray-700 rounded-lg text-sm text-white focus:border-cyan-400 outline-none">
         </div>
 
         <div class="md:col-span-2">
           <label class="text-xs text-gray-400 font-bold block mb-1">Image URL (Direct Link) *</label>
-          <input type="text" id="imageUrl" required placeholder="https://i.ibb.co/xxxx/photo.jpg" class="w-full p-2.5 bg-gray-900 border border-gray-700 rounded-lg text-sm text-white focus:border-cyan-400 outline-none">
+          <input type="text" id="imageUrl" required placeholder="https://i.ibb.co/xxxx/photo.jpg"
+            class="w-full p-2.5 bg-gray-900 border border-gray-700 rounded-lg text-sm text-white focus:border-cyan-400 outline-none">
         </div>
 
         <div class="md:col-span-2">
-          <label class="text-xs text-amber-400 font-bold block mb-1">කතාවේ ආරම්භක ඡේදය / මුල් කොටස (Buttons වලට උඩින් නොමිලේ පෙන්වන කොටස)</label>
-          <textarea id="previewContent" rows="4" placeholder="කතාවේ මුල් ඡේද කිහිපය මෙතනට ඇතුළත් කරන්න..." class="w-full p-3 bg-gray-900 border border-gray-700 rounded-lg text-sm text-white focus:border-amber-400 outline-none"></textarea>
+          <label class="text-xs text-amber-400 font-bold block mb-1">කතාවේ ආරම්භක ඡේදය / මුල් කොටස (Buttons වලට උඩින්
+            නොමිලේ පෙන්වන කොටස)</label>
+          <textarea id="previewContent" rows="4" placeholder="කතාවේ මුල් ඡේද කිහිපය මෙතනට ඇතුළත් කරන්න..."
+            class="w-full p-3 bg-gray-900 border border-gray-700 rounded-lg text-sm text-white focus:border-amber-400 outline-none"></textarea>
         </div>
 
         <div class="md:col-span-2">
-          <label class="text-xs text-emerald-400 font-bold block mb-1">කතාවේ ඉතිරි කොටස (Server 1 & 2 Unlock වූ පසු පෙන්වන කොටස) *</label>
-          <textarea id="storyContent" rows="8" required placeholder="ඉතිරි සම්පූර්ණ කතාව මෙතනට Paste කරන්න..." class="w-full p-3 bg-gray-900 border border-gray-700 rounded-lg text-sm text-white focus:border-cyan-400 outline-none"></textarea>
+          <label class="text-xs text-emerald-400 font-bold block mb-1">කතාවේ ඉතිරි කොටස (Server 1 & 2 Unlock වූ පසු
+            පෙන්වන කොටස) *</label>
+          <textarea id="storyContent" rows="8" required placeholder="ඉතිරි සම්පූර්ණ කතාව මෙතනට Paste කරන්න..."
+            class="w-full p-3 bg-gray-900 border border-gray-700 rounded-lg text-sm text-white focus:border-cyan-400 outline-none"></textarea>
         </div>
 
         <div>
           <label class="text-xs text-gray-400 font-bold block mb-1">Ad 1 Link</label>
-          <input type="text" id="adLink1" value="https://omg10.com/4/10608751" class="w-full p-2.5 bg-gray-900 border border-gray-700 rounded-lg text-sm text-white outline-none">
+          <input type="text" id="adLink1" value="https://omg10.com/4/10608751"
+            class="w-full p-2.5 bg-gray-900 border border-gray-700 rounded-lg text-sm text-white outline-none">
         </div>
 
         <div>
           <label class="text-xs text-gray-400 font-bold block mb-1">Ad 2 Link</label>
-          <input type="text" id="adLink2" value="https://omg10.com/4/10608752" class="w-full p-2.5 bg-gray-900 border border-gray-700 rounded-lg text-sm text-white outline-none">
+          <input type="text" id="adLink2" value="https://omg10.com/4/10608752"
+            class="w-full p-2.5 bg-gray-900 border border-gray-700 rounded-lg text-sm text-white outline-none">
         </div>
 
         <div class="md:col-span-2">
           <label class="text-xs text-gray-400 font-bold block mb-1">සියලුම කොටස් Link (All Parts Link)</label>
-          <input type="text" id="allPartsLink" placeholder="හිස්ව තැබුවහොත් මෙම කතා මාලාවේ සියලුම කොටස් auto link වේ" class="w-full p-2.5 bg-gray-900 border border-gray-700 rounded-lg text-sm text-white outline-none">
+          <input type="text" id="allPartsLink" placeholder="හිස්ව තැබුවහොත් මෙම කතා මාලාවේ සියලුම කොටස් auto link වේ"
+            class="w-full p-2.5 bg-gray-900 border border-gray-700 rounded-lg text-sm text-white outline-none">
         </div>
 
         <div class="md:col-span-2">
           <label class="text-xs text-amber-400 font-bold block mb-1">📅 Schedule / Publish Date & Time</label>
-          <input type="datetime-local" id="publishAt" class="w-full p-2.5 bg-gray-900 border border-gray-700 rounded-lg text-sm text-white outline-none focus:border-amber-400">
-          <span class="text-[11px] text-gray-400 mt-1 block">💡 හිස්ව තැබුවහොත් දැන්ම Live වේ. අනාගත දිනයක් සහ වෙලාවක් (උදා: උදේ 07:00, දවල් 01:00, හවස 06:00) දැමුවහොත් Schedule වේ.</span>
+          <input type="datetime-local" id="publishAt"
+            class="w-full p-2.5 bg-gray-900 border border-gray-700 rounded-lg text-sm text-white outline-none focus:border-amber-400">
+          <span class="text-[11px] text-gray-400 mt-1 block">💡 හිස්ව තැබුවහොත් දැන්ම Live වේ. අනාගත දිනයක් සහ වෙලාවක්
+            (උදා: උදේ 07:00, දවල් 01:00, හවස 06:00) දැමුවහොත් Schedule වේ.</span>
         </div>
 
         <div class="md:col-span-2 pt-2">
-          <button type="submit" id="submitBtn" class="w-full py-3 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white font-bold rounded-xl transition shadow-lg">කතාව පළ කරන්න</button>
+          <button type="submit" id="submitBtn"
+            class="glow-btn btn-cyan-gradient w-full py-3 text-white font-bold rounded-xl transition shadow-lg">කතාව පළ
+            කරන්න</button>
         </div>
       </form>
     </div>
 
     <!-- Posts Manager Section with Dedicated View Tabs -->
     <div class="space-y-6">
-      
+
       <!-- Top Manager Filter Tabs -->
       <div class="flex flex-wrap items-center justify-between gap-3 border-b border-gray-800 pb-4">
         <div>
@@ -156,13 +285,16 @@
         </div>
 
         <div class="flex bg-gray-800 p-1 rounded-xl border border-gray-700">
-          <button onclick="switchViewTab('scheduled')" id="tabBtnScheduled" class="px-4 py-2 rounded-lg text-xs font-bold transition bg-amber-500 text-gray-900 shadow">
+          <button onclick="switchViewTab('scheduled')" id="tabBtnScheduled"
+            class="px-4 py-2 rounded-lg text-xs font-bold transition bg-amber-500 text-gray-900 shadow">
             ⏳ Schedule කළ කතා (<span id="scheduledCount">0</span>)
           </button>
-          <button onclick="switchViewTab('published')" id="tabBtnPublished" class="px-4 py-2 rounded-lg text-xs font-bold transition text-gray-400 hover:text-white">
+          <button onclick="switchViewTab('published')" id="tabBtnPublished"
+            class="px-4 py-2 rounded-lg text-xs font-bold transition text-gray-400 hover:text-white">
             🟢 Live කතා (<span id="publishedCount">0</span>)
           </button>
-          <button onclick="switchViewTab('all')" id="tabBtnAll" class="px-4 py-2 rounded-lg text-xs font-bold transition text-gray-400 hover:text-white">
+          <button onclick="switchViewTab('all')" id="tabBtnAll"
+            class="px-4 py-2 rounded-lg text-xs font-bold transition text-gray-400 hover:text-white">
             📂 සියල්ල (<span id="allCount">0</span>)
           </button>
         </div>
@@ -199,16 +331,16 @@
           password: document.getElementById('adminPass').value
         })
       })
-      .then(res => res.json())
-      .then(data => {
-        if(data.success) {
-          token = data.token;
-          localStorage.setItem('admin_token', token);
-          checkAuth();
-        } else {
-          document.getElementById('loginErr').classList.remove('hidden');
-        }
-      });
+        .then(res => res.json())
+        .then(data => {
+          if (data.success) {
+            token = data.token;
+            localStorage.setItem('admin_token', token);
+            checkAuth();
+          } else {
+            document.getElementById('loginErr').classList.remove('hidden');
+          }
+        });
     }
 
     function logout() {
@@ -218,7 +350,7 @@
 
     function switchViewTab(tab) {
       activeViewTab = tab;
-      
+
       const btnSch = document.getElementById('tabBtnScheduled');
       const btnPub = document.getElementById('tabBtnPublished');
       const btnAll = document.getElementById('tabBtnAll');
@@ -258,21 +390,21 @@
         headers: { 'Content-Type': 'application/json', 'Authorization': token },
         body: JSON.stringify(payload)
       })
-      .then(res => res.json())
-      .then(data => {
-        alert(data.message || 'Saved successfully!');
-        resetForm();
-        loadAdminStories();
-      });
+        .then(res => res.json())
+        .then(data => {
+          alert(data.message || 'Saved successfully!');
+          resetForm();
+          loadAdminStories();
+        });
     }
 
     function loadAdminStories() {
       fetch('/api/admin/articles', { headers: { 'Authorization': token } })
-      .then(res => res.json())
-      .then(data => {
-        allStoriesCache = data || [];
-        renderStoriesView();
-      });
+        .then(res => res.json())
+        .then(data => {
+          allStoriesCache = data || [];
+          renderStoriesView();
+        });
     }
 
     function renderStoriesView() {
@@ -315,7 +447,7 @@
         Object.keys(groups).forEach(dateKey => {
           const postsForDay = groups[dateKey];
           const sampleDate = new Date(postsForDay[0].publishAt);
-          
+
           // Formatted Sinhala Day Name: e.g., "2026 අගෝස්තු 22 (සෙනසුරාදා)"
           const dateDisplay = sampleDate.toLocaleDateString('si-LK', {
             weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
@@ -325,7 +457,7 @@
           postsForDay.forEach(p => {
             const pTime = new Date(p.publishAt);
             const timeString = pTime.toLocaleTimeString('si-LK', { hour: '2-digit', minute: '2-digit', hour12: true });
-            
+
             // Time Slot Indicator (Morning / Noon / Evening)
             const hours = pTime.getHours();
             let slotBadge = '<span class="px-2 py-0.5 rounded bg-blue-950 text-blue-300 text-[10px] font-bold border border-blue-800">🌅 උදෑසන</span>';
@@ -485,14 +617,15 @@
         method: 'DELETE',
         headers: { 'Authorization': token }
       })
-      .then(res => res.json())
-      .then(data => {
-        alert(data.message);
-        loadAdminStories();
-      });
+        .then(res => res.json())
+        .then(data => {
+          alert(data.message);
+          loadAdminStories();
+        });
     }
 
     checkAuth();
   </script>
 </body>
+
 </html>
