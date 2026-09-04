@@ -10,6 +10,10 @@
   <meta http-equiv="Expires" content="0">
 
   <title>අපේ දේ</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+  <link rel="dns-prefetch" href="https://cdn.tailwindcss.com">
   <script src="https://cdn.tailwindcss.com"></script>
   <script>tailwind.config = { darkMode: 'class' }</script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -25,9 +29,43 @@
       font-family: 'Inter', sans-serif; 
     }
 
+    /* Guaranteed Instant-Load Solid Gradients */
+    .btn-blue-gradient {
+      background: linear-gradient(135deg, #2563eb, #4f46e5) !important;
+      color: #ffffff !important;
+    }
+    .btn-orange-gradient {
+      background: linear-gradient(135deg, #f59e0b, #ea580c) !important;
+      color: #ffffff !important;
+    }
+    .btn-purple-gradient {
+      background: linear-gradient(135deg, #9333ea, #db2777) !important;
+      color: #ffffff !important;
+    }
+    .btn-red-gradient {
+      background: linear-gradient(135deg, #e11d48, #be123c) !important;
+      color: #ffffff !important;
+    }
+    .btn-cyan-gradient {
+      background: linear-gradient(135deg, #06b6d4, #2563eb) !important;
+      color: #ffffff !important;
+    }
+    .btn-telegram-gradient {
+      background: linear-gradient(135deg, #0ea5e9, #2563eb) !important;
+      color: #ffffff !important;
+    }
+    .btn-facebook-gradient {
+      background: linear-gradient(135deg, #1d4ed8, #3730a3) !important;
+      color: #ffffff !important;
+    }
+    .btn-whatsapp-gradient {
+      background: linear-gradient(135deg, #10b981, #059669) !important;
+      color: #ffffff !important;
+    }
+
     .glow-btn {
       position: relative;
-      transition: all 0.3s ease;
+      transition: all 0.25s ease;
       z-index: 1;
     }
     .glow-btn::before {
@@ -36,13 +74,13 @@
       top: 0; left: 0; right: 0; bottom: 0;
       border-radius: inherit;
       background: inherit;
-      filter: blur(10px);
+      filter: blur(8px);
       opacity: 0;
-      transition: opacity 0.3s ease;
+      transition: opacity 0.25s ease;
       z-index: -1;
     }
     .glow-btn:hover::before {
-      opacity: 0.8;
+      opacity: 0.7;
     }
     .glow-btn:hover {
       transform: translateY(-2px);
@@ -62,16 +100,16 @@
 
       <!-- Top Navigation Bar with All 3 Buttons -->
       <nav class="flex flex-wrap gap-3 items-center justify-center relative">
-        <a href="/" class="glow-btn px-4 py-2 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-xs font-bold shadow-md flex items-center gap-1.5">
+        <a href="/" class="glow-btn btn-blue-gradient px-4 py-2 rounded-xl text-white text-xs font-bold shadow-md flex items-center gap-1.5">
           <i class="fa fa-home"></i> Home
         </a>
-        <a href="/categories.html" class="glow-btn px-4 py-2 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 text-white text-xs font-bold shadow-md flex items-center gap-1.5">
+        <a href="/categories.html" class="glow-btn btn-orange-gradient px-4 py-2 rounded-xl text-white text-xs font-bold shadow-md flex items-center gap-1.5">
           <i class="fa fa-layer-group"></i> All Series 
         </a>
 
         <!-- Category Dropdown Button in Navigation -->
         <div class="relative inline-block text-left">
-          <button onclick="toggleDropdown()" id="categoryDropdownBtn" class="glow-btn px-4 py-2 rounded-xl bg-gradient-to-r from-purple-600 via-fuchsia-600 to-pink-600 text-white text-xs font-bold shadow-md flex items-center gap-2">
+          <button onclick="toggleDropdown()" id="categoryDropdownBtn" class="glow-btn btn-purple-gradient px-4 py-2 rounded-xl text-white text-xs font-bold shadow-md flex items-center gap-2">
             <i class="fa fa-list"></i>
             <span id="selectedCategoryLabel"> Select Category </span>
             <i class="fa fa-chevron-down text-[10px] ml-0.5 transition-transform duration-300" id="dropdownArrow"></i>
@@ -129,7 +167,7 @@
         <span class="text-xs text-gray-500 uppercase font-bold"> Category / Series :</span>
         <h3 id="currentCatName" class="text-xl font-extrabold text-purple-600 dark:text-purple-400"></h3>
       </div>
-      <button onclick="selectCategory('All', 'ප්‍රවර්ග තෝරන්න (Select Category)')" class="glow-btn px-4 py-1.5 rounded-xl bg-purple-600 text-white text-xs font-bold shadow-sm">Show All</button>
+      <button onclick="selectCategory('All', 'ප්‍රවර්ග තෝරන්න (Select Category)')" class="glow-btn btn-purple-gradient px-4 py-1.5 rounded-xl text-white text-xs font-bold shadow-sm">Show All</button>
     </div>
 
     <!-- 2-Column Responsive Layout -->
@@ -150,13 +188,13 @@
           <h3 class="text-sm font-bold text-gray-900 dark:text-white flex items-center gap-2 mb-2">
             <i class="fa fa-users text-blue-500"></i> අපගේ සමාජ ජාල
           </h3>
-          <a href="https://t.me/apedesinhal" target="_blank" class="glow-btn w-full py-2.5 px-4 bg-gradient-to-r from-sky-400 to-blue-500 text-white text-xs font-bold rounded-xl flex items-center justify-center gap-2 shadow-sm">
+          <a href="https://t.me/apedesinhal" target="_blank" class="glow-btn btn-telegram-gradient w-full py-2.5 px-4 text-white text-xs font-bold rounded-xl flex items-center justify-center gap-2 shadow-sm">
             <i class="fab fa-telegram text-base"></i> Telegram Channel
           </a>
-          <a href="https://web.facebook.com/share/g/1FyeJTMwyP/" target="_blank" class="glow-btn w-full py-2.5 px-4 bg-gradient-to-r from-blue-700 to-indigo-800 text-white text-xs font-bold rounded-xl flex items-center justify-center gap-2 shadow-sm">
+          <a href="https://web.facebook.com/share/g/1FyeJTMwyP/" target="_blank" class="glow-btn btn-facebook-gradient w-full py-2.5 px-4 text-white text-xs font-bold rounded-xl flex items-center justify-center gap-2 shadow-sm">
             <i class="fab fa-facebook text-base"></i> Facebook Group
           </a>
-          <a href="https://whatsapp.com/channel/0029Vb6WiFD7Noa9ikoz4W0w" target="_blank" class="glow-btn w-full py-2.5 px-4 bg-gradient-to-r from-emerald-500 to-green-600 text-white text-xs font-bold rounded-xl flex items-center justify-center gap-2 shadow-sm">
+          <a href="https://whatsapp.com/channel/0029Vb6WiFD7Noa9ikoz4W0w" target="_blank" class="glow-btn btn-whatsapp-gradient w-full py-2.5 px-4 text-white text-xs font-bold rounded-xl flex items-center justify-center gap-2 shadow-sm">
             <i class="fab fa-whatsapp text-base"></i> WhatsApp Channel
           </a>
         </div>
