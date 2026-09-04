@@ -4,93 +4,166 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>සියලුම කතා මාලාවන් - Sinhala Katha</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+  <link rel="dns-prefetch" href="https://cdn.tailwindcss.com">
   <script src="https://cdn.tailwindcss.com"></script>
   <script>tailwind.config = { darkMode: 'class' }</script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  
+
   <style>
-    body { font-family: 'Inter', sans-serif; }
+    /* Smooth Scrolling */
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+
+    /* Guaranteed Instant-Load Solid Gradients */
+    .btn-blue-gradient {
+      background: linear-gradient(135deg, #2563eb, #4f46e5) !important;
+      color: #ffffff !important;
+    }
+
+    .btn-orange-gradient {
+      background: linear-gradient(135deg, #f59e0b, #ea580c) !important;
+      color: #ffffff !important;
+    }
+
+    .btn-purple-gradient {
+      background: linear-gradient(135deg, #9333ea, #db2777) !important;
+      color: #ffffff !important;
+    }
+
+    .btn-red-gradient {
+      background: linear-gradient(135deg, #e11d48, #be123c) !important;
+      color: #ffffff !important;
+    }
+
+    .btn-cyan-gradient {
+      background: linear-gradient(135deg, #06b6d4, #2563eb) !important;
+      color: #ffffff !important;
+    }
+
+    .btn-telegram-gradient {
+      background: linear-gradient(135deg, #0ea5e9, #2563eb) !important;
+      color: #ffffff !important;
+    }
+
+    .btn-facebook-gradient {
+      background: linear-gradient(135deg, #1d4ed8, #3730a3) !important;
+      color: #ffffff !important;
+    }
+
+    .btn-whatsapp-gradient {
+      background: linear-gradient(135deg, #10b981, #059669) !important;
+      color: #ffffff !important;
+    }
 
     .glow-btn {
       position: relative;
-      transition: all 0.3s ease;
+      transition: all 0.25s ease;
       z-index: 1;
     }
+
     .glow-btn::before {
       content: '';
       position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
       border-radius: inherit;
       background: inherit;
-      filter: blur(10px);
+      filter: blur(8px);
       opacity: 0;
-      transition: opacity 0.3s ease;
+      transition: opacity 0.25s ease;
       z-index: -1;
     }
+
     .glow-btn:hover::before {
-      opacity: 0.8;
+      opacity: 0.7;
     }
+
     .glow-btn:hover {
       transform: translateY(-2px);
     }
   </style>
 </head>
+
 <body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-100 transition-colors duration-300 min-h-screen">
 
   <!-- Header Bar -->
-  <header class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-md shadow-sm border-b border-gray-200 dark:border-gray-700 sticky top-0 z-50 transition-colors duration-300">
+  <header
+    class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-md shadow-sm border-b border-gray-200 dark:border-gray-700 sticky top-0 z-50 transition-colors duration-300">
     <div class="max-w-7xl mx-auto px-4 py-3.5 flex flex-col md:flex-row justify-between items-center gap-4">
       <div>
         <h1 class="text-2xl font-extrabold text-gray-900 dark:text-white tracking-tight">
-          <a href="/">අපේ  <span class="text-blue-600 dark:text-blue-400">දේ</span></a>
+          <a href="/">අපේ <span class="text-blue-600 dark:text-blue-400">දේ</span></a>
         </h1>
       </div>
 
       <!-- Top Navigation Bar with All 3 Buttons -->
       <nav class="flex flex-wrap gap-3 items-center justify-center relative">
-        <a href="/" class="glow-btn px-4 py-2 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-xs font-bold shadow-md flex items-center gap-1.5">
+        <a href="/"
+          class="glow-btn btn-blue-gradient px-4 py-2 rounded-xl text-white text-xs font-bold shadow-md flex items-center gap-1.5">
           <i class="fa fa-home"></i> Home
         </a>
-        <a href="/categories.html" class="glow-btn px-4 py-2 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 text-white text-xs font-bold shadow-md flex items-center gap-1.5">
-          <i class="fa fa-layer-group"></i> All Series 
+        <a href="/categories.html"
+          class="glow-btn btn-orange-gradient px-4 py-2 rounded-xl text-white text-xs font-bold shadow-md flex items-center gap-1.5">
+          <i class="fa fa-layer-group"></i> All Series
         </a>
 
         <!-- Category Dropdown Button in Navigation -->
         <div class="relative inline-block text-left">
-          <button onclick="toggleDropdown()" id="categoryDropdownBtn" class="glow-btn px-4 py-2 rounded-xl bg-gradient-to-r from-purple-600 via-fuchsia-600 to-pink-600 text-white text-xs font-bold shadow-md flex items-center gap-2">
+          <button onclick="toggleDropdown()" id="categoryDropdownBtn"
+            class="glow-btn btn-purple-gradient px-4 py-2 rounded-xl text-white text-xs font-bold shadow-md flex items-center gap-2">
             <i class="fa fa-list"></i>
             <span> Select Category </span>
             <i class="fa fa-chevron-down text-[10px] ml-0.5 transition-transform duration-300" id="dropdownArrow"></i>
           </button>
 
           <!-- Dropdown Menu List -->
-          <div id="categoryDropdownMenu" class="hidden absolute left-0 sm:left-auto sm:right-0 mt-2 w-64 bg-white dark:bg-gray-800 rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-700 py-2 overflow-hidden z-50 transition-all duration-200">
-            <a href="/" class="w-full text-left px-4 py-2.5 text-xs font-bold hover:bg-purple-50 dark:hover:bg-gray-700 flex items-center gap-2.5 transition block">
-              <span class="w-2.5 h-2.5 rounded-full bg-blue-500"></span> All Stories 
+          <div id="categoryDropdownMenu"
+            class="hidden absolute left-0 sm:left-auto sm:right-0 mt-2 w-64 bg-white dark:bg-gray-800 rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-700 py-2 overflow-hidden z-50 transition-all duration-200">
+            <a href="/"
+              class="w-full text-left px-4 py-2.5 text-xs font-bold hover:bg-purple-50 dark:hover:bg-gray-700 flex items-center gap-2.5 transition block">
+              <span class="w-2.5 h-2.5 rounded-full bg-blue-500"></span> All Stories
             </a>
-            <a href="/?mainCategory=අම්ම පුතා" class="w-full text-left px-4 py-2.5 text-xs font-bold hover:bg-purple-50 dark:hover:bg-gray-700 flex items-center gap-2.5 transition block">
+            <a href="/?mainCategory=අම්ම පුතා"
+              class="w-full text-left px-4 py-2.5 text-xs font-bold hover:bg-purple-50 dark:hover:bg-gray-700 flex items-center gap-2.5 transition block">
               <span class="w-2.5 h-2.5 rounded-full bg-pink-500"></span> අම්ම පුතා
             </a>
-            <a href="/?mainCategory=කතාත්ත දුව" class="w-full text-left px-4 py-2.5 text-xs font-bold hover:bg-purple-50 dark:hover:bg-gray-700 flex items-center gap-2.5 transition block">
+            <a href="/?mainCategory=තාත්ත දුව"
+              class="w-full text-left px-4 py-2.5 text-xs font-bold hover:bg-purple-50 dark:hover:bg-gray-700 flex items-center gap-2.5 transition block">
               <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span> තාත්ත දුව
             </a>
-            <a href="/?mainCategory=සහෝදර/සහෝදරී" class="w-full text-left px-4 py-2.5 text-xs font-bold hover:bg-purple-50 dark:hover:bg-gray-700 flex items-center gap-2.5 transition block">
+            <a href="/?mainCategory=සහෝදර/සහෝදරී"
+              class="w-full text-left px-4 py-2.5 text-xs font-bold hover:bg-purple-50 dark:hover:bg-gray-700 flex items-center gap-2.5 transition block">
               <span class="w-2.5 h-2.5 rounded-full bg-cyan-500"></span> සහෝදර/සහෝදරී
             </a>
-            <a href="/?mainCategory=පවුලේ අන් අය සමග" class="w-full text-left px-4 py-2.5 text-xs font-bold hover:bg-purple-50 dark:hover:bg-gray-700 flex items-center gap-2.5 transition block">
+            <a href="/?mainCategory=පවුලේ අන් අය සමග"
+              class="w-full text-left px-4 py-2.5 text-xs font-bold hover:bg-purple-50 dark:hover:bg-gray-700 flex items-center gap-2.5 transition block">
               <span class="w-2.5 h-2.5 rounded-full bg-red-500"></span> පවුලේ අන් අය සමග
             </a>
-            <a href="/?mainCategory=වැඩිමහල් බාල" class="w-full text-left px-4 py-2.5 text-xs font-bold hover:bg-purple-50 dark:hover:bg-gray-700 flex items-center gap-2.5 transition block">
+            <a href="/?mainCategory=වැඩිමහල් බාල"
+              class="w-full text-left px-4 py-2.5 text-xs font-bold hover:bg-purple-50 dark:hover:bg-gray-700 flex items-center gap-2.5 transition block">
               <span class="w-2.5 h-2.5 rounded-full bg-yellow-500"></span> වැඩිමහල් බාල
             </a>
-            <a href="/?mainCategory=අනෙකුත්" class="w-full text-left px-4 py-2.5 text-xs font-bold hover:bg-purple-50 dark:hover:bg-gray-700 flex items-center gap-2.5 transition block">
+            <a href="/?mainCategory=අනෙකුත්"
+              class="w-full text-left px-4 py-2.5 text-xs font-bold hover:bg-purple-50 dark:hover:bg-gray-700 flex items-center gap-2.5 transition block">
               <span class="w-2.5 h-2.5 rounded-full bg-purple-500"></span> අනෙකුත්
             </a>
-            <a href="/?mainCategory=වයිෆ් හෝ පෙම්වතිය සම්බන්ධ කතා" class="w-full text-left px-4 py-2.5 text-xs font-bold hover:bg-purple-50 dark:hover:bg-gray-700 flex items-center gap-2.5 transition block">
+            <a href="/?mainCategory=වයිෆ් හෝ පෙම්වතිය සම්බන්ධ කතා"
+              class="w-full text-left px-4 py-2.5 text-xs font-bold hover:bg-purple-50 dark:hover:bg-gray-700 flex items-center gap-2.5 transition block">
               <span class="w-2.5 h-2.5 rounded-full bg-rose-500"></span> වයිෆ් හෝ පෙම්වතිය සම්බන්ධ කතා
             </a>
-            <a href="/?mainCategory=සම ලිංගික" class="w-full text-left px-4 py-2.5 text-xs font-bold hover:bg-purple-50 dark:hover:bg-gray-700 flex items-center gap-2.5 transition block">
+            <a href="/?mainCategory=සම ලිංගික"
+              class="w-full text-left px-4 py-2.5 text-xs font-bold hover:bg-purple-50 dark:hover:bg-gray-700 flex items-center gap-2.5 transition block">
               <span class="w-2.5 h-2.5 rounded-full bg-rose-500"></span> සම ලිංගික
             </a>
           </div>
@@ -98,10 +171,13 @@
       </nav>
 
       <div class="flex items-center gap-3">
-        <button onclick="toggleDarkMode()" class="p-2.5 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-yellow-400 hover:scale-105 transition" title="Dark/Light Mode">
+        <button onclick="toggleDarkMode()"
+          class="p-2.5 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-yellow-400 hover:scale-105 transition"
+          title="Dark/Light Mode">
           <i id="themeIcon" class="fa fa-moon"></i>
         </button>
-        <a href="/admin.html" class="text-xs font-bold text-gray-500 dark:text-gray-400 hover:text-blue-600 transition flex items-center gap-1 bg-gray-100 dark:bg-gray-700 px-3.5 py-2 rounded-xl">
+        <a href="/admin.html"
+          class="text-xs font-bold text-gray-500 dark:text-gray-400 hover:text-blue-600 transition flex items-center gap-1 bg-gray-100 dark:bg-gray-700 px-3.5 py-2 rounded-xl">
           <i class="fa fa-lock"></i> Admin
         </a>
       </div>
@@ -112,7 +188,7 @@
 
     <!-- 2-Column Responsive Layout -->
     <div class="grid grid-cols-1 lg:grid-cols-4 gap-8 items-start">
-      
+
       <!-- Left: Categories Grid (3 Columns) -->
       <div class="lg:col-span-3">
         <div class="mb-6 flex items-center justify-between">
@@ -128,26 +204,31 @@
 
       <!-- Right: Sidebar (Socials + Trending Stories) -->
       <aside class="lg:col-span-1 space-y-6">
-        
+
         <!-- Social Communities Box -->
-        <div class="bg-white dark:bg-gray-800 p-5 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 space-y-3">
+        <div
+          class="bg-white dark:bg-gray-800 p-5 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 space-y-3">
           <h3 class="text-sm font-bold text-gray-900 dark:text-white flex items-center gap-2 mb-2">
             <i class="fa fa-users text-blue-500"></i> අපගේ සමාජ ජාල
           </h3>
-          <a href="https://t.me/apedesinhal" target="_blank" class="glow-btn w-full py-2.5 px-4 bg-gradient-to-r from-sky-400 to-blue-500 text-white text-xs font-bold rounded-xl flex items-center justify-center gap-2 shadow-sm">
+          <a href="https://t.me/apedesinhal" target="_blank"
+            class="glow-btn btn-telegram-gradient w-full py-2.5 px-4 text-white text-xs font-bold rounded-xl flex items-center justify-center gap-2 shadow-sm">
             <i class="fab fa-telegram text-base"></i> Telegram Channel
           </a>
-          <a href="https://web.facebook.com/share/g/1FyeJTMwyP/" target="_blank" class="glow-btn w-full py-2.5 px-4 bg-gradient-to-r from-blue-700 to-indigo-800 text-white text-xs font-bold rounded-xl flex items-center justify-center gap-2 shadow-sm">
+          <a href="https://web.facebook.com/share/g/1FyeJTMwyP/" target="_blank"
+            class="glow-btn btn-facebook-gradient w-full py-2.5 px-4 text-white text-xs font-bold rounded-xl flex items-center justify-center gap-2 shadow-sm">
             <i class="fab fa-facebook text-base"></i> Facebook Group
           </a>
-          <a href="https://whatsapp.com/channel/0029Vb6WiFD7Noa9ikoz4W0w" target="_blank" class="glow-btn w-full py-2.5 px-4 bg-gradient-to-r from-emerald-500 to-green-600 text-white text-xs font-bold rounded-xl flex items-center justify-center gap-2 shadow-sm">
+          <a href="https://whatsapp.com/channel/0029Vb6WiFD7Noa9ikoz4W0w" target="_blank"
+            class="glow-btn btn-whatsapp-gradient w-full py-2.5 px-4 text-white text-xs font-bold rounded-xl flex items-center justify-center gap-2 shadow-sm">
             <i class="fab fa-whatsapp text-base"></i> WhatsApp Channel
           </a>
         </div>
 
         <!-- Trending Stories Box -->
         <div class="bg-white dark:bg-gray-800 p-5 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700">
-          <h3 class="text-sm font-bold text-gray-900 dark:text-white flex items-center gap-2 border-b border-gray-100 dark:border-gray-700 pb-3 mb-4">
+          <h3
+            class="text-sm font-bold text-gray-900 dark:text-white flex items-center gap-2 border-b border-gray-100 dark:border-gray-700 pb-3 mb-4">
             <i class="fa fa-fire text-amber-500"></i> වැඩිපුරම නැරඹූ කතා (Trending)
           </h3>
           <div id="trending-container" class="space-y-3.5">
@@ -264,4 +345,5 @@
     loadTrending();
   </script>
 </body>
+
 </html>
