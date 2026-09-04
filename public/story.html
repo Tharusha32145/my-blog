@@ -9,6 +9,10 @@
   <meta http-equiv="Expires" content="0">
 
   <title>Story Reader</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+  <link rel="dns-prefetch" href="https://cdn.tailwindcss.com">
   <script src="https://cdn.tailwindcss.com"></script>
   <script>tailwind.config = { darkMode: 'class' }</script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -43,8 +47,16 @@
       background: linear-gradient(135deg, #f59e0b, #ea580c) !important;
       color: #ffffff !important;
     }
+    .btn-purple-gradient {
+      background: linear-gradient(135deg, #9333ea, #db2777) !important;
+      color: #ffffff !important;
+    }
     .btn-red-gradient {
       background: linear-gradient(135deg, #e11d48, #be123c) !important;
+      color: #ffffff !important;
+    }
+    .btn-cyan-gradient {
+      background: linear-gradient(135deg, #06b6d4, #2563eb) !important;
       color: #ffffff !important;
     }
     .btn-telegram-gradient {
@@ -107,10 +119,10 @@
 
       <!-- Navigation -->
       <nav class="flex flex-wrap gap-3 items-center justify-center">
-        <a href="/" class="glow-btn btn-blue-gradient px-5 py-2 rounded-xl text-white text-xs font-bold shadow-md flex items-center gap-1.5">
+        <a href="/" class="glow-btn btn-blue-gradient px-4 py-2 rounded-xl text-white text-xs font-bold shadow-md flex items-center gap-1.5">
           <i class="fa fa-home"></i> Home
         </a>
-        <a href="/categories.html" class="glow-btn btn-orange-gradient px-5 py-2 rounded-xl text-white text-xs font-bold shadow-md flex items-center gap-1.5">
+        <a href="/categories.html" class="glow-btn btn-orange-gradient px-4 py-2 rounded-xl text-white text-xs font-bold shadow-md flex items-center gap-1.5">
           <i class="fa fa-layer-group"></i> All Series 
         </a>
       </nav>
