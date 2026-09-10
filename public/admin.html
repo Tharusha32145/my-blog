@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="si">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin Panel</title>
+  <title>Admin Panel - අපේ දේ</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
@@ -13,19 +14,19 @@
   <style>
     body {
       background: #222D32;
-      font-family: 'Roboto', sans-serif;
+      font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     }
 
     .login-box {
       background: #1A2226;
       text-align: center;
-      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
     }
 
     .login-key {
-      height: 100px;
-      font-size: 80px;
-      line-height: 100px;
+      height: 90px;
+      font-size: 70px;
+      line-height: 90px;
       background: -webkit-linear-gradient(#27EF9F, #0DB8DE);
       -webkit-background-clip: text;
       background-clip: text;
@@ -33,7 +34,7 @@
     }
 
     .login-title {
-      font-size: 27px;
+      font-size: 24px;
       letter-spacing: 2px;
       font-weight: bold;
       color: #ECF0F5;
@@ -120,20 +121,35 @@
     .glow-btn:hover {
       transform: translateY(-2px);
     }
+
+    /* Custom scrollbar for reader modal */
+    .modal-scroll::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .modal-scroll::-webkit-scrollbar-track {
+      background: #111827;
+    }
+
+    .modal-scroll::-webkit-scrollbar-thumb {
+      background: #374151;
+      border-radius: 9999px;
+    }
   </style>
 </head>
 
-<body class="min-h-screen flex items-center justify-center p-4">
+<body class="min-h-screen bg-[#222D32] flex flex-col items-center justify-start p-2.5 sm:p-6 text-gray-100">
 
   <!-- LOGIN SCREEN -->
-  <div id="login-container" class="w-full max-w-md login-box p-8 rounded-2xl">
+  <div id="login-container" class="w-full max-w-md login-box p-6 sm:p-8 rounded-2xl my-auto">
     <div class="flex justify-start mb-2">
-      <a href="/" class="text-xs text-gray-400 hover:text-cyan-400 flex items-center gap-1"><i
-          class="fa fa-arrow-left"></i> Home </a>
+      <a href="/" class="text-xs text-gray-400 hover:text-cyan-400 flex items-center gap-1">
+        <i class="fa fa-arrow-left"></i> Home
+      </a>
     </div>
-    <div class="login-key mb-4"><i class="fa fa-key"></i></div>
-    <div class="login-title mb-6">ADMIN PANEL</div>
-    <form onsubmit="handleLogin(event)" class="space-y-6 text-left">
+    <div class="login-key mb-3"><i class="fa fa-key"></i></div>
+    <div class="login-title mb-5">ADMIN PANEL</div>
+    <form onsubmit="handleLogin(event)" class="space-y-5 text-left">
       <div>
         <label class="text-xs text-gray-400 font-bold tracking-widest block mb-2">USERNAME</label>
         <input type="text" id="adminUser" required class="w-full px-3 py-2 dark-input">
@@ -143,32 +159,36 @@
         <input type="password" id="adminPass" required class="w-full px-3 py-2 dark-input">
       </div>
       <div id="loginErr" class="text-red-400 text-xs font-bold text-center hidden">Username හෝ Password වැරදියි!</div>
-      <button type="submit" class="w-full py-3 btn-login rounded-lg transition">LOGIN</button>
+      <button type="submit" class="w-full py-3 btn-login rounded-lg transition text-sm">LOGIN</button>
     </form>
   </div>
 
   <!-- ADMIN DASHBOARD -->
   <div id="dashboard-container"
-    class="w-full max-w-5xl bg-gray-900 text-gray-100 p-6 sm:p-8 rounded-2xl shadow-2xl border border-gray-800 hidden space-y-10">
-    <div class="flex justify-between items-center border-b border-gray-800 pb-4">
+    class="w-full max-w-5xl bg-gray-900 text-gray-100 p-3.5 sm:p-8 rounded-2xl shadow-2xl border border-gray-800 hidden space-y-7 my-2 sm:my-4">
+
+    <!-- Top Header Bar -->
+    <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-3.5 border-b border-gray-800 pb-4">
       <div>
-        <h2 class="text-2xl font-bold text-cyan-400"><i class="fa fa-tachometer-alt mr-2"></i>Story Admin Panel</h2>
-        <p class="text-xs text-gray-400">අලුත් කතා පළ කිරීම, Schedule කිරීම සහ දින අනුව කළමනාකරණය</p>
+        <h2 class="text-xl sm:text-2xl font-bold text-cyan-400 flex items-center gap-2">
+          <i class="fa fa-tachometer-alt"></i> Story Admin Panel
+        </h2>
+        <p class="text-xs text-gray-400 mt-0.5">අලුත් කතා පළ කිරීම, Schedule කිරීම සහ දින අනුව කළමනාකරණය</p>
       </div>
-      <div class="flex items-center gap-3">
+      <div class="flex items-center gap-2 self-end sm:self-auto">
         <a href="/"
-          class="glow-btn btn-blue-gradient px-4 py-2 text-white rounded-xl text-xs font-bold transition flex items-center gap-1">
+          class="glow-btn btn-blue-gradient px-3.5 py-2 text-white rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow">
           <i class="fa fa-home"></i> Home View
         </a>
         <button onclick="logout()"
-          class="px-4 py-2 bg-red-600/20 text-red-400 hover:bg-red-600 hover:text-white rounded-xl text-xs font-bold transition">LOGOUT</button>
+          class="px-3.5 py-2 bg-red-600/20 text-red-400 hover:bg-red-600 hover:text-white rounded-xl text-xs font-bold transition">LOGOUT</button>
       </div>
     </div>
 
     <!-- Create / Edit Post Form -->
-    <div class="bg-gray-800/60 p-6 rounded-xl border border-gray-700" id="form-card">
+    <div class="bg-gray-800/60 p-4 sm:p-6 rounded-xl border border-gray-700" id="form-card">
       <div class="flex justify-between items-center mb-4">
-        <h3 class="text-lg font-bold text-white flex items-center gap-2" id="formTitle">
+        <h3 class="text-base sm:text-lg font-bold text-white flex items-center gap-2" id="formTitle">
           <i class="fa fa-plus-circle text-emerald-400"></i> අලුත් කතාවක් එකතු කරන්න
         </h3>
         <button id="cancelEditBtn" onclick="resetForm()"
@@ -176,31 +196,31 @@
           කරන්න</button>
       </div>
 
-      <form onsubmit="handleFormSubmit(event)" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <form onsubmit="handleFormSubmit(event)" class="grid grid-cols-1 md:grid-cols-2 gap-3.5 sm:gap-4">
         <input type="hidden" id="editStoryId">
 
         <div class="md:col-span-2">
           <label class="text-xs text-gray-400 font-bold block mb-1">කතාවේ මාතෘකාව (Title & Part) *</label>
           <input type="text" id="title" required placeholder="උදා: සමාධි අක්කා 01"
-            class="w-full p-2.5 bg-gray-900 border border-gray-700 rounded-lg text-sm text-white focus:border-cyan-400 outline-none">
+            class="w-full p-2.5 sm:p-3 bg-gray-900 border border-gray-700 rounded-lg text-sm text-white focus:border-cyan-400 outline-none">
         </div>
 
         <div>
           <label class="text-xs text-gray-400 font-bold block mb-1">කර්තෘගේ නම (Author)</label>
           <input type="text" id="author" placeholder="උදා: Rish Janzz"
-            class="w-full p-2.5 bg-gray-900 border border-gray-700 rounded-lg text-sm text-white focus:border-cyan-400 outline-none">
+            class="w-full p-2.5 sm:p-3 bg-gray-900 border border-gray-700 rounded-lg text-sm text-white focus:border-cyan-400 outline-none">
         </div>
 
         <div>
           <label class="text-xs text-gray-400 font-bold block mb-1">කර්තෘගේ Email එක (Author Email)</label>
           <input type="email" id="authorEmail" placeholder="author@example.com"
-            class="w-full p-2.5 bg-gray-900 border border-gray-700 rounded-lg text-sm text-white focus:border-cyan-400 outline-none">
+            class="w-full p-2.5 sm:p-3 bg-gray-900 border border-gray-700 rounded-lg text-sm text-white focus:border-cyan-400 outline-none">
         </div>
 
         <div>
           <label class="text-xs text-pink-400 font-bold block mb-1">ප්‍රධාන ප්‍රවර්ගය (Main Category)</label>
           <select id="mainCategory"
-            class="w-full p-2.5 bg-gray-900 border border-gray-700 rounded-lg text-sm text-white focus:border-cyan-400 outline-none">
+            class="w-full p-2.5 sm:p-3 bg-gray-900 border border-gray-700 rounded-lg text-sm text-white focus:border-cyan-400 outline-none">
             <option value="අම්ම පුතා">අම්ම පුතා</option>
             <option value="තාත්ත දුව">තාත්ත දුව</option>
             <option value="සහෝදර/සහෝදරී">සහෝදර/සහෝදරී</option>
@@ -215,94 +235,225 @@
         <div>
           <label class="text-xs text-cyan-400 font-bold block mb-1">කතා මාලාවේ නම (Series Name) *</label>
           <input type="text" id="seriesName" required placeholder="උදා: සමාධි අක්කා"
-            class="w-full p-2.5 bg-gray-900 border border-gray-700 rounded-lg text-sm text-white focus:border-cyan-400 outline-none">
+            class="w-full p-2.5 sm:p-3 bg-gray-900 border border-gray-700 rounded-lg text-sm text-white focus:border-cyan-400 outline-none">
         </div>
 
         <div class="md:col-span-2">
           <label class="text-xs text-gray-400 font-bold block mb-1">Image URL (Direct Link) *</label>
           <input type="text" id="imageUrl" required placeholder="https://i.ibb.co/xxxx/photo.jpg"
-            class="w-full p-2.5 bg-gray-900 border border-gray-700 rounded-lg text-sm text-white focus:border-cyan-400 outline-none">
+            class="w-full p-2.5 sm:p-3 bg-gray-900 border border-gray-700 rounded-lg text-sm text-white focus:border-cyan-400 outline-none">
         </div>
 
         <div class="md:col-span-2">
           <label class="text-xs text-amber-400 font-bold block mb-1">කතාවේ ආරම්භක ඡේදය / මුල් කොටස (Buttons වලට උඩින්
             නොමිලේ පෙන්වන කොටස)</label>
-          <textarea id="previewContent" rows="4" placeholder="කතාවේ මුල් ඡේද කිහිපය මෙතනට ඇතුළත් කරන්න..."
+          <textarea id="previewContent" rows="3" placeholder="කතාවේ මුල් ඡේද කිහිපය මෙතනට ඇතුළත් කරන්න..."
             class="w-full p-3 bg-gray-900 border border-gray-700 rounded-lg text-sm text-white focus:border-amber-400 outline-none"></textarea>
         </div>
 
         <div class="md:col-span-2">
           <label class="text-xs text-emerald-400 font-bold block mb-1">කතාවේ ඉතිරි කොටස (Server 1 & 2 Unlock වූ පසු
             පෙන්වන කොටස) *</label>
-          <textarea id="storyContent" rows="8" required placeholder="ඉතිරි සම්පූර්ණ කතාව මෙතනට Paste කරන්න..."
+          <textarea id="storyContent" rows="7" required placeholder="ඉතිරි සම්පූර්ණ කතාව මෙතනට Paste කරන්න..."
             class="w-full p-3 bg-gray-900 border border-gray-700 rounded-lg text-sm text-white focus:border-cyan-400 outline-none"></textarea>
         </div>
 
         <div>
           <label class="text-xs text-gray-400 font-bold block mb-1">Ad 1 Link</label>
           <input type="text" id="adLink1" value="https://omg10.com/4/10608751"
-            class="w-full p-2.5 bg-gray-900 border border-gray-700 rounded-lg text-sm text-white outline-none">
+            class="w-full p-2.5 sm:p-3 bg-gray-900 border border-gray-700 rounded-lg text-sm text-white outline-none">
         </div>
 
         <div>
           <label class="text-xs text-gray-400 font-bold block mb-1">Ad 2 Link</label>
           <input type="text" id="adLink2" value="https://omg10.com/4/10608752"
-            class="w-full p-2.5 bg-gray-900 border border-gray-700 rounded-lg text-sm text-white outline-none">
+            class="w-full p-2.5 sm:p-3 bg-gray-900 border border-gray-700 rounded-lg text-sm text-white outline-none">
         </div>
 
         <div class="md:col-span-2">
           <label class="text-xs text-gray-400 font-bold block mb-1">සියලුම කොටස් Link (All Parts Link)</label>
           <input type="text" id="allPartsLink" placeholder="හිස්ව තැබුවහොත් මෙම කතා මාලාවේ සියලුම කොටස් auto link වේ"
-            class="w-full p-2.5 bg-gray-900 border border-gray-700 rounded-lg text-sm text-white outline-none">
+            class="w-full p-2.5 sm:p-3 bg-gray-900 border border-gray-700 rounded-lg text-sm text-white outline-none">
         </div>
 
-        <div class="md:col-span-2">
-          <label class="text-xs text-amber-400 font-bold block mb-1">📅 Schedule / Publish Date & Time</label>
-          <input type="datetime-local" id="publishAt"
-            class="w-full p-2.5 bg-gray-900 border border-gray-700 rounded-lg text-sm text-white outline-none focus:border-amber-400">
-          <span class="text-[11px] text-gray-400 mt-1 block">💡 හිස්ව තැබුවහොත් දැන්ම Live වේ. අනාගත දිනයක් සහ වෙලාවක්
-            (උදා: උදේ 07:00, දවල් 01:00, හවස 06:00) දැමුවහොත් Schedule වේ.</span>
+        <!-- 3-Slot Schedule & Timing Selector (Only 7am, 1pm, 6pm) -->
+        <div class="md:col-span-2 bg-gray-900/90 p-3.5 sm:p-5 rounded-xl border border-amber-500/30 space-y-3.5">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 border-b border-gray-800 pb-3">
+            <div>
+              <label class="text-xs sm:text-sm text-amber-400 font-extrabold flex items-center gap-2">
+                <i class="fa fa-clock text-amber-400"></i> පළ කිරීමේ වේලාව (Publish Timing)
+              </label>
+              <p class="text-[11px] text-gray-400 mt-0.5">දැන්ම Live කරන්න හෝ අනාගත වේලාවකට Schedule කරන්න</p>
+            </div>
+            <!-- Toggle: Publish Now vs Schedule -->
+            <div
+              class="inline-flex bg-gray-800 p-1 rounded-lg border border-gray-700 self-start sm:self-auto text-xs font-bold">
+              <button type="button" id="timingModeNow" onclick="setTimingMode('now')"
+                class="px-3.5 py-1.5 rounded-md transition bg-emerald-600 text-white shadow">
+                ⚡ දැන්ම Live
+              </button>
+              <button type="button" id="timingModeSchedule" onclick="setTimingMode('schedule')"
+                class="px-3.5 py-1.5 rounded-md transition text-gray-400 hover:text-white">
+                📅 Schedule කරන්න
+              </button>
+            </div>
+          </div>
+
+          <!-- Schedule Options Container (Visible only when Schedule is selected) -->
+          <div id="scheduleControls" class="hidden space-y-3.5 pt-1">
+            <div>
+              <div class="flex flex-wrap items-center justify-between gap-2 mb-1.5">
+                <span class="text-xs text-gray-300 font-bold flex items-center gap-1.5">
+                  <i class="fa fa-calendar-alt text-cyan-400"></i> 1. දිනය තෝරන්න (Select Date)
+                </span>
+                <!-- Quick Date Buttons -->
+                <div class="flex gap-1.5 text-[11px]">
+                  <button type="button" onclick="setScheduleDateQuick('today')"
+                    class="px-2.5 py-1 bg-gray-800 hover:bg-cyan-950/60 text-cyan-300 rounded border border-gray-700 hover:border-cyan-500 font-medium transition">අද</button>
+                  <button type="button" onclick="setScheduleDateQuick('tomorrow')"
+                    class="px-2.5 py-1 bg-gray-800 hover:bg-cyan-950/60 text-cyan-300 rounded border border-gray-700 hover:border-cyan-500 font-medium transition">හෙට</button>
+                  <button type="button" onclick="setScheduleDateQuick('dayAfter')"
+                    class="px-2.5 py-1 bg-gray-800 hover:bg-cyan-950/60 text-cyan-300 rounded border border-gray-700 hover:border-cyan-500 font-medium transition">අනිද්දා</button>
+                </div>
+              </div>
+              <input type="date" id="scheduleDateInput" onchange="updateScheduleSummary()"
+                class="w-full p-2.5 sm:p-3 bg-gray-800 border border-gray-700 rounded-lg text-sm text-white focus:border-cyan-400 outline-none">
+            </div>
+
+            <div>
+              <span class="text-xs text-gray-300 font-bold block mb-1.5 flex items-center gap-1.5">
+                <i class="fa fa-hourglass-half text-amber-400"></i> 2. වේලාව තෝරන්න (පළ කරන වේලාවන් 3 පමණි)
+              </span>
+              <div class="grid grid-cols-3 gap-2">
+                <button type="button" onclick="selectTimeSlot('07:00')" id="slotBtn_0700"
+                  class="time-slot-btn p-2 sm:p-3 rounded-xl border text-center transition flex flex-col items-center justify-center gap-1 bg-amber-500/20 border-amber-400 text-amber-300 font-bold shadow-sm">
+                  <span class="text-xs sm:text-sm font-extrabold">🌅 07:00 AM</span>
+                  <span class="text-[10px] text-gray-300 font-normal">උදෑසන 7:00</span>
+                </button>
+                <button type="button" onclick="selectTimeSlot('13:00')" id="slotBtn_1300"
+                  class="time-slot-btn p-2 sm:p-3 rounded-xl border text-center transition flex flex-col items-center justify-center gap-1 bg-gray-800 border-gray-700 text-gray-400 hover:border-gray-500 hover:text-gray-200 font-bold">
+                  <span class="text-xs sm:text-sm font-extrabold">☀️ 01:00 PM</span>
+                  <span class="text-[10px] text-gray-400 font-normal">දහවල් 1:00</span>
+                </button>
+                <button type="button" onclick="selectTimeSlot('18:00')" id="slotBtn_1800"
+                  class="time-slot-btn p-2 sm:p-3 rounded-xl border text-center transition flex flex-col items-center justify-center gap-1 bg-gray-800 border-gray-700 text-gray-400 hover:border-gray-500 hover:text-gray-200 font-bold">
+                  <span class="text-xs sm:text-sm font-extrabold">🌙 06:00 PM</span>
+                  <span class="text-[10px] text-gray-400 font-normal">හවස 6:00</span>
+                </button>
+              </div>
+              <input type="hidden" id="selectedTimeSlot" value="07:00">
+            </div>
+
+            <div
+              class="text-[11px] sm:text-xs text-amber-300/90 bg-amber-950/30 p-2.5 sm:p-3 rounded-lg border border-amber-900/50 flex items-center gap-2">
+              <i class="fa fa-info-circle text-amber-400 text-sm flex-shrink-0"></i>
+              <span id="scheduleSummaryText">තෝරාගත් දිනයේ උදෑසන 07:00 ට මෙම කතාව ස්වයංක්‍රීයව Live වේ.</span>
+            </div>
+          </div>
         </div>
 
-        <div class="md:col-span-2 pt-2">
+        <!-- Submit & Preview Button Actions -->
+        <div class="md:col-span-2 pt-2 flex flex-col sm:flex-row gap-3">
+          <button type="button" onclick="previewCurrentFormStory()"
+            class="glow-btn btn-purple-gradient px-5 py-3 rounded-xl text-white font-bold transition shadow-md flex items-center justify-center gap-2 text-sm order-2 sm:order-1">
+            <i class="fa fa-book-reader"></i> කතාව Preview බලන්න
+          </button>
           <button type="submit" id="submitBtn"
-            class="glow-btn btn-cyan-gradient w-full py-3 text-white font-bold rounded-xl transition shadow-lg">කතාව පළ
-            කරන්න</button>
+            class="glow-btn btn-cyan-gradient flex-1 py-3 text-white font-bold rounded-xl transition shadow-lg text-sm sm:text-base order-1 sm:order-2">
+            කතාව පළ කරන්න
+          </button>
         </div>
       </form>
     </div>
 
     <!-- Posts Manager Section with Dedicated View Tabs -->
-    <div class="space-y-6">
+    <div class="space-y-5">
 
       <!-- Top Manager Filter Tabs -->
-      <div class="flex flex-wrap items-center justify-between gap-3 border-b border-gray-800 pb-4">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-gray-800 pb-4">
         <div>
-          <h3 class="text-lg font-bold text-white flex items-center gap-2">
+          <h3 class="text-base sm:text-lg font-bold text-white flex items-center gap-2">
             <i class="fa fa-calendar-alt text-amber-400"></i> කතා කළමනාකරණය (Story Manager)
           </h3>
           <p class="text-xs text-gray-400">දින අනුව Schedule කළ කතා සහ පළ කළ කතා වෙන් වෙන්ව බලන්න</p>
         </div>
 
-        <div class="flex bg-gray-800 p-1 rounded-xl border border-gray-700">
+        <div class="grid grid-cols-3 bg-gray-800 p-1 rounded-xl border border-gray-700 w-full sm:w-auto">
           <button onclick="switchViewTab('scheduled')" id="tabBtnScheduled"
-            class="px-4 py-2 rounded-lg text-xs font-bold transition bg-amber-500 text-gray-900 shadow">
-            ⏳ Schedule කළ කතා (<span id="scheduledCount">0</span>)
+            class="px-2.5 sm:px-4 py-2 rounded-lg text-xs font-bold transition bg-amber-500 text-gray-900 shadow text-center truncate">
+            ⏳ Schedule (<span id="scheduledCount">0</span>)
           </button>
           <button onclick="switchViewTab('published')" id="tabBtnPublished"
-            class="px-4 py-2 rounded-lg text-xs font-bold transition text-gray-400 hover:text-white">
-            🟢 Live කතා (<span id="publishedCount">0</span>)
+            class="px-2.5 sm:px-4 py-2 rounded-lg text-xs font-bold transition text-gray-400 hover:text-white text-center truncate">
+            🟢 Live (<span id="publishedCount">0</span>)
           </button>
           <button onclick="switchViewTab('all')" id="tabBtnAll"
-            class="px-4 py-2 rounded-lg text-xs font-bold transition text-gray-400 hover:text-white">
+            class="px-2.5 sm:px-4 py-2 rounded-lg text-xs font-bold transition text-gray-400 hover:text-white text-center truncate">
             📂 සියල්ල (<span id="allCount">0</span>)
           </button>
         </div>
       </div>
 
       <!-- Container where stories render -->
-      <div id="postsList" class="space-y-6">
+      <div id="postsList" class="space-y-4 sm:space-y-6">
         <div class="text-gray-500 text-sm text-center py-8">අපේ දේ...</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- STORY PREVIEW / READER MODAL (ලස්සනට කියවීමේ පහසුකම) -->
+  <div id="storyReaderModal"
+    class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md hidden flex items-center justify-center p-2.5 sm:p-4 overflow-y-auto">
+    <div
+      class="bg-gray-900 text-gray-100 w-full max-w-3xl rounded-2xl border border-gray-700 shadow-2xl overflow-hidden flex flex-col max-h-[92vh]">
+
+      <!-- Modal Sticky Header -->
+      <div
+        class="bg-gray-800/95 border-b border-gray-700 px-3.5 sm:px-5 py-3 flex items-center justify-between gap-2 flex-shrink-0">
+        <div class="flex items-center gap-2 min-w-0">
+          <span
+            class="px-2 sm:px-2.5 py-1 rounded-full text-[11px] font-bold bg-purple-950 text-purple-300 border border-purple-800 flex items-center gap-1 flex-shrink-0">
+            <i class="fa fa-book-reader"></i> Reader
+          </span>
+          <h3 id="modalStoryTitleHeader" class="text-xs sm:text-sm font-bold text-white truncate">කතාව කියවන්න</h3>
+        </div>
+        <div class="flex items-center gap-2 flex-shrink-0">
+          <!-- Font Size Adjustment -->
+          <div class="flex items-center bg-gray-900 border border-gray-700 rounded-lg overflow-hidden text-xs">
+            <button type="button" onclick="adjustReaderFontSize(-1)"
+              class="px-2 sm:px-2.5 py-1 text-gray-300 hover:text-white hover:bg-gray-800"
+              title="Decrease Font">A-</button>
+            <button type="button" onclick="adjustReaderFontSize(1)"
+              class="px-2 sm:px-2.5 py-1 text-gray-300 hover:text-white hover:bg-gray-800 font-bold"
+              title="Increase Font">A+</button>
+          </div>
+          <!-- Edit Button from Modal -->
+          <button id="modalEditBtn" onclick="editStoryFromModal()"
+            class="px-2.5 sm:px-3 py-1 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-xs font-bold transition flex items-center gap-1">
+            <i class="fa fa-edit"></i> <span class="hidden xs:inline sm:inline">Edit</span>
+          </button>
+          <!-- Close Button -->
+          <button onclick="closeStoryReaderModal()"
+            class="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-gray-700 hover:bg-gray-600 text-gray-300 hover:text-white flex items-center justify-center text-sm font-bold transition">
+            <i class="fa fa-times"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Modal Scrollable Content -->
+      <div class="p-3.5 sm:p-6 overflow-y-auto modal-scroll space-y-4 sm:space-y-6" id="modalStoryBody">
+        <!-- Content dynamically inserted -->
+      </div>
+
+      <!-- Modal Footer -->
+      <div
+        class="bg-gray-800/90 border-t border-gray-700 px-4 py-2.5 flex justify-between items-center flex-shrink-0 text-xs text-gray-400">
+        <span class="text-[11px] text-gray-400">අපේ දේ Story Reader</span>
+        <button onclick="closeStoryReaderModal()"
+          class="px-3.5 py-1.5 bg-gray-700 hover:bg-gray-600 text-white rounded-lg font-bold text-xs">
+          වසන්න (Close)
+        </button>
       </div>
 
     </div>
@@ -312,6 +463,12 @@
     let token = localStorage.getItem('admin_token') || '';
     let allStoriesCache = [];
     let activeViewTab = 'scheduled'; // Default view: Scheduled stories by date
+
+    // Timing & Slot state
+    let timingMode = 'now'; // 'now' or 'schedule'
+    let currentSlot = '07:00'; // '07:00', '13:00', or '18:00'
+    let currentPreviewStoryId = null;
+    let readerFontSize = 16;
 
     function checkAuth() {
       if (token) {
@@ -348,6 +505,88 @@
       location.reload();
     }
 
+    // --- TIMING & SCHEDULE HANDLING ---
+    function setTimingMode(mode) {
+      timingMode = mode;
+      const btnNow = document.getElementById('timingModeNow');
+      const btnSch = document.getElementById('timingModeSchedule');
+      const controls = document.getElementById('scheduleControls');
+
+      if (mode === 'now') {
+        btnNow.className = 'px-3.5 py-1.5 rounded-md transition bg-emerald-600 text-white shadow font-bold';
+        btnSch.className = 'px-3.5 py-1.5 rounded-md transition text-gray-400 hover:text-white font-bold';
+        controls.classList.add('hidden');
+      } else {
+        btnSch.className = 'px-3.5 py-1.5 rounded-md transition bg-amber-500 text-gray-900 shadow font-bold';
+        btnNow.className = 'px-3.5 py-1.5 rounded-md transition text-gray-400 hover:text-white font-bold';
+        controls.classList.remove('hidden');
+        if (!document.getElementById('scheduleDateInput').value) {
+          setScheduleDateQuick('today');
+        } else {
+          updateScheduleSummary();
+        }
+      }
+    }
+
+    function selectTimeSlot(slot) {
+      currentSlot = slot;
+      document.getElementById('selectedTimeSlot').value = slot;
+
+      const slots = ['07:00', '13:00', '18:00'];
+      slots.forEach(s => {
+        const id = 'slotBtn_' + s.replace(':', '');
+        const btn = document.getElementById(id);
+        if (!btn) return;
+        if (s === slot) {
+          btn.className = 'time-slot-btn p-2 sm:p-3 rounded-xl border text-center transition flex flex-col items-center justify-center gap-1 bg-amber-500/20 border-amber-400 text-amber-300 font-bold shadow-sm';
+        } else {
+          btn.className = 'time-slot-btn p-2 sm:p-3 rounded-xl border text-center transition flex flex-col items-center justify-center gap-1 bg-gray-800 border-gray-700 text-gray-400 hover:border-gray-500 hover:text-gray-200 font-bold';
+        }
+      });
+      updateScheduleSummary();
+    }
+
+    function setScheduleDateQuick(type) {
+      const now = new Date();
+      if (type === 'tomorrow') {
+        now.setDate(now.getDate() + 1);
+      } else if (type === 'dayAfter') {
+        now.setDate(now.getDate() + 2);
+      }
+      const y = now.getFullYear();
+      const m = String(now.getMonth() + 1).padStart(2, '0');
+      const d = String(now.getDate()).padStart(2, '0');
+      document.getElementById('scheduleDateInput').value = `${y}-${m}-${d}`;
+      updateScheduleSummary();
+    }
+
+    function updateScheduleSummary() {
+      const dateVal = document.getElementById('scheduleDateInput').value;
+      if (!dateVal) return;
+      const slotNames = {
+        '07:00': 'උදෑසන 07:00 ට',
+        '13:00': 'දහවල් 01:00 ට',
+        '18:00': 'හවස 06:00 ට'
+      };
+      const slotText = slotNames[currentSlot] || `${currentSlot} ට`;
+      const [year, month, day] = dateVal.split('-');
+      document.getElementById('scheduleSummaryText').innerText = `${year}-${month}-${day} දින ${slotText} මෙම කතාව ස්වයංක්‍රීයව Live වේ.`;
+    }
+
+    function getSelectedPublishAtDate() {
+      if (timingMode === 'now') {
+        return new Date();
+      }
+      const dateVal = document.getElementById('scheduleDateInput').value;
+      if (!dateVal) {
+        return new Date();
+      }
+      const [year, month, day] = dateVal.split('-').map(Number);
+      const [hours, minutes] = currentSlot.split(':').map(Number);
+      return new Date(year, month - 1, day, hours, minutes, 0);
+    }
+
+    // --- VIEW TABS ---
     function switchViewTab(tab) {
       activeViewTab = tab;
 
@@ -355,9 +594,9 @@
       const btnPub = document.getElementById('tabBtnPublished');
       const btnAll = document.getElementById('tabBtnAll');
 
-      btnSch.className = tab === 'scheduled' ? 'px-4 py-2 rounded-lg text-xs font-bold transition bg-amber-500 text-gray-900 shadow' : 'px-4 py-2 rounded-lg text-xs font-bold transition text-gray-400 hover:text-white';
-      btnPub.className = tab === 'published' ? 'px-4 py-2 rounded-lg text-xs font-bold transition bg-emerald-500 text-gray-900 shadow' : 'px-4 py-2 rounded-lg text-xs font-bold transition text-gray-400 hover:text-white';
-      btnAll.className = tab === 'all' ? 'px-4 py-2 rounded-lg text-xs font-bold transition bg-blue-600 text-white shadow' : 'px-4 py-2 rounded-lg text-xs font-bold transition text-gray-400 hover:text-white';
+      btnSch.className = tab === 'scheduled' ? 'px-2.5 sm:px-4 py-2 rounded-lg text-xs font-bold transition bg-amber-500 text-gray-900 shadow text-center truncate' : 'px-2.5 sm:px-4 py-2 rounded-lg text-xs font-bold transition text-gray-400 hover:text-white text-center truncate';
+      btnPub.className = tab === 'published' ? 'px-2.5 sm:px-4 py-2 rounded-lg text-xs font-bold transition bg-emerald-500 text-gray-900 shadow text-center truncate' : 'px-2.5 sm:px-4 py-2 rounded-lg text-xs font-bold transition text-gray-400 hover:text-white text-center truncate';
+      btnAll.className = tab === 'all' ? 'px-2.5 sm:px-4 py-2 rounded-lg text-xs font-bold transition bg-blue-600 text-white shadow text-center truncate' : 'px-2.5 sm:px-4 py-2 rounded-lg text-xs font-bold transition text-gray-400 hover:text-white text-center truncate';
 
       renderStoriesView();
     }
@@ -366,6 +605,8 @@
       e.preventDefault();
       const editId = document.getElementById('editStoryId').value;
       const isEdit = !!editId;
+
+      const publishAtDate = getSelectedPublishAtDate();
 
       const payload = {
         title: document.getElementById('title').value,
@@ -379,7 +620,7 @@
         adLink1: document.getElementById('adLink1').value,
         adLink2: document.getElementById('adLink2').value,
         allPartsLink: document.getElementById('allPartsLink').value,
-        publishAt: document.getElementById('publishAt').value ? new Date(document.getElementById('publishAt').value) : new Date()
+        publishAt: publishAtDate.toISOString()
       };
 
       const url = isEdit ? `/api/articles/${editId}` : '/api/articles';
@@ -438,7 +679,7 @@
         const groups = {};
         scheduledPosts.forEach(p => {
           const d = new Date(p.publishAt);
-          const dateKey = d.toISOString().split('T')[0]; // YYYY-MM-DD
+          const dateKey = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
           if (!groups[dateKey]) groups[dateKey] = [];
           groups[dateKey].push(p);
         });
@@ -448,7 +689,6 @@
           const postsForDay = groups[dateKey];
           const sampleDate = new Date(postsForDay[0].publishAt);
 
-          // Formatted Sinhala Day Name: e.g., "2026 අගෝස්තු 22 (සෙනසුරාදා)"
           const dateDisplay = sampleDate.toLocaleDateString('si-LK', {
             weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
           });
@@ -458,38 +698,41 @@
             const pTime = new Date(p.publishAt);
             const timeString = pTime.toLocaleTimeString('si-LK', { hour: '2-digit', minute: '2-digit', hour12: true });
 
-            // Time Slot Indicator (Morning / Noon / Evening)
+            // Time Slot Indicator (Morning 7am / Noon 1pm / Evening 6pm)
             const hours = pTime.getHours();
-            let slotBadge = '<span class="px-2 py-0.5 rounded bg-blue-950 text-blue-300 text-[10px] font-bold border border-blue-800">🌅 උදෑසන</span>';
+            let slotBadge = '<span class="px-2 py-0.5 rounded bg-blue-950 text-blue-300 text-[10px] font-bold border border-blue-800">🌅 07:00 AM</span>';
             if (hours >= 11 && hours < 16) {
-              slotBadge = '<span class="px-2 py-0.5 rounded bg-amber-950 text-amber-300 text-[10px] font-bold border border-amber-800">☀️ දහවල්</span>';
+              slotBadge = '<span class="px-2 py-0.5 rounded bg-amber-950 text-amber-300 text-[10px] font-bold border border-amber-800">☀️ 01:00 PM</span>';
             } else if (hours >= 16) {
-              slotBadge = '<span class="px-2 py-0.5 rounded bg-purple-950 text-purple-300 text-[10px] font-bold border border-purple-800">🌙 සවස / රාත්‍රී</span>';
+              slotBadge = '<span class="px-2 py-0.5 rounded bg-purple-950 text-purple-300 text-[10px] font-bold border border-purple-800">🌙 06:00 PM</span>';
             }
 
             itemsHtml += `
-              <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center bg-gray-900/80 p-3.5 rounded-xl border border-gray-700/60 hover:border-amber-500/50 transition gap-3">
-                <div class="flex items-center gap-3">
+              <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center bg-gray-900/80 p-3 sm:p-3.5 rounded-xl border border-gray-700/60 hover:border-amber-500/50 transition gap-3">
+                <div class="flex items-center gap-3 min-w-0">
                   <img src="${p.imageUrl}" class="w-12 h-12 object-cover rounded-lg border border-gray-700 flex-shrink-0" onerror="this.src='https://images.unsplash.com/photo-1544717305-2782549b5136?w=600'">
-                  <div>
-                    <h4 class="font-bold text-white text-sm line-clamp-1">${p.title}</h4>
-                    <p class="text-xs text-gray-400 mt-0.5">
-                      Main: <span class="text-pink-400 font-semibold">${p.mainCategory}</span> | 
-                      Series: <span class="text-cyan-400 font-semibold">${p.seriesName}</span>
+                  <div class="min-w-0">
+                    <h4 class="font-bold text-white text-sm truncate">${escapeHtml(p.title)}</h4>
+                    <p class="text-xs text-gray-400 mt-0.5 truncate">
+                      Main: <span class="text-pink-400 font-semibold">${escapeHtml(p.mainCategory)}</span> | 
+                      Series: <span class="text-cyan-400 font-semibold">${escapeHtml(p.seriesName)}</span>
                     </p>
                   </div>
                 </div>
 
-                <div class="flex items-center gap-3 w-full sm:w-auto justify-between sm:justify-end">
-                  <div class="flex items-center gap-2">
+                <div class="flex items-center gap-2 w-full sm:w-auto justify-between sm:justify-end flex-wrap pt-2 sm:pt-0 border-t sm:border-0 border-gray-800">
+                  <div class="flex items-center gap-1.5">
                     ${slotBadge}
-                    <span class="text-amber-400 font-bold text-xs bg-amber-950/40 px-2.5 py-1 rounded-md border border-amber-800/80">
+                    <span class="text-amber-400 font-bold text-xs bg-amber-950/40 px-2 py-0.5 rounded-md border border-amber-800/80">
                       <i class="fa fa-clock text-[10px] mr-1"></i> ${timeString}
                     </span>
                   </div>
-                  <div class="flex gap-1.5">
-                    <button onclick="startEditStory('${p._id}')" class="p-2 bg-blue-600/20 text-blue-400 hover:bg-blue-600 hover:text-white rounded-lg text-xs font-bold transition" title="Edit"><i class="fa fa-edit"></i></button>
-                    <button onclick="deleteStory('${p._id}')" class="p-2 bg-red-600/20 text-red-400 hover:bg-red-600 hover:text-white rounded-lg text-xs font-bold transition" title="Delete"><i class="fa fa-trash"></i></button>
+                  <div class="flex items-center gap-1.5">
+                    <button onclick="previewStoryById('${p._id}')" class="px-2.5 py-1.5 bg-purple-600/20 hover:bg-purple-600 text-purple-300 hover:text-white rounded-lg text-xs font-bold transition flex items-center gap-1" title="කියවන්න (Preview)">
+                      <i class="fa fa-eye"></i> <span>කියවන්න</span>
+                    </button>
+                    <button onclick="startEditStory('${p._id}')" class="p-1.5 sm:p-2 bg-blue-600/20 text-blue-400 hover:bg-blue-600 hover:text-white rounded-lg text-xs font-bold transition" title="Edit"><i class="fa fa-edit"></i></button>
+                    <button onclick="deleteStory('${p._id}')" class="p-1.5 sm:p-2 bg-red-600/20 text-red-400 hover:bg-red-600 hover:text-white rounded-lg text-xs font-bold transition" title="Delete"><i class="fa fa-trash"></i></button>
                   </div>
                 </div>
               </div>
@@ -497,12 +740,12 @@
           });
 
           list.innerHTML += `
-            <div class="bg-gray-800/90 rounded-2xl border border-gray-700 p-5 space-y-3 shadow-lg">
-              <div class="flex justify-between items-center border-b border-gray-700 pb-3">
-                <h4 class="text-sm sm:text-base font-extrabold text-amber-300 flex items-center gap-2">
+            <div class="bg-gray-800/90 rounded-2xl border border-gray-700 p-3.5 sm:p-5 space-y-3 shadow-lg">
+              <div class="flex justify-between items-center border-b border-gray-700 pb-2.5">
+                <h4 class="text-xs sm:text-base font-extrabold text-amber-300 flex items-center gap-2">
                   <i class="fa fa-calendar-day text-amber-400"></i> ${dateDisplay}
                 </h4>
-                <span class="px-3 py-1 bg-amber-500/20 text-amber-300 border border-amber-500/40 rounded-full text-xs font-bold">
+                <span class="px-2.5 py-0.5 sm:px-3 sm:py-1 bg-amber-500/20 text-amber-300 border border-amber-500/40 rounded-full text-[11px] sm:text-xs font-bold">
                   ${postsForDay.length} කතා ඇත
                 </span>
               </div>
@@ -532,25 +775,28 @@
           });
 
           const statusBadge = isScheduled
-            ? `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-amber-950/80 text-amber-300 border border-amber-600"><i class="fa fa-clock"></i> ⏳ Scheduled: ${formattedDateTime}</span>`
-            : `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-emerald-950/80 text-emerald-300 border border-emerald-600"><i class="fa fa-check-circle"></i> 🟢 Live: ${formattedDateTime}</span>`;
+            ? `<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] sm:text-[11px] font-bold bg-amber-950/80 text-amber-300 border border-amber-600"><i class="fa fa-clock"></i> ⏳ Scheduled: ${formattedDateTime}</span>`
+            : `<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] sm:text-[11px] font-bold bg-emerald-950/80 text-emerald-300 border border-emerald-600"><i class="fa fa-check-circle"></i> 🟢 Live: ${formattedDateTime}</span>`;
 
           list.innerHTML += `
-            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center bg-gray-800 p-4 rounded-xl border border-gray-700 gap-4">
-              <div class="flex items-center gap-4">
-                <img src="${img}" class="w-14 h-14 object-cover rounded-lg border border-gray-700 flex-shrink-0" onerror="this.src='https://images.unsplash.com/photo-1544717305-2782549b5136?w=600'">
-                <div class="space-y-1">
-                  <h4 class="font-bold text-white text-sm">${p.title}</h4>
-                  <p class="text-xs text-gray-400">
-                    Main: <span class="text-pink-400 font-semibold">${p.mainCategory}</span> | 
-                    Series: <span class="text-cyan-400 font-semibold">${p.seriesName}</span> | 
-                    By: ${p.author} | 
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center bg-gray-800 p-3.5 sm:p-4 rounded-xl border border-gray-700 gap-3.5">
+              <div class="flex items-center gap-3 min-w-0">
+                <img src="${img}" class="w-12 h-12 sm:w-14 sm:h-14 object-cover rounded-lg border border-gray-700 flex-shrink-0" onerror="this.src='https://images.unsplash.com/photo-1544717305-2782549b5136?w=600'">
+                <div class="space-y-0.5 min-w-0">
+                  <h4 class="font-bold text-white text-sm truncate">${escapeHtml(p.title)}</h4>
+                  <p class="text-xs text-gray-400 truncate">
+                    Main: <span class="text-pink-400 font-semibold">${escapeHtml(p.mainCategory)}</span> | 
+                    Series: <span class="text-cyan-400 font-semibold">${escapeHtml(p.seriesName)}</span> | 
+                    By: ${escapeHtml(p.author)} | 
                     <span class="text-amber-400 font-semibold"><i class="fa fa-eye text-[10px]"></i> ${p.views || 0}</span>
                   </p>
-                  <div class="pt-0.5">${statusBadge}</div>
+                  <div class="pt-1">${statusBadge}</div>
                 </div>
               </div>
-              <div class="flex gap-2 w-full sm:w-auto justify-end">
+              <div class="flex gap-2 w-full sm:w-auto justify-end flex-wrap pt-2 sm:pt-0 border-t sm:border-0 border-gray-700">
+                <button onclick="previewStoryById('${p._id}')" class="px-3 py-1.5 bg-purple-600/20 hover:bg-purple-600 text-purple-300 hover:text-white rounded-lg text-xs font-bold transition flex items-center gap-1">
+                  <i class="fa fa-eye"></i> කියවන්න
+                </button>
                 <button onclick="startEditStory('${p._id}')" class="px-3 py-1.5 bg-blue-600/20 text-blue-400 hover:bg-blue-600 hover:text-white rounded-lg text-xs font-bold transition flex items-center gap-1">
                   <i class="fa fa-edit"></i> Edit
                 </button>
@@ -564,6 +810,7 @@
       }
     }
 
+    // --- EDIT & FORM HANDLING ---
     function startEditStory(id) {
       const story = allStoriesCache.find(s => s._id === id);
       if (!story) return;
@@ -581,12 +828,26 @@
       document.getElementById('adLink2').value = story.adLink2;
       document.getElementById('allPartsLink').value = story.allPartsLink || '';
 
-      if (story.publishAt) {
-        const d = new Date(story.publishAt);
-        d.setMinutes(d.getMinutes() - d.getTimezoneOffset());
-        document.getElementById('publishAt').value = d.toISOString().slice(0, 16);
+      const pubDate = new Date(story.publishAt);
+      const now = new Date();
+
+      if (pubDate > now) {
+        setTimingMode('schedule');
+        const year = pubDate.getFullYear();
+        const month = String(pubDate.getMonth() + 1).padStart(2, '0');
+        const day = String(pubDate.getDate()).padStart(2, '0');
+        document.getElementById('scheduleDateInput').value = `${year}-${month}-${day}`;
+
+        const hours = pubDate.getHours();
+        if (hours < 11) {
+          selectTimeSlot('07:00');
+        } else if (hours >= 11 && hours < 16) {
+          selectTimeSlot('13:00');
+        } else {
+          selectTimeSlot('18:00');
+        }
       } else {
-        document.getElementById('publishAt').value = '';
+        setTimingMode('now');
       }
 
       document.getElementById('formTitle').innerHTML = '<i class="fa fa-edit text-blue-400"></i> කතාව Edit කරන්න';
@@ -605,7 +866,7 @@
       document.getElementById('previewContent').value = '';
       document.getElementById('storyContent').value = '';
       document.getElementById('allPartsLink').value = '';
-      document.getElementById('publishAt').value = '';
+      setTimingMode('now');
       document.getElementById('formTitle').innerHTML = '<i class="fa fa-plus-circle text-emerald-400"></i> අලුත් කතාවක් එකතු කරන්න';
       document.getElementById('submitBtn').innerText = 'කතාව පළ කරන්න';
       document.getElementById('cancelEditBtn').classList.add('hidden');
@@ -622,6 +883,145 @@
           alert(data.message);
           loadAdminStories();
         });
+    }
+
+    // --- STORY PREVIEW / READER MODAL LOGIC ---
+    function previewStoryById(id) {
+      const story = allStoriesCache.find(s => s._id === id);
+      if (!story) return;
+      currentPreviewStoryId = story._id;
+      openStoryReaderModal(story);
+    }
+
+    function previewCurrentFormStory() {
+      const title = document.getElementById('title').value.trim() || 'නමක් නොමැති කතාවක් (Draft)';
+      const author = document.getElementById('author').value.trim() || 'Admin';
+      const authorEmail = document.getElementById('authorEmail').value.trim();
+      const mainCategory = document.getElementById('mainCategory').value;
+      const seriesName = document.getElementById('seriesName').value.trim() || 'සාමාන්‍ය';
+      const imageUrl = document.getElementById('imageUrl').value.trim() || 'https://images.unsplash.com/photo-1544717305-2782549b5136?w=600';
+      const previewContent = document.getElementById('previewContent').value;
+      const storyContent = document.getElementById('storyContent').value || '(කතාවේ අන්තර්ගතය තවමත් Paste කර නැත)';
+
+      const publishAtDate = getSelectedPublishAtDate();
+      currentPreviewStoryId = document.getElementById('editStoryId').value || null;
+
+      const draftStory = {
+        title,
+        author,
+        authorEmail,
+        mainCategory,
+        seriesName,
+        imageUrl,
+        previewContent,
+        storyContent,
+        publishAt: publishAtDate
+      };
+
+      openStoryReaderModal(draftStory);
+    }
+
+    function openStoryReaderModal(story) {
+      document.getElementById('modalStoryTitleHeader').innerText = story.title;
+
+      const isScheduled = new Date(story.publishAt) > new Date();
+      const dateFormatted = new Date(story.publishAt).toLocaleString('si-LK', {
+        year: 'numeric', month: 'long', day: 'numeric',
+        hour: '2-digit', minute: '2-digit', hour12: true
+      });
+
+      const statusBadge = isScheduled
+        ? `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold bg-amber-950/80 text-amber-300 border border-amber-500/60"><i class="fa fa-clock"></i> ⏳ Scheduled: ${dateFormatted}</span>`
+        : `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-950/80 text-emerald-300 border border-emerald-500/60"><i class="fa fa-check-circle"></i> 🟢 Live: ${dateFormatted}</span>`;
+
+      if (currentPreviewStoryId) {
+        document.getElementById('modalEditBtn').classList.remove('hidden');
+      } else {
+        document.getElementById('modalEditBtn').classList.add('hidden');
+      }
+
+      const modalBody = document.getElementById('modalStoryBody');
+      modalBody.innerHTML = `
+        <div class="space-y-4">
+          <div class="flex flex-wrap items-center justify-between gap-2 border-b border-gray-800 pb-3">
+            ${statusBadge}
+            <span class="text-xs text-cyan-400 font-semibold bg-cyan-950/40 px-2.5 py-1 rounded-md border border-cyan-800/60">
+              ${escapeHtml(story.mainCategory)} &bull; ${escapeHtml(story.seriesName)}
+            </span>
+          </div>
+
+          <h1 class="text-lg sm:text-2xl font-extrabold text-white leading-snug">${escapeHtml(story.title)}</h1>
+
+          <div class="flex items-center gap-2.5 text-xs text-gray-400 pb-1">
+            <span><strong class="text-gray-300 font-medium">කර්තෘ:</strong> ${escapeHtml(story.author || 'Admin')}</span>
+            ${story.authorEmail ? `<span>&bull;</span><span class="text-gray-400 font-mono">${escapeHtml(story.authorEmail)}</span>` : ''}
+          </div>
+
+          <div class="rounded-xl overflow-hidden bg-gray-950 border border-gray-800 flex justify-center p-2 max-w-xs mx-auto shadow">
+            <img src="${story.imageUrl}" class="w-full h-auto max-h-[260px] object-contain rounded-lg" onerror="this.src='https://images.unsplash.com/photo-1544717305-2782549b5136?w=600'">
+          </div>
+
+          ${story.previewContent ? `
+            <div class="p-3.5 sm:p-4 rounded-xl bg-amber-950/25 border border-amber-800/50 space-y-1.5">
+              <div class="text-[11px] font-bold text-amber-400 uppercase tracking-wider flex items-center gap-1.5">
+                <i class="fa fa-star text-amber-400"></i> නොමිලේ පෙන්වන මුල් කොටස (Free Preview)
+              </div>
+              <div class="text-amber-100/90 text-sm sm:text-base leading-relaxed whitespace-pre-line reader-text font-normal">
+                ${escapeHtml(story.previewContent)}
+              </div>
+            </div>
+          ` : ''}
+
+          <div class="p-3.5 sm:p-5 rounded-xl bg-gray-800/50 border border-gray-700/60 space-y-2">
+            <div class="text-[11px] font-bold text-emerald-400 uppercase tracking-wider flex items-center gap-1.5 border-b border-gray-700 pb-1.5">
+              <i class="fa fa-book-open text-emerald-400"></i> සම්පූර්ණ කතාව (Story Content)
+            </div>
+            <div class="text-gray-100 text-sm sm:text-base leading-relaxed whitespace-pre-line reader-text font-normal pt-1" style="font-size: ${readerFontSize}px; line-height: 1.8;">
+              ${escapeHtml(story.storyContent)}
+            </div>
+          </div>
+        </div>
+      `;
+
+      document.getElementById('storyReaderModal').classList.remove('hidden');
+      document.body.classList.add('overflow-hidden');
+    }
+
+    function closeStoryReaderModal() {
+      document.getElementById('storyReaderModal').classList.add('hidden');
+      document.body.classList.remove('overflow-hidden');
+    }
+
+    function adjustReaderFontSize(delta) {
+      readerFontSize = Math.min(24, Math.max(13, readerFontSize + delta));
+      const elements = document.querySelectorAll('.reader-text');
+      elements.forEach(el => {
+        el.style.fontSize = `${readerFontSize}px`;
+      });
+    }
+
+    function editStoryFromModal() {
+      if (currentPreviewStoryId) {
+        closeStoryReaderModal();
+        startEditStory(currentPreviewStoryId);
+      }
+    }
+
+    // Escape Key Listener to close modal
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') {
+        closeStoryReaderModal();
+      }
+    });
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
     }
 
     checkAuth();
