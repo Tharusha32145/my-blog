@@ -19,15 +19,30 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
   <style>
+    * { box-sizing: border-box; }
+    html, body { 
+      width: 100%;
+      max-width: 100%;
+      overflow-x: hidden;
+      margin: 0;
+      padding: 0;
+    }
     html { scroll-behavior: smooth; }
     
     body { 
       font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+      max-width: 100%;
       -webkit-user-select: none;
       -moz-user-select: none;
       -ms-user-select: none;
       user-select: none;
       -webkit-touch-callout: none;
+    }
+
+    img, video, iframe {
+      max-width: 100%;
+      height: auto;
     }
 
     .story-protected-text {
@@ -281,7 +296,7 @@
         </div>
 
         <div id="storyContentBox" class="hidden border-t border-gray-100 dark:border-gray-700 pt-6">
-          <div class="text-gray-800 dark:text-gray-200 text-sm sm:text-base leading-relaxed whitespace-pre-line font-medium story-protected-text">
+          <div class="text-gray-800 dark:text-gray-200 text-sm sm:text-base leading-relaxed whitespace-pre-line font-medium story-protected-text break-words [overflow-wrap:anywhere] max-w-full">
             ${storyData.storyContent}
           </div>
         </div>
