@@ -17,11 +17,24 @@
       box-sizing: border-box;
     }
 
+    html, body {
+      width: 100%;
+      max-width: 100%;
+      overflow-x: hidden;
+      margin: 0;
+      padding: 0;
+    }
+
     body {
       background: #182226;
       font-family: 'Noto Sans Sinhala', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       overflow-x: hidden;
-      max-width: 100vw;
+      max-width: 100%;
+    }
+
+    img, video, iframe {
+      max-width: 100%;
+      height: auto;
     }
 
     .login-box {
@@ -150,15 +163,19 @@
       word-break: break-word !important;
       overflow-wrap: anywhere !important;
       white-space: normal !important;
+      box-sizing: border-box !important;
     }
 
     .story-paragraph {
-      margin-bottom: 1.4rem;
+      margin-bottom: 1.25rem;
       line-height: 1.95;
       letter-spacing: 0.15px;
       word-break: break-word;
       overflow-wrap: anywhere;
       text-align: left;
+      width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
     }
 
     /* Reading Themes */
@@ -203,10 +220,10 @@
   </style>
 </head>
 
-<body class="min-h-screen bg-[#222D32] flex flex-col items-center justify-start p-2.5 sm:p-6 text-gray-100">
+<body class="min-h-screen bg-[#222D32] flex flex-col items-center justify-start p-2 sm:p-6 text-gray-100 w-full max-w-full overflow-x-hidden">
 
   <!-- LOGIN SCREEN -->
-  <div id="login-container" class="w-full max-w-md login-box p-6 sm:p-8 rounded-2xl my-auto">
+  <div id="login-container" class="w-full max-w-md login-box p-4 sm:p-8 rounded-2xl my-auto min-w-0">
     <div class="flex justify-start mb-2">
       <a href="/" class="text-xs text-gray-400 hover:text-cyan-400 flex items-center gap-1">
         <i class="fa fa-arrow-left"></i> Home
@@ -232,30 +249,30 @@
 
   <!-- ADMIN DASHBOARD -->
   <div id="dashboard-container"
-    class="w-full max-w-5xl bg-gray-900 text-gray-100 p-3.5 sm:p-8 rounded-2xl shadow-2xl border border-gray-800 hidden space-y-7 my-2 sm:my-4">
+    class="w-full max-w-5xl bg-gray-900 text-gray-100 p-3 sm:p-7 rounded-2xl shadow-2xl border border-gray-800 hidden space-y-6 sm:space-y-7 my-2 sm:my-4 min-w-0 overflow-x-hidden">
 
     <!-- Top Header Bar -->
-    <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-3.5 border-b border-gray-800 pb-4">
-      <div>
-        <h2 class="text-xl sm:text-2xl font-bold text-cyan-400 flex items-center gap-2">
-          <i class="fa fa-tachometer-alt"></i> Story Admin Panel
+    <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-3.5 border-b border-gray-800 pb-4 min-w-0">
+      <div class="min-w-0">
+        <h2 class="text-lg sm:text-2xl font-bold text-cyan-400 flex items-center gap-2 truncate">
+          <i class="fa fa-tachometer-alt flex-shrink-0"></i> <span>Story Admin Panel</span>
         </h2>
-        <p class="text-xs text-gray-400 mt-0.5">අලුත් කතා පළ කිරීම, Schedule කිරීම සහ දින අනුව කළමනාකරණය</p>
+        <p class="text-[11px] sm:text-xs text-gray-400 mt-0.5 break-words">අලුත් කතා පළ කිරීම, Schedule කිරීම සහ දින අනුව කළමනාකරණය</p>
       </div>
-      <div class="flex items-center gap-2 self-end sm:self-auto">
+      <div class="flex items-center gap-2 self-start sm:self-auto flex-wrap">
         <a href="/"
-          class="glow-btn btn-blue-gradient px-3.5 py-2 text-white rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow">
+          class="glow-btn btn-blue-gradient px-3 py-1.5 sm:px-3.5 sm:py-2 text-white rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow">
           <i class="fa fa-home"></i> Home View
         </a>
         <button onclick="logout()"
-          class="glow-btn btn-red-gradient px-3.5 py-2 text-white rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow">
+          class="glow-btn btn-red-gradient px-3 py-1.5 sm:px-3.5 sm:py-2 text-white rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow">
           <i class="fa fa-sign-out-alt"></i> LOGOUT
         </button>
       </div>
     </div>
 
     <!-- Create / Edit Post Form -->
-    <div class="bg-gray-800/60 p-4 sm:p-6 rounded-xl border border-gray-700" id="form-card">
+    <div class="bg-gray-800/60 p-3 sm:p-6 rounded-xl border border-gray-700 min-w-0" id="form-card">
       <div class="flex justify-between items-center mb-4">
         <h3 class="text-base sm:text-lg font-bold text-white flex items-center gap-2" id="formTitle">
           <i class="fa fa-plus-circle text-emerald-400"></i> අලුත් කතාවක් එකතු කරන්න
@@ -404,24 +421,24 @@
               <span class="text-xs text-gray-300 font-bold block mb-2 flex items-center gap-1.5">
                 <i class="fa fa-hourglass-half text-amber-400"></i> 2. වේලාව තෝරන්න (පළ කරන වේලාවන් 3 පමණි)
               </span>
-              <div class="grid grid-cols-3 gap-2 sm:gap-3">
+              <div class="grid grid-cols-3 gap-1.5 sm:gap-3">
                 <button type="button" onclick="selectTimeSlot('07:00')" id="slotBtn_0700"
-                  class="time-slot-btn p-2.5 sm:p-3.5 rounded-xl border text-center transition flex flex-col items-center justify-center gap-1 glow-btn btn-orange-gradient text-white font-bold shadow">
-                  <span class="text-xs sm:text-sm font-extrabold">🌅 07:00 AM</span>
-                  <span class="text-[10px] text-amber-100 font-medium">උදෑසන 7:00</span>
-                  <span id="slotMini_0700" class="text-[10px] font-bold mt-0.5 px-2 py-0.5 rounded-full bg-black/40 text-amber-200 truncate max-w-full">අන්තිම: ...</span>
+                  class="time-slot-btn p-1.5 sm:p-3.5 rounded-xl border text-center transition flex flex-col items-center justify-center gap-0.5 sm:gap-1 glow-btn btn-orange-gradient text-white font-bold shadow min-w-0">
+                  <span class="text-[11px] sm:text-sm font-extrabold truncate w-full">🌅 07:00 AM</span>
+                  <span class="text-[9px] sm:text-[10px] text-amber-100 font-medium truncate w-full">උදෑසන 7:00</span>
+                  <span id="slotMini_0700" class="text-[9px] sm:text-[10px] font-bold mt-0.5 px-1 sm:px-2 py-0.5 rounded-full bg-black/40 text-amber-200 truncate w-full">අන්තිම: ...</span>
                 </button>
                 <button type="button" onclick="selectTimeSlot('13:00')" id="slotBtn_1300"
-                  class="time-slot-btn p-2.5 sm:p-3.5 rounded-xl border text-center transition flex flex-col items-center justify-center gap-1 bg-gray-800/80 border-gray-700 text-gray-300 hover:border-cyan-400 hover:text-white font-bold">
-                  <span class="text-xs sm:text-sm font-extrabold text-cyan-400">☀️ 01:00 PM</span>
-                  <span class="text-[10px] text-gray-400 font-medium">දහවල් 1:00</span>
-                  <span id="slotMini_1300" class="text-[10px] font-bold mt-0.5 px-2 py-0.5 rounded-full bg-black/40 text-cyan-300 truncate max-w-full">අන්තිම: ...</span>
+                  class="time-slot-btn p-1.5 sm:p-3.5 rounded-xl border text-center transition flex flex-col items-center justify-center gap-0.5 sm:gap-1 bg-gray-800/80 border-gray-700 text-gray-300 hover:border-cyan-400 hover:text-white font-bold min-w-0">
+                  <span class="text-[11px] sm:text-sm font-extrabold text-cyan-400 truncate w-full">☀️ 01:00 PM</span>
+                  <span class="text-[9px] sm:text-[10px] text-gray-400 font-medium truncate w-full">දහවල් 1:00</span>
+                  <span id="slotMini_1300" class="text-[9px] sm:text-[10px] font-bold mt-0.5 px-1 sm:px-2 py-0.5 rounded-full bg-black/40 text-cyan-300 truncate w-full">අන්තිම: ...</span>
                 </button>
                 <button type="button" onclick="selectTimeSlot('18:00')" id="slotBtn_1800"
-                  class="time-slot-btn p-2.5 sm:p-3.5 rounded-xl border text-center transition flex flex-col items-center justify-center gap-1 bg-gray-800/80 border-gray-700 text-gray-300 hover:border-purple-400 hover:text-white font-bold">
-                  <span class="text-xs sm:text-sm font-extrabold text-purple-400">🌙 06:00 PM</span>
-                  <span class="text-[10px] text-gray-400 font-medium">හවස 6:00</span>
-                  <span id="slotMini_1800" class="text-[10px] font-bold mt-0.5 px-2 py-0.5 rounded-full bg-black/40 text-purple-300 truncate max-w-full">අන්තිම: ...</span>
+                  class="time-slot-btn p-1.5 sm:p-3.5 rounded-xl border text-center transition flex flex-col items-center justify-center gap-0.5 sm:gap-1 bg-gray-800/80 border-gray-700 text-gray-300 hover:border-purple-400 hover:text-white font-bold min-w-0">
+                  <span class="text-[11px] sm:text-sm font-extrabold text-purple-400 truncate w-full">🌙 06:00 PM</span>
+                  <span class="text-[9px] sm:text-[10px] text-gray-400 font-medium truncate w-full">හවස 6:00</span>
+                  <span id="slotMini_1800" class="text-[9px] sm:text-[10px] font-bold mt-0.5 px-1 sm:px-2 py-0.5 rounded-full bg-black/40 text-purple-300 truncate w-full">අන්තිම: ...</span>
                 </button>
               </div>
               <input type="hidden" id="selectedTimeSlot" value="07:00">
@@ -481,24 +498,24 @@
           <p class="text-xs text-gray-400">දින අනුව Schedule කළ කතා සහ පළ කළ කතා වෙන් වෙන්ව බලන්න</p>
         </div>
 
-        <div class="grid grid-cols-3 bg-gray-800/90 p-1.5 rounded-xl border border-gray-700 w-full sm:w-auto gap-1">
+        <div class="grid grid-cols-3 bg-gray-800/90 p-1 sm:p-1.5 rounded-xl border border-gray-700 w-full sm:w-auto gap-1 min-w-0">
           <button onclick="switchViewTab('scheduled')" id="tabBtnScheduled"
-            class="px-3 sm:px-4 py-2 rounded-lg text-xs font-bold transition glow-btn btn-orange-gradient text-white shadow text-center truncate flex items-center justify-center gap-1.5">
-            <span>⏳ Schedule</span> <span id="scheduledCount" class="bg-black/30 px-1.5 py-0.5 rounded-full text-[10px]">0</span>
+            class="px-2 sm:px-4 py-2 rounded-lg text-[11px] sm:text-xs font-bold transition glow-btn btn-orange-gradient text-white shadow text-center truncate flex items-center justify-center gap-1 min-w-0">
+            <span class="truncate">⏳ Schedule</span> <span id="scheduledCount" class="bg-black/30 px-1 sm:px-1.5 py-0.5 rounded-full text-[10px] flex-shrink-0">0</span>
           </button>
           <button onclick="switchViewTab('published')" id="tabBtnPublished"
-            class="px-3 sm:px-4 py-2 rounded-lg text-xs font-bold transition text-gray-300 hover:text-white text-center truncate flex items-center justify-center gap-1.5">
-            <span>🟢 Live</span> <span id="publishedCount" class="bg-gray-700/60 px-1.5 py-0.5 rounded-full text-[10px]">0</span>
+            class="px-2 sm:px-4 py-2 rounded-lg text-[11px] sm:text-xs font-bold transition text-gray-300 hover:text-white text-center truncate flex items-center justify-center gap-1 min-w-0">
+            <span class="truncate">🟢 Live</span> <span id="publishedCount" class="bg-gray-700/60 px-1 sm:px-1.5 py-0.5 rounded-full text-[10px] flex-shrink-0">0</span>
           </button>
           <button onclick="switchViewTab('all')" id="tabBtnAll"
-            class="px-3 sm:px-4 py-2 rounded-lg text-xs font-bold transition text-gray-300 hover:text-white text-center truncate flex items-center justify-center gap-1.5">
-            <span>📂 සියල්ල</span> <span id="allCount" class="bg-gray-700/60 px-1.5 py-0.5 rounded-full text-[10px]">0</span>
+            class="px-2 sm:px-4 py-2 rounded-lg text-[11px] sm:text-xs font-bold transition text-gray-300 hover:text-white text-center truncate flex items-center justify-center gap-1 min-w-0">
+            <span class="truncate">📂 සියල්ල</span> <span id="allCount" class="bg-gray-700/60 px-1 sm:px-1.5 py-0.5 rounded-full text-[10px] flex-shrink-0">0</span>
           </button>
         </div>
       </div>
 
       <!-- Container where stories render -->
-      <div id="postsList" class="space-y-4 sm:space-y-6 min-h-[160px]">
+      <div id="postsList" class="space-y-4 sm:space-y-6 min-h-[160px] min-w-0 w-full">
         <div class="flex flex-col items-center justify-center py-12 gap-3">
           <div class="w-10 h-10 border-4 border-cyan-400 border-t-transparent rounded-full animate-spin"></div>
           <p class="text-sm font-semibold text-cyan-400 animate-pulse">කතා දත්ත පූරණය වෙමින් පවතී...</p>
@@ -510,9 +527,9 @@
 
   <!-- STORY PREVIEW / READER MODAL (සුපිරි නව කියවීමේ මාදිලිය - Zero Horizontal Scroll) -->
   <div id="storyReaderModal"
-    class="fixed inset-0 z-50 bg-black/90 backdrop-blur-md hidden flex items-center justify-center p-0 sm:p-4 overflow-hidden">
+    class="fixed inset-0 z-50 bg-black/90 backdrop-blur-md hidden flex items-center justify-center p-0 sm:p-4 overflow-hidden w-full max-w-full">
     <div id="modalCard"
-      class="bg-gray-900 text-gray-100 w-full max-w-4xl h-full sm:h-[92vh] sm:rounded-3xl border border-gray-700/80 shadow-2xl overflow-hidden flex flex-col transition-all duration-200">
+      class="bg-gray-900 text-gray-100 w-full max-w-4xl h-full sm:h-[92vh] sm:rounded-3xl border border-gray-700/80 shadow-2xl overflow-hidden flex flex-col transition-all duration-200 min-w-0">
 
       <!-- Reading Progress Indicator Bar -->
       <div class="w-full bg-gray-800 h-1 flex-shrink-0">
@@ -521,33 +538,45 @@
 
       <!-- Modal Sticky Header -->
       <div
-        class="bg-gray-800/95 border-b border-gray-700 px-3 sm:px-5 py-3 flex items-center justify-between gap-2 flex-shrink-0">
-        <div class="flex items-center gap-2 min-w-0">
-          <span
-            class="glow-btn btn-purple-gradient px-2.5 py-1 rounded-lg text-white text-[11px] font-bold flex items-center gap-1.5 shadow flex-shrink-0">
-            <i class="fa fa-book-reader"></i> <span class="hidden xs:inline">Reader</span>
-          </span>
-          <h3 id="modalStoryTitleHeader" class="text-xs sm:text-sm font-bold text-white truncate max-w-[150px] sm:max-w-md">කතාව කියවන්න</h3>
+        class="bg-gray-800/95 border-b border-gray-700 px-3 sm:px-5 py-2.5 sm:py-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2 flex-shrink-0 w-full min-w-0">
+        
+        <!-- Top Row on Mobile / Left Section on Desktop -->
+        <div class="flex items-center justify-between sm:justify-start gap-2 min-w-0 w-full sm:w-auto">
+          <div class="flex items-center gap-2 min-w-0 flex-1 sm:flex-initial">
+            <span
+              class="glow-btn btn-purple-gradient px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-lg text-white text-[10px] sm:text-[11px] font-bold flex items-center gap-1 shadow flex-shrink-0">
+              <i class="fa fa-book-reader"></i> <span>Reader</span>
+            </span>
+            <h3 id="modalStoryTitleHeader" class="text-xs sm:text-sm font-bold text-white truncate max-w-[180px] sm:max-w-md">කතාව කියවන්න</h3>
+          </div>
+
+          <!-- Close Button visible on mobile top-row -->
+          <button onclick="closeStoryReaderModal()"
+            class="sm:hidden glow-btn btn-red-gradient text-white w-7 h-7 rounded-lg flex items-center justify-center text-xs font-bold transition shadow flex-shrink-0"
+            title="Close">
+            <i class="fa fa-times"></i>
+          </button>
         </div>
 
-        <div class="flex items-center gap-1.5 sm:gap-2.5 flex-shrink-0">
+        <!-- Controls Row -->
+        <div class="flex items-center justify-between sm:justify-end gap-1.5 sm:gap-2 w-full sm:w-auto min-w-0">
           <!-- Reading Theme Toggle (Dark / Sepia / Black) -->
           <div class="flex items-center bg-gray-950 p-0.5 rounded-lg border border-gray-700 text-xs">
             <button type="button" onclick="setReaderTheme('dark')" id="themeDarkBtn"
-              class="px-2 py-1 rounded text-cyan-400 bg-gray-800 font-bold transition" title="Dark Theme">🌙</button>
+              class="px-2 py-1 rounded text-cyan-400 bg-gray-800 font-bold transition text-xs" title="Dark Theme">🌙</button>
             <button type="button" onclick="setReaderTheme('sepia')" id="themeSepiaBtn"
-              class="px-2 py-1 rounded text-amber-300 hover:text-amber-200 transition" title="Warm Book Theme">📜</button>
+              class="px-2 py-1 rounded text-amber-300 hover:text-amber-200 transition text-xs" title="Warm Book Theme">📜</button>
             <button type="button" onclick="setReaderTheme('black')" id="themeBlackBtn"
-              class="px-2 py-1 rounded text-gray-400 hover:text-white transition" title="AMOLED Black">🖤</button>
+              class="px-2 py-1 rounded text-gray-400 hover:text-white transition text-xs" title="AMOLED Black">🖤</button>
           </div>
 
           <!-- Font Size Controls (A- / A+) -->
           <div class="flex items-center bg-gray-950 border border-gray-700 rounded-lg overflow-hidden text-xs">
             <button type="button" onclick="adjustReaderFontSize(-1)"
-              class="px-2.5 py-1 text-gray-300 hover:text-white hover:bg-gray-800 transition font-bold"
+              class="px-2 sm:px-2.5 py-1 text-gray-300 hover:text-white hover:bg-gray-800 transition font-bold text-xs"
               title="කුඩා කරන්න (A-)">A-</button>
             <button type="button" onclick="adjustReaderFontSize(1)"
-              class="px-2.5 py-1 text-cyan-400 hover:text-white hover:bg-gray-800 transition font-bold border-l border-gray-800"
+              class="px-2 sm:px-2.5 py-1 text-cyan-400 hover:text-white hover:bg-gray-800 transition font-bold border-l border-gray-800 text-xs"
               title="විශාල කරන්න (A+)">A+</button>
           </div>
 
@@ -560,13 +589,13 @@
 
           <!-- Edit Button from Modal -->
           <button id="modalEditBtn" onclick="editStoryFromModal()"
-            class="glow-btn btn-blue-gradient text-white px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1 shadow">
-            <i class="fa fa-edit"></i> <span class="hidden xs:inline">Edit</span>
+            class="glow-btn btn-blue-gradient text-white px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1 shadow">
+            <i class="fa fa-edit"></i> <span>Edit</span>
           </button>
 
-          <!-- Close Button -->
+          <!-- Desktop Close Button -->
           <button onclick="closeStoryReaderModal()"
-            class="glow-btn btn-red-gradient text-white w-7 h-7 sm:w-8 sm:h-8 rounded-lg flex items-center justify-center text-xs font-bold transition shadow"
+            class="hidden sm:flex glow-btn btn-red-gradient text-white w-8 h-8 rounded-lg items-center justify-center text-xs font-bold transition shadow flex-shrink-0"
             title="Close">
             <i class="fa fa-times"></i>
           </button>
@@ -574,23 +603,23 @@
       </div>
 
       <!-- Modal Scrollable Content (STRICT ZERO HORIZONTAL SCROLL) -->
-      <div class="p-4 sm:p-8 overflow-y-auto overflow-x-hidden modal-scroll space-y-6 flex-1 w-full max-w-full" id="modalStoryBody" onscroll="updateReadingProgress(this)">
+      <div class="p-3 sm:p-8 overflow-y-auto overflow-x-hidden modal-scroll space-y-4 sm:space-y-6 flex-1 w-full max-w-full min-w-0" id="modalStoryBody" onscroll="updateReadingProgress(this)">
         <!-- Content dynamically inserted -->
       </div>
 
       <!-- Modal Footer -->
       <div
-        class="bg-gray-800/95 border-t border-gray-700 px-4 py-2.5 flex justify-between items-center flex-shrink-0 text-xs text-gray-300">
-        <div class="flex items-center gap-2">
-          <span id="modalReadingStats" class="text-[11px] text-gray-400">අපේ දේ Story Reader</span>
-          <span id="readingProgressPercent" class="text-[11px] font-bold text-cyan-400 bg-cyan-950/60 px-2 py-0.5 rounded border border-cyan-800/50">0%</span>
+        class="bg-gray-800/95 border-t border-gray-700 px-3 sm:px-4 py-2 sm:py-2.5 flex flex-col sm:flex-row justify-between items-center gap-2 flex-shrink-0 text-xs text-gray-300 w-full min-w-0">
+        <div class="flex items-center justify-between w-full sm:w-auto gap-2 min-w-0">
+          <span id="modalReadingStats" class="text-[10px] sm:text-[11px] text-gray-400 truncate">අපේ දේ Story Reader</span>
+          <span id="readingProgressPercent" class="text-[10px] sm:text-[11px] font-bold text-cyan-400 bg-cyan-950/60 px-2 py-0.5 rounded border border-cyan-800/50 flex-shrink-0">0%</span>
         </div>
-        <div class="flex items-center gap-2">
+        <div class="flex items-center justify-end w-full sm:w-auto gap-2">
           <button onclick="scrollReaderToTop()" class="px-2.5 py-1 bg-gray-700 hover:bg-gray-600 text-gray-200 rounded-lg text-xs font-semibold transition flex items-center gap-1">
             <i class="fa fa-arrow-up text-[10px]"></i> මුලට
           </button>
           <button onclick="closeStoryReaderModal()"
-            class="glow-btn btn-red-gradient px-4 py-1 text-white rounded-lg font-bold text-xs shadow transition">
+            class="glow-btn btn-red-gradient px-3.5 sm:px-4 py-1 text-white rounded-lg font-bold text-xs shadow transition">
             වසන්න (Close)
           </button>
         </div>
@@ -682,14 +711,14 @@
         if (!btn) return;
         if (s === slot) {
           if (s === '07:00') {
-            btn.className = 'time-slot-btn p-2.5 sm:p-3.5 rounded-xl border text-center transition flex flex-col items-center justify-center gap-1 glow-btn btn-orange-gradient text-white font-bold shadow';
+            btn.className = 'time-slot-btn p-1.5 sm:p-3.5 rounded-xl border text-center transition flex flex-col items-center justify-center gap-0.5 sm:gap-1 glow-btn btn-orange-gradient text-white font-bold shadow min-w-0';
           } else if (s === '13:00') {
-            btn.className = 'time-slot-btn p-2.5 sm:p-3.5 rounded-xl border text-center transition flex flex-col items-center justify-center gap-1 glow-btn btn-cyan-gradient text-white font-bold shadow';
+            btn.className = 'time-slot-btn p-1.5 sm:p-3.5 rounded-xl border text-center transition flex flex-col items-center justify-center gap-0.5 sm:gap-1 glow-btn btn-cyan-gradient text-white font-bold shadow min-w-0';
           } else {
-            btn.className = 'time-slot-btn p-2.5 sm:p-3.5 rounded-xl border text-center transition flex flex-col items-center justify-center gap-1 glow-btn btn-purple-gradient text-white font-bold shadow';
+            btn.className = 'time-slot-btn p-1.5 sm:p-3.5 rounded-xl border text-center transition flex flex-col items-center justify-center gap-0.5 sm:gap-1 glow-btn btn-purple-gradient text-white font-bold shadow min-w-0';
           }
         } else {
-          btn.className = 'time-slot-btn p-2.5 sm:p-3.5 rounded-xl border text-center transition flex flex-col items-center justify-center gap-1 bg-gray-800/80 border-gray-700 text-gray-300 hover:border-gray-500 hover:text-white font-bold';
+          btn.className = 'time-slot-btn p-1.5 sm:p-3.5 rounded-xl border text-center transition flex flex-col items-center justify-center gap-0.5 sm:gap-1 bg-gray-800/80 border-gray-700 text-gray-300 hover:border-gray-500 hover:text-white font-bold min-w-0';
         }
       });
 
@@ -884,10 +913,10 @@
       const btnPub = document.getElementById('tabBtnPublished');
       const btnAll = document.getElementById('tabBtnAll');
 
-      const activeClassOrange = 'px-3 sm:px-4 py-2 rounded-lg text-xs font-bold transition glow-btn btn-orange-gradient text-white shadow text-center truncate flex items-center justify-center gap-1.5';
-      const activeClassEmerald = 'px-3 sm:px-4 py-2 rounded-lg text-xs font-bold transition glow-btn btn-emerald-gradient text-white shadow text-center truncate flex items-center justify-center gap-1.5';
-      const activeClassBlue = 'px-3 sm:px-4 py-2 rounded-lg text-xs font-bold transition glow-btn btn-blue-gradient text-white shadow text-center truncate flex items-center justify-center gap-1.5';
-      const inactiveClass = 'px-3 sm:px-4 py-2 rounded-lg text-xs font-bold transition text-gray-300 hover:text-white text-center truncate flex items-center justify-center gap-1.5 hover:bg-gray-700/50';
+      const activeClassOrange = 'px-2 sm:px-4 py-2 rounded-lg text-[11px] sm:text-xs font-bold transition glow-btn btn-orange-gradient text-white shadow text-center truncate flex items-center justify-center gap-1 min-w-0';
+      const activeClassEmerald = 'px-2 sm:px-4 py-2 rounded-lg text-[11px] sm:text-xs font-bold transition glow-btn btn-emerald-gradient text-white shadow text-center truncate flex items-center justify-center gap-1 min-w-0';
+      const activeClassBlue = 'px-2 sm:px-4 py-2 rounded-lg text-[11px] sm:text-xs font-bold transition glow-btn btn-blue-gradient text-white shadow text-center truncate flex items-center justify-center gap-1 min-w-0';
+      const inactiveClass = 'px-2 sm:px-4 py-2 rounded-lg text-[11px] sm:text-xs font-bold transition text-gray-300 hover:text-white text-center truncate flex items-center justify-center gap-1 hover:bg-gray-700/50 min-w-0';
 
       btnSch.className = tab === 'scheduled' ? activeClassOrange : inactiveClass;
       btnPub.className = tab === 'published' ? activeClassEmerald : inactiveClass;
@@ -1038,33 +1067,33 @@
             }
 
             itemsHtml += `
-              <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center bg-gray-900/90 p-3 sm:p-3.5 rounded-xl border border-gray-700 hover:border-amber-500/60 transition gap-3 shadow-sm">
-                <div class="flex items-center gap-3 min-w-0">
-                  <img src="${p.imageUrl}" class="w-12 h-12 object-cover rounded-lg border border-gray-700 flex-shrink-0 shadow" onerror="this.src='https://images.unsplash.com/photo-1544717305-2782549b5136?w=600'">
-                  <div class="min-w-0">
-                    <h4 class="font-bold text-white text-sm truncate">${escapeHtml(p.title)}</h4>
-                    <p class="text-xs text-gray-400 mt-0.5 truncate">
+              <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center bg-gray-900/90 p-3 sm:p-3.5 rounded-xl border border-gray-700 hover:border-amber-500/60 transition gap-3 shadow-sm w-full min-w-0">
+                <div class="flex items-center gap-2.5 sm:gap-3 min-w-0 w-full flex-1">
+                  <img src="${p.imageUrl}" class="w-12 h-12 sm:w-14 sm:h-14 object-cover rounded-lg border border-gray-700 flex-shrink-0 shadow" onerror="this.src='https://images.unsplash.com/photo-1544717305-2782549b5136?w=600'">
+                  <div class="min-w-0 flex-1">
+                    <h4 class="font-bold text-white text-xs sm:text-sm truncate" title="${escapeHtml(p.title)}">${escapeHtml(p.title)}</h4>
+                    <p class="text-[11px] sm:text-xs text-gray-400 mt-0.5 truncate">
                       Main: <span class="text-pink-400 font-semibold">${escapeHtml(p.mainCategory)}</span> | 
                       Series: <span class="text-cyan-400 font-semibold">${escapeHtml(p.seriesName)}</span>
                     </p>
                   </div>
                 </div>
 
-                <div class="flex items-center gap-2 w-full sm:w-auto justify-between sm:justify-end flex-wrap pt-2 sm:pt-0 border-t sm:border-0 border-gray-800">
-                  <div class="flex items-center gap-1.5">
+                <div class="flex items-center gap-2 w-full sm:w-auto justify-between sm:justify-end flex-wrap pt-2 sm:pt-0 border-t sm:border-0 border-gray-800/80 min-w-0">
+                  <div class="flex items-center gap-1.5 flex-wrap">
                     ${slotBadge}
-                    <span class="text-amber-300 font-bold text-xs bg-amber-950/60 px-2 py-1 rounded-md border border-amber-800/80">
+                    <span class="text-amber-300 font-bold text-[11px] sm:text-xs bg-amber-950/60 px-2 py-0.5 sm:py-1 rounded-md border border-amber-800/80">
                       <i class="fa fa-clock text-[10px] mr-1 text-amber-400"></i> ${timeString}
                     </span>
                   </div>
-                  <div class="flex items-center gap-2">
-                    <button onclick="previewStoryById('${p._id}')" class="glow-btn btn-purple-gradient text-white px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow" title="කියවන්න (Preview)">
+                  <div class="flex items-center gap-1.5 sm:gap-2 flex-wrap">
+                    <button onclick="previewStoryById('${p._id}')" class="glow-btn btn-purple-gradient text-white px-2.5 sm:px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1 shadow" title="කියවන්න (Preview)">
                       <i class="fa fa-book-reader"></i> <span>කියවන්න</span>
                     </button>
-                    <button onclick="startEditStory('${p._id}')" class="glow-btn btn-blue-gradient text-white px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow" title="Edit">
+                    <button onclick="startEditStory('${p._id}')" class="glow-btn btn-blue-gradient text-white px-2.5 sm:px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1 shadow" title="Edit">
                       <i class="fa fa-edit"></i> <span>Edit</span>
                     </button>
-                    <button onclick="deleteStory('${p._id}')" class="glow-btn btn-red-gradient text-white px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow" title="Delete">
+                    <button onclick="deleteStory('${p._id}')" class="glow-btn btn-red-gradient text-white px-2.5 sm:px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1 shadow" title="Delete">
                       <i class="fa fa-trash"></i> <span>Delete</span>
                     </button>
                   </div>
@@ -1113,28 +1142,28 @@
             : `<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-bold bg-emerald-950/80 text-emerald-300 border border-emerald-600 shadow-sm"><i class="fa fa-check-circle"></i> 🟢 Live: ${formattedDateTime}</span>`;
 
           list.innerHTML += `
-            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center bg-gray-800/90 p-3.5 sm:p-4 rounded-xl border border-gray-700 hover:border-cyan-500/50 transition gap-3.5 shadow-sm">
-              <div class="flex items-center gap-3.5 min-w-0">
-                <img src="${img}" class="w-14 h-14 object-cover rounded-xl border border-gray-700 flex-shrink-0 shadow" onerror="this.src='https://images.unsplash.com/photo-1544717305-2782549b5136?w=600'">
-                <div class="space-y-1 min-w-0">
-                  <h4 class="font-bold text-white text-sm sm:text-base truncate">${escapeHtml(p.title)}</h4>
-                  <p class="text-xs text-gray-400 truncate">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center bg-gray-800/90 p-3 sm:p-4 rounded-xl border border-gray-700 hover:border-cyan-500/50 transition gap-3 sm:gap-3.5 shadow-sm w-full min-w-0">
+              <div class="flex items-center gap-2.5 sm:gap-3.5 min-w-0 w-full flex-1">
+                <img src="${img}" class="w-12 h-12 sm:w-14 sm:h-14 object-cover rounded-xl border border-gray-700 flex-shrink-0 shadow" onerror="this.src='https://images.unsplash.com/photo-1544717305-2782549b5136?w=600'">
+                <div class="space-y-0.5 sm:space-y-1 min-w-0 flex-1">
+                  <h4 class="font-bold text-white text-xs sm:text-base truncate" title="${escapeHtml(p.title)}">${escapeHtml(p.title)}</h4>
+                  <p class="text-[11px] sm:text-xs text-gray-400 truncate">
                     Main: <span class="text-pink-400 font-semibold">${escapeHtml(p.mainCategory)}</span> | 
                     Series: <span class="text-cyan-400 font-semibold">${escapeHtml(p.seriesName)}</span> | 
                     By: <span class="text-gray-300 font-semibold">${escapeHtml(p.author)}</span> | 
-                    <span class="text-amber-400 font-semibold"><i class="fa fa-eye text-[11px]"></i> ${p.views || 0}</span>
+                    <span class="text-amber-400 font-semibold"><i class="fa fa-eye text-[10px] sm:text-[11px]"></i> ${p.views || 0}</span>
                   </p>
-                  <div class="pt-0.5">${statusBadge}</div>
+                  <div class="pt-0.5 flex flex-wrap min-w-0">${statusBadge}</div>
                 </div>
               </div>
-              <div class="flex items-center gap-2 w-full sm:w-auto justify-end flex-wrap pt-2 sm:pt-0 border-t sm:border-0 border-gray-700">
-                <button onclick="previewStoryById('${p._id}')" class="glow-btn btn-purple-gradient text-white px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow" title="කියවන්න">
+              <div class="flex items-center gap-1.5 sm:gap-2 w-full sm:w-auto justify-end flex-wrap pt-2 sm:pt-0 border-t sm:border-0 border-gray-700 min-w-0">
+                <button onclick="previewStoryById('${p._id}')" class="glow-btn btn-purple-gradient text-white px-2.5 sm:px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1 shadow" title="කියවන්න">
                   <i class="fa fa-book-reader"></i> <span>කියවන්න</span>
                 </button>
-                <button onclick="startEditStory('${p._id}')" class="glow-btn btn-blue-gradient text-white px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow" title="Edit">
+                <button onclick="startEditStory('${p._id}')" class="glow-btn btn-blue-gradient text-white px-2.5 sm:px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1 shadow" title="Edit">
                   <i class="fa fa-edit"></i> <span>Edit</span>
                 </button>
-                <button onclick="deleteStory('${p._id}')" class="glow-btn btn-red-gradient text-white px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow" title="Delete">
+                <button onclick="deleteStory('${p._id}')" class="glow-btn btn-red-gradient text-white px-2.5 sm:px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1 shadow" title="Delete">
                   <i class="fa fa-trash"></i> <span>Delete</span>
                 </button>
               </div>
@@ -1309,52 +1338,52 @@
 
       const modalBody = document.getElementById('modalStoryBody');
       modalBody.innerHTML = `
-        <div class="story-reading-container space-y-6">
+        <div class="story-reading-container space-y-4 sm:space-y-6 w-full max-w-full min-w-0">
           
           <!-- Story Header Info -->
-          <div class="flex flex-wrap items-center justify-between gap-2.5 border-b border-gray-700/80 pb-3">
-            ${statusBadge}
-            <div class="flex items-center gap-2">
-              <span class="text-xs text-cyan-300 font-bold bg-cyan-950/60 px-3 py-1 rounded-lg border border-cyan-800/80">
+          <div class="flex flex-wrap items-center justify-between gap-2 border-b border-gray-700/80 pb-3 min-w-0">
+            <div class="min-w-0 flex-wrap">${statusBadge}</div>
+            <div class="flex items-center gap-2 min-w-0">
+              <span class="text-xs text-cyan-300 font-bold bg-cyan-950/60 px-2.5 sm:px-3 py-1 rounded-lg border border-cyan-800/80 truncate max-w-full">
                 ${escapeHtml(story.mainCategory)} &bull; ${escapeHtml(story.seriesName)}
               </span>
             </div>
           </div>
 
           <!-- Title & Author -->
-          <div class="space-y-2">
-            <h1 class="text-xl sm:text-3xl font-extrabold text-white leading-snug tracking-tight">${escapeHtml(story.title)}</h1>
-            <div class="flex flex-wrap items-center gap-3 text-xs text-gray-400">
-              <span><strong class="text-gray-300 font-semibold">කර්තෘ:</strong> ${escapeHtml(story.author || 'Admin')}</span>
-              ${story.authorEmail ? `<span>&bull;</span><span class="text-gray-400 font-mono">${escapeHtml(story.authorEmail)}</span>` : ''}
+          <div class="space-y-2 min-w-0">
+            <h1 class="text-lg sm:text-3xl font-extrabold text-white leading-snug tracking-tight break-words">${escapeHtml(story.title)}</h1>
+            <div class="flex flex-wrap items-center gap-2 sm:gap-3 text-xs text-gray-400 min-w-0">
+              <span class="truncate max-w-full"><strong class="text-gray-300 font-semibold">කර්තෘ:</strong> ${escapeHtml(story.author || 'Admin')}</span>
+              ${story.authorEmail ? `<span>&bull;</span><span class="text-gray-400 font-mono truncate max-w-full">${escapeHtml(story.authorEmail)}</span>` : ''}
               <span>&bull;</span>
-              <span class="text-amber-400 font-semibold"><i class="fa fa-clock mr-1"></i> විනාඩි ~${readingMinutes} ක කියවීමක්</span>
+              <span class="text-amber-400 font-semibold flex-shrink-0"><i class="fa fa-clock mr-1"></i> විනාඩි ~${readingMinutes}</span>
             </div>
           </div>
 
           <!-- Feature Image -->
-          <div class="rounded-2xl overflow-hidden bg-gray-950 border border-gray-800 flex justify-center p-2 max-w-sm mx-auto shadow-lg">
-            <img src="${story.imageUrl}" class="w-full h-auto max-h-[280px] object-cover rounded-xl" onerror="this.src='https://images.unsplash.com/photo-1544717305-2782549b5136?w=600'">
+          <div class="rounded-2xl overflow-hidden bg-gray-950 border border-gray-800 flex justify-center p-2 max-w-xs sm:max-w-sm mx-auto shadow-lg">
+            <img src="${story.imageUrl}" class="w-full h-auto max-h-[220px] sm:max-h-[280px] object-cover rounded-xl" onerror="this.src='https://images.unsplash.com/photo-1544717305-2782549b5136?w=600'">
           </div>
 
           <!-- Free Preview Section (If exists) -->
           ${story.previewContent ? `
-            <div class="p-4 sm:p-5 rounded-2xl bg-amber-950/20 border border-amber-500/40 space-y-2 shadow-sm">
+            <div class="p-3 sm:p-5 rounded-2xl bg-amber-950/20 border border-amber-500/40 space-y-2 shadow-sm min-w-0 w-full">
               <div class="text-xs font-extrabold text-amber-400 uppercase tracking-wider flex items-center gap-2">
                 <i class="fa fa-star text-amber-400"></i> නොමිලේ පෙන්වන මුල් කොටස (Free Preview)
               </div>
-              <div class="text-amber-100 reader-text text-sm sm:text-base leading-relaxed tracking-wide pt-1" style="font-size: ${readerFontSize}px;">
+              <div class="text-amber-100 reader-text story-reading-container text-sm sm:text-base leading-relaxed tracking-wide pt-1" style="font-size: ${readerFontSize}px;">
                 ${previewHtml}
               </div>
             </div>
           ` : ''}
 
           <!-- Full Story Main Reading Section -->
-          <div class="p-4 sm:p-7 rounded-2xl bg-gray-800/60 border border-gray-700/80 space-y-4 shadow-sm">
+          <div class="p-3 sm:p-7 rounded-2xl bg-gray-800/60 border border-gray-700/80 space-y-3 sm:space-y-4 shadow-sm min-w-0 w-full">
             <div class="text-xs font-extrabold text-emerald-400 uppercase tracking-wider flex items-center gap-2 border-b border-gray-700/80 pb-2.5">
               <i class="fa fa-book-open text-emerald-400 text-sm"></i> සම්පූර්ණ කතාව (Full Story Content)
             </div>
-            <div id="storyMainTextContainer" class="story-reading-container reader-text text-sm sm:text-base tracking-wide pt-2" style="font-size: ${readerFontSize}px;">
+            <div id="storyMainTextContainer" class="story-reading-container reader-text text-sm sm:text-base tracking-wide pt-2 w-full min-w-0" style="font-size: ${readerFontSize}px;">
               ${storyHtml}
             </div>
           </div>
@@ -1429,10 +1458,10 @@
       isReaderFullscreen = !isReaderFullscreen;
 
       if (isReaderFullscreen) {
-        modalCard.className = 'bg-gray-900 text-gray-100 w-full h-full rounded-none border-0 shadow-2xl overflow-hidden flex flex-col transition-all duration-200';
+        modalCard.className = 'bg-gray-900 text-gray-100 w-full h-full rounded-none border-0 shadow-2xl overflow-hidden flex flex-col transition-all duration-200 min-w-0';
         icon.className = 'fa fa-compress';
       } else {
-        modalCard.className = 'bg-gray-900 text-gray-100 w-full max-w-4xl h-full sm:h-[92vh] sm:rounded-3xl border border-gray-700/80 shadow-2xl overflow-hidden flex flex-col transition-all duration-200';
+        modalCard.className = 'bg-gray-900 text-gray-100 w-full max-w-4xl h-full sm:h-[92vh] sm:rounded-3xl border border-gray-700/80 shadow-2xl overflow-hidden flex flex-col transition-all duration-200 min-w-0';
         icon.className = 'fa fa-expand';
       }
       setReaderTheme(readerTheme);
@@ -1482,6 +1511,4 @@
     checkAuth();
   </script>
 </body>
-</html>
-
 </html>
