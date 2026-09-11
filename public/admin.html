@@ -7,27 +7,35 @@
   <title>Admin Panel - අපේ දේ</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Sinhala:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
   <link rel="dns-prefetch" href="https://cdn.tailwindcss.com">
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
-      background: #222D32;
-      font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #182226;
+      font-family: 'Noto Sans Sinhala', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      overflow-x: hidden;
+      max-width: 100vw;
     }
 
     .login-box {
       background: #1A2226;
       text-align: center;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.08);
     }
 
     .login-key {
-      height: 90px;
-      font-size: 70px;
-      line-height: 90px;
-      background: -webkit-linear-gradient(#27EF9F, #0DB8DE);
+      height: 80px;
+      font-size: 64px;
+      line-height: 80px;
+      background: linear-gradient(135deg, #27EF9F, #0DB8DE);
       -webkit-background-clip: text;
       background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -36,38 +44,28 @@
     .login-title {
       font-size: 24px;
       letter-spacing: 2px;
-      font-weight: bold;
+      font-weight: 800;
       color: #ECF0F5;
     }
 
     .dark-input {
-      background-color: #1A2226 !important;
-      border: none !important;
+      background-color: #141c20 !important;
+      border: 1px solid #2d3748 !important;
       border-bottom: 2px solid #0DB8DE !important;
-      border-radius: 0px !important;
-      font-weight: bold !important;
+      border-radius: 8px !important;
+      font-weight: 600 !important;
       color: #ECF0F5 !important;
+      transition: all 0.2s ease;
     }
 
     .dark-input:focus {
       outline: none;
+      border-color: #0DB8DE !important;
       border-bottom: 2px solid #27EF9F !important;
+      box-shadow: 0 0 10px rgba(13, 184, 222, 0.25);
     }
 
-    .btn-login {
-      background-color: transparent;
-      border: 2px solid #0DB8DE;
-      color: #0DB8DE;
-      font-weight: bold;
-      letter-spacing: 1px;
-    }
-
-    .btn-login:hover {
-      background-color: #0DB8DE;
-      color: #1A2226;
-    }
-
-    /* Guaranteed Instant-Load Solid Gradients */
+    /* Vibrant Solid Gradients & Colors for All Buttons */
     .btn-blue-gradient {
       background: linear-gradient(135deg, #2563eb, #4f46e5) !important;
       color: #ffffff !important;
@@ -93,10 +91,28 @@
       color: #ffffff !important;
     }
 
+    .btn-emerald-gradient {
+      background: linear-gradient(135deg, #059669, #10b981) !important;
+      color: #ffffff !important;
+    }
+
+    .btn-dark-glass {
+      background: rgba(31, 41, 55, 0.8) !important;
+      border: 1px solid rgba(255, 255, 255, 0.12) !important;
+      color: #e5e7eb !important;
+    }
+
+    .btn-dark-glass:hover {
+      background: rgba(55, 65, 81, 0.9) !important;
+      border-color: rgba(255, 255, 255, 0.25) !important;
+      color: #ffffff !important;
+    }
+
     .glow-btn {
       position: relative;
-      transition: all 0.25s ease;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
       z-index: 1;
+      cursor: pointer;
     }
 
     .glow-btn::before {
@@ -115,25 +131,74 @@
     }
 
     .glow-btn:hover::before {
-      opacity: 0.7;
+      opacity: 0.65;
     }
 
     .glow-btn:hover {
       transform: translateY(-2px);
     }
 
-    /* Custom scrollbar for reader modal */
+    .glow-btn:active {
+      transform: translateY(0);
+    }
+
+    /* Strict Anti-Horizontal Overflow & Reading Typography */
+    .story-reading-container {
+      width: 100% !important;
+      max-width: 100% !important;
+      overflow-x: hidden !important;
+      word-break: break-word !important;
+      overflow-wrap: anywhere !important;
+      white-space: normal !important;
+    }
+
+    .story-paragraph {
+      margin-bottom: 1.4rem;
+      line-height: 1.95;
+      letter-spacing: 0.15px;
+      word-break: break-word;
+      overflow-wrap: anywhere;
+      text-align: left;
+    }
+
+    /* Reading Themes */
+    .reader-theme-dark {
+      background-color: #111827 !important;
+      color: #F3F4F6 !important;
+    }
+
+    .reader-theme-sepia {
+      background-color: #2b231d !important;
+      color: #F7EAD4 !important;
+    }
+    .reader-theme-sepia .story-paragraph {
+      color: #F7EAD4 !important;
+    }
+
+    .reader-theme-black {
+      background-color: #000000 !important;
+      color: #E5E7EB !important;
+    }
+    .reader-theme-black .story-paragraph {
+      color: #E5E7EB !important;
+    }
+
+    /* Custom scrollbar */
     .modal-scroll::-webkit-scrollbar {
-      width: 6px;
+      width: 7px;
     }
 
     .modal-scroll::-webkit-scrollbar-track {
-      background: #111827;
+      background: rgba(17, 24, 39, 0.8);
     }
 
     .modal-scroll::-webkit-scrollbar-thumb {
-      background: #374151;
+      background: #4B5563;
       border-radius: 9999px;
+    }
+
+    .modal-scroll::-webkit-scrollbar-thumb:hover {
+      background: #6B7280;
     }
   </style>
 </head>
@@ -159,7 +224,9 @@
         <input type="password" id="adminPass" required class="w-full px-3 py-2 dark-input">
       </div>
       <div id="loginErr" class="text-red-400 text-xs font-bold text-center hidden">Username හෝ Password වැරදියි!</div>
-      <button type="submit" class="w-full py-3 btn-login rounded-lg transition text-sm">LOGIN</button>
+      <button type="submit" class="w-full py-3.5 btn-cyan-gradient glow-btn rounded-xl font-bold transition text-sm shadow-lg flex items-center justify-center gap-2">
+        <i class="fa fa-sign-in-alt"></i> LOGIN TO DASHBOARD
+      </button>
     </form>
   </div>
 
@@ -181,7 +248,9 @@
           <i class="fa fa-home"></i> Home View
         </a>
         <button onclick="logout()"
-          class="px-3.5 py-2 bg-red-600/20 text-red-400 hover:bg-red-600 hover:text-white rounded-xl text-xs font-bold transition">LOGOUT</button>
+          class="glow-btn btn-red-gradient px-3.5 py-2 text-white rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow">
+          <i class="fa fa-sign-out-alt"></i> LOGOUT
+        </button>
       </div>
     </div>
 
@@ -192,8 +261,9 @@
           <i class="fa fa-plus-circle text-emerald-400"></i> අලුත් කතාවක් එකතු කරන්න
         </h3>
         <button id="cancelEditBtn" onclick="resetForm()"
-          class="hidden text-xs bg-gray-700 hover:bg-gray-600 px-3 py-1.5 rounded-lg text-gray-300">Edit අවලංගු
-          කරන්න</button>
+          class="hidden text-xs glow-btn btn-orange-gradient text-white font-bold px-3.5 py-1.5 rounded-lg shadow transition flex items-center gap-1.5">
+          <i class="fa fa-times-circle"></i> Edit අවලංගු කරන්න
+        </button>
       </div>
 
       <form onsubmit="handleFormSubmit(event)" class="grid grid-cols-1 md:grid-cols-2 gap-3.5 sm:gap-4">
@@ -252,10 +322,14 @@
         </div>
 
         <div class="md:col-span-2">
-          <label class="text-xs text-emerald-400 font-bold block mb-1">කතාවේ ඉතිරි කොටස (Server 1 & 2 Unlock වූ පසු
-            පෙන්වන කොටස) *</label>
-          <textarea id="storyContent" rows="7" required placeholder="ඉතිරි සම්පූර්ණ කතාව මෙතනට Paste කරන්න..."
-            class="w-full p-3 bg-gray-900 border border-gray-700 rounded-lg text-sm text-white focus:border-cyan-400 outline-none"></textarea>
+          <div class="flex flex-wrap justify-between items-center gap-2 mb-1.5">
+            <label class="text-xs text-emerald-400 font-bold block">කතාවේ ඉතිරි කොටස (Server 1 & 2 Unlock වූ පසු පෙන්වන කොටස) *</label>
+            <button type="button" onclick="previewCurrentFormStory()" class="text-[11px] glow-btn btn-purple-gradient text-white font-bold px-3 py-1 rounded-lg shadow flex items-center gap-1.5">
+              <i class="fa fa-book-reader"></i> ලස්සනට කියවන්න (Reader Preview)
+            </button>
+          </div>
+          <textarea id="storyContent" rows="8" required placeholder="ඉතිරි සම්පූර්ණ කතාව මෙතනට Paste කරන්න..."
+            class="w-full p-3.5 bg-gray-900 border border-gray-700 rounded-xl text-sm text-white focus:border-cyan-400 outline-none leading-relaxed tracking-wide"></textarea>
         </div>
 
         <div>
@@ -287,13 +361,13 @@
             </div>
             <!-- Toggle: Publish Now vs Schedule -->
             <div
-              class="inline-flex bg-gray-800 p-1 rounded-lg border border-gray-700 self-start sm:self-auto text-xs font-bold">
+              class="inline-flex bg-gray-800 p-1 rounded-lg border border-gray-700 self-start sm:self-auto text-xs font-bold gap-1">
               <button type="button" id="timingModeNow" onclick="setTimingMode('now')"
-                class="px-3.5 py-1.5 rounded-md transition bg-emerald-600 text-white shadow">
+                class="px-3.5 py-1.5 rounded-md transition glow-btn btn-emerald-gradient text-white shadow font-bold">
                 ⚡ දැන්ම Live
               </button>
               <button type="button" id="timingModeSchedule" onclick="setTimingMode('schedule')"
-                class="px-3.5 py-1.5 rounded-md transition text-gray-400 hover:text-white">
+                class="px-3.5 py-1.5 rounded-md transition text-gray-300 hover:text-white font-bold">
                 📅 Schedule කරන්න
               </button>
             </div>
@@ -302,18 +376,24 @@
           <!-- Schedule Options Container (Visible only when Schedule is selected) -->
           <div id="scheduleControls" class="hidden space-y-3.5 pt-1">
             <div>
-              <div class="flex flex-wrap items-center justify-between gap-2 mb-1.5">
+              <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
                 <span class="text-xs text-gray-300 font-bold flex items-center gap-1.5">
                   <i class="fa fa-calendar-alt text-cyan-400"></i> 1. දිනය තෝරන්න (Select Date)
                 </span>
-                <!-- Quick Date Buttons -->
-                <div class="flex gap-1.5 text-[11px]">
+                <!-- Quick Date Buttons with Rich Colors -->
+                <div class="flex flex-wrap gap-2 text-xs">
                   <button type="button" onclick="setScheduleDateQuick('today')"
-                    class="px-2.5 py-1 bg-gray-800 hover:bg-cyan-950/60 text-cyan-300 rounded border border-gray-700 hover:border-cyan-500 font-medium transition">අද</button>
+                    class="glow-btn btn-cyan-gradient text-white px-3 py-1.5 rounded-lg font-bold shadow-sm flex items-center gap-1 text-xs">
+                    <i class="fa fa-calendar-day"></i> අද
+                  </button>
                   <button type="button" onclick="setScheduleDateQuick('tomorrow')"
-                    class="px-2.5 py-1 bg-gray-800 hover:bg-cyan-950/60 text-cyan-300 rounded border border-gray-700 hover:border-cyan-500 font-medium transition">හෙට</button>
+                    class="glow-btn btn-purple-gradient text-white px-3 py-1.5 rounded-lg font-bold shadow-sm flex items-center gap-1 text-xs">
+                    <i class="fa fa-calendar-plus"></i> හෙට
+                  </button>
                   <button type="button" onclick="setScheduleDateQuick('dayAfter')"
-                    class="px-2.5 py-1 bg-gray-800 hover:bg-cyan-950/60 text-cyan-300 rounded border border-gray-700 hover:border-cyan-500 font-medium transition">අනිද්දා</button>
+                    class="glow-btn btn-emerald-gradient text-white px-3 py-1.5 rounded-lg font-bold shadow-sm flex items-center gap-1 text-xs">
+                    <i class="fa fa-forward"></i> අනිද්දා
+                  </button>
                 </div>
               </div>
               <input type="date" id="scheduleDateInput" onchange="updateScheduleSummary()"
@@ -321,27 +401,50 @@
             </div>
 
             <div>
-              <span class="text-xs text-gray-300 font-bold block mb-1.5 flex items-center gap-1.5">
+              <span class="text-xs text-gray-300 font-bold block mb-2 flex items-center gap-1.5">
                 <i class="fa fa-hourglass-half text-amber-400"></i> 2. වේලාව තෝරන්න (පළ කරන වේලාවන් 3 පමණි)
               </span>
-              <div class="grid grid-cols-3 gap-2">
+              <div class="grid grid-cols-3 gap-2 sm:gap-3">
                 <button type="button" onclick="selectTimeSlot('07:00')" id="slotBtn_0700"
-                  class="time-slot-btn p-2 sm:p-3 rounded-xl border text-center transition flex flex-col items-center justify-center gap-1 bg-amber-500/20 border-amber-400 text-amber-300 font-bold shadow-sm">
+                  class="time-slot-btn p-2.5 sm:p-3.5 rounded-xl border text-center transition flex flex-col items-center justify-center gap-1 glow-btn btn-orange-gradient text-white font-bold shadow">
                   <span class="text-xs sm:text-sm font-extrabold">🌅 07:00 AM</span>
-                  <span class="text-[10px] text-gray-300 font-normal">උදෑසන 7:00</span>
+                  <span class="text-[10px] text-amber-100 font-medium">උදෑසන 7:00</span>
+                  <span id="slotMini_0700" class="text-[10px] font-bold mt-0.5 px-2 py-0.5 rounded-full bg-black/40 text-amber-200 truncate max-w-full">අන්තිම: ...</span>
                 </button>
                 <button type="button" onclick="selectTimeSlot('13:00')" id="slotBtn_1300"
-                  class="time-slot-btn p-2 sm:p-3 rounded-xl border text-center transition flex flex-col items-center justify-center gap-1 bg-gray-800 border-gray-700 text-gray-400 hover:border-gray-500 hover:text-gray-200 font-bold">
-                  <span class="text-xs sm:text-sm font-extrabold">☀️ 01:00 PM</span>
-                  <span class="text-[10px] text-gray-400 font-normal">දහවල් 1:00</span>
+                  class="time-slot-btn p-2.5 sm:p-3.5 rounded-xl border text-center transition flex flex-col items-center justify-center gap-1 bg-gray-800/80 border-gray-700 text-gray-300 hover:border-cyan-400 hover:text-white font-bold">
+                  <span class="text-xs sm:text-sm font-extrabold text-cyan-400">☀️ 01:00 PM</span>
+                  <span class="text-[10px] text-gray-400 font-medium">දහවල් 1:00</span>
+                  <span id="slotMini_1300" class="text-[10px] font-bold mt-0.5 px-2 py-0.5 rounded-full bg-black/40 text-cyan-300 truncate max-w-full">අන්තිම: ...</span>
                 </button>
                 <button type="button" onclick="selectTimeSlot('18:00')" id="slotBtn_1800"
-                  class="time-slot-btn p-2 sm:p-3 rounded-xl border text-center transition flex flex-col items-center justify-center gap-1 bg-gray-800 border-gray-700 text-gray-400 hover:border-gray-500 hover:text-gray-200 font-bold">
-                  <span class="text-xs sm:text-sm font-extrabold">🌙 06:00 PM</span>
-                  <span class="text-[10px] text-gray-400 font-normal">හවස 6:00</span>
+                  class="time-slot-btn p-2.5 sm:p-3.5 rounded-xl border text-center transition flex flex-col items-center justify-center gap-1 bg-gray-800/80 border-gray-700 text-gray-300 hover:border-purple-400 hover:text-white font-bold">
+                  <span class="text-xs sm:text-sm font-extrabold text-purple-400">🌙 06:00 PM</span>
+                  <span class="text-[10px] text-gray-400 font-medium">හවස 6:00</span>
+                  <span id="slotMini_1800" class="text-[10px] font-bold mt-0.5 px-2 py-0.5 rounded-full bg-black/40 text-purple-300 truncate max-w-full">අන්තිම: ...</span>
                 </button>
               </div>
               <input type="hidden" id="selectedTimeSlot" value="07:00">
+            </div>
+
+            <!-- Latest Scheduled Post Info for Selected Slot (තෝරාගත් වේලාවේ අන්තිම කතාවේ විස්තර) -->
+            <div id="slotLatestPostCard" class="bg-gray-800/95 rounded-xl p-3.5 sm:p-4 border border-cyan-500/40 space-y-2.5 shadow-lg">
+              <div class="flex flex-wrap items-center justify-between gap-2 border-b border-gray-700/80 pb-2">
+                <span class="text-xs font-extrabold text-amber-400 flex items-center gap-1.5" id="slotCardSlotTitle">
+                  <i class="fa fa-history text-amber-400"></i> 07:00 AM වේලාවේ අන්තිම කතාව:
+                </span>
+                <span id="slotCardBadge" class="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-amber-950 text-amber-300 border border-amber-600 shadow-sm">
+                  📅 විස්තර
+                </span>
+              </div>
+
+              <div id="slotCardContent" class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+                <!-- Dynamically loaded by updateSlotLatestPostInfo() -->
+                <div class="text-xs text-gray-400 py-1 flex items-center gap-2">
+                  <div class="w-4 h-4 border-2 border-cyan-400 border-t-transparent rounded-full animate-spin"></div>
+                  <span>කතා විස්තර පරීක්ෂා කරමින් පවතී...</span>
+                </div>
+              </div>
             </div>
 
             <div
@@ -378,82 +481,119 @@
           <p class="text-xs text-gray-400">දින අනුව Schedule කළ කතා සහ පළ කළ කතා වෙන් වෙන්ව බලන්න</p>
         </div>
 
-        <div class="grid grid-cols-3 bg-gray-800 p-1 rounded-xl border border-gray-700 w-full sm:w-auto">
+        <div class="grid grid-cols-3 bg-gray-800/90 p-1.5 rounded-xl border border-gray-700 w-full sm:w-auto gap-1">
           <button onclick="switchViewTab('scheduled')" id="tabBtnScheduled"
-            class="px-2.5 sm:px-4 py-2 rounded-lg text-xs font-bold transition bg-amber-500 text-gray-900 shadow text-center truncate">
-            ⏳ Schedule (<span id="scheduledCount">0</span>)
+            class="px-3 sm:px-4 py-2 rounded-lg text-xs font-bold transition glow-btn btn-orange-gradient text-white shadow text-center truncate flex items-center justify-center gap-1.5">
+            <span>⏳ Schedule</span> <span id="scheduledCount" class="bg-black/30 px-1.5 py-0.5 rounded-full text-[10px]">0</span>
           </button>
           <button onclick="switchViewTab('published')" id="tabBtnPublished"
-            class="px-2.5 sm:px-4 py-2 rounded-lg text-xs font-bold transition text-gray-400 hover:text-white text-center truncate">
-            🟢 Live (<span id="publishedCount">0</span>)
+            class="px-3 sm:px-4 py-2 rounded-lg text-xs font-bold transition text-gray-300 hover:text-white text-center truncate flex items-center justify-center gap-1.5">
+            <span>🟢 Live</span> <span id="publishedCount" class="bg-gray-700/60 px-1.5 py-0.5 rounded-full text-[10px]">0</span>
           </button>
           <button onclick="switchViewTab('all')" id="tabBtnAll"
-            class="px-2.5 sm:px-4 py-2 rounded-lg text-xs font-bold transition text-gray-400 hover:text-white text-center truncate">
-            📂 සියල්ල (<span id="allCount">0</span>)
+            class="px-3 sm:px-4 py-2 rounded-lg text-xs font-bold transition text-gray-300 hover:text-white text-center truncate flex items-center justify-center gap-1.5">
+            <span>📂 සියල්ල</span> <span id="allCount" class="bg-gray-700/60 px-1.5 py-0.5 rounded-full text-[10px]">0</span>
           </button>
         </div>
       </div>
 
       <!-- Container where stories render -->
-      <div id="postsList" class="space-y-4 sm:space-y-6">
-        <div class="text-gray-500 text-sm text-center py-8">අපේ දේ...</div>
+      <div id="postsList" class="space-y-4 sm:space-y-6 min-h-[160px]">
+        <div class="flex flex-col items-center justify-center py-12 gap-3">
+          <div class="w-10 h-10 border-4 border-cyan-400 border-t-transparent rounded-full animate-spin"></div>
+          <p class="text-sm font-semibold text-cyan-400 animate-pulse">කතා දත්ත පූරණය වෙමින් පවතී...</p>
+        </div>
       </div>
 
     </div>
   </div>
 
-  <!-- STORY PREVIEW / READER MODAL (ලස්සනට කියවීමේ පහසුකම) -->
+  <!-- STORY PREVIEW / READER MODAL (සුපිරි නව කියවීමේ මාදිලිය - Zero Horizontal Scroll) -->
   <div id="storyReaderModal"
-    class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md hidden flex items-center justify-center p-2.5 sm:p-4 overflow-y-auto">
-    <div
-      class="bg-gray-900 text-gray-100 w-full max-w-3xl rounded-2xl border border-gray-700 shadow-2xl overflow-hidden flex flex-col max-h-[92vh]">
+    class="fixed inset-0 z-50 bg-black/90 backdrop-blur-md hidden flex items-center justify-center p-0 sm:p-4 overflow-hidden">
+    <div id="modalCard"
+      class="bg-gray-900 text-gray-100 w-full max-w-4xl h-full sm:h-[92vh] sm:rounded-3xl border border-gray-700/80 shadow-2xl overflow-hidden flex flex-col transition-all duration-200">
+
+      <!-- Reading Progress Indicator Bar -->
+      <div class="w-full bg-gray-800 h-1 flex-shrink-0">
+        <div id="readingProgressBar" class="h-1 bg-gradient-to-r from-cyan-400 via-purple-500 to-amber-400 w-0 transition-all duration-100"></div>
+      </div>
 
       <!-- Modal Sticky Header -->
       <div
-        class="bg-gray-800/95 border-b border-gray-700 px-3.5 sm:px-5 py-3 flex items-center justify-between gap-2 flex-shrink-0">
+        class="bg-gray-800/95 border-b border-gray-700 px-3 sm:px-5 py-3 flex items-center justify-between gap-2 flex-shrink-0">
         <div class="flex items-center gap-2 min-w-0">
           <span
-            class="px-2 sm:px-2.5 py-1 rounded-full text-[11px] font-bold bg-purple-950 text-purple-300 border border-purple-800 flex items-center gap-1 flex-shrink-0">
-            <i class="fa fa-book-reader"></i> Reader
+            class="glow-btn btn-purple-gradient px-2.5 py-1 rounded-lg text-white text-[11px] font-bold flex items-center gap-1.5 shadow flex-shrink-0">
+            <i class="fa fa-book-reader"></i> <span class="hidden xs:inline">Reader</span>
           </span>
-          <h3 id="modalStoryTitleHeader" class="text-xs sm:text-sm font-bold text-white truncate">කතාව කියවන්න</h3>
+          <h3 id="modalStoryTitleHeader" class="text-xs sm:text-sm font-bold text-white truncate max-w-[150px] sm:max-w-md">කතාව කියවන්න</h3>
         </div>
-        <div class="flex items-center gap-2 flex-shrink-0">
-          <!-- Font Size Adjustment -->
-          <div class="flex items-center bg-gray-900 border border-gray-700 rounded-lg overflow-hidden text-xs">
-            <button type="button" onclick="adjustReaderFontSize(-1)"
-              class="px-2 sm:px-2.5 py-1 text-gray-300 hover:text-white hover:bg-gray-800"
-              title="Decrease Font">A-</button>
-            <button type="button" onclick="adjustReaderFontSize(1)"
-              class="px-2 sm:px-2.5 py-1 text-gray-300 hover:text-white hover:bg-gray-800 font-bold"
-              title="Increase Font">A+</button>
+
+        <div class="flex items-center gap-1.5 sm:gap-2.5 flex-shrink-0">
+          <!-- Reading Theme Toggle (Dark / Sepia / Black) -->
+          <div class="flex items-center bg-gray-950 p-0.5 rounded-lg border border-gray-700 text-xs">
+            <button type="button" onclick="setReaderTheme('dark')" id="themeDarkBtn"
+              class="px-2 py-1 rounded text-cyan-400 bg-gray-800 font-bold transition" title="Dark Theme">🌙</button>
+            <button type="button" onclick="setReaderTheme('sepia')" id="themeSepiaBtn"
+              class="px-2 py-1 rounded text-amber-300 hover:text-amber-200 transition" title="Warm Book Theme">📜</button>
+            <button type="button" onclick="setReaderTheme('black')" id="themeBlackBtn"
+              class="px-2 py-1 rounded text-gray-400 hover:text-white transition" title="AMOLED Black">🖤</button>
           </div>
+
+          <!-- Font Size Controls (A- / A+) -->
+          <div class="flex items-center bg-gray-950 border border-gray-700 rounded-lg overflow-hidden text-xs">
+            <button type="button" onclick="adjustReaderFontSize(-1)"
+              class="px-2.5 py-1 text-gray-300 hover:text-white hover:bg-gray-800 transition font-bold"
+              title="කුඩා කරන්න (A-)">A-</button>
+            <button type="button" onclick="adjustReaderFontSize(1)"
+              class="px-2.5 py-1 text-cyan-400 hover:text-white hover:bg-gray-800 transition font-bold border-l border-gray-800"
+              title="විශාල කරන්න (A+)">A+</button>
+          </div>
+
+          <!-- Fullscreen Toggle Button -->
+          <button type="button" onclick="toggleReaderFullscreen()" id="modalFullscreenBtn"
+            class="p-1.5 sm:p-2 bg-gray-800 hover:bg-gray-700 text-gray-300 hover:text-white rounded-lg text-xs font-bold transition"
+            title="Full Screen / සාමාන්‍ය ප්‍රමාණය">
+            <i class="fa fa-expand" id="modalFullscreenIcon"></i>
+          </button>
+
           <!-- Edit Button from Modal -->
           <button id="modalEditBtn" onclick="editStoryFromModal()"
-            class="px-2.5 sm:px-3 py-1 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-xs font-bold transition flex items-center gap-1">
-            <i class="fa fa-edit"></i> <span class="hidden xs:inline sm:inline">Edit</span>
+            class="glow-btn btn-blue-gradient text-white px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1 shadow">
+            <i class="fa fa-edit"></i> <span class="hidden xs:inline">Edit</span>
           </button>
+
           <!-- Close Button -->
           <button onclick="closeStoryReaderModal()"
-            class="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-gray-700 hover:bg-gray-600 text-gray-300 hover:text-white flex items-center justify-center text-sm font-bold transition">
+            class="glow-btn btn-red-gradient text-white w-7 h-7 sm:w-8 sm:h-8 rounded-lg flex items-center justify-center text-xs font-bold transition shadow"
+            title="Close">
             <i class="fa fa-times"></i>
           </button>
         </div>
       </div>
 
-      <!-- Modal Scrollable Content -->
-      <div class="p-3.5 sm:p-6 overflow-y-auto modal-scroll space-y-4 sm:space-y-6" id="modalStoryBody">
+      <!-- Modal Scrollable Content (STRICT ZERO HORIZONTAL SCROLL) -->
+      <div class="p-4 sm:p-8 overflow-y-auto overflow-x-hidden modal-scroll space-y-6 flex-1 w-full max-w-full" id="modalStoryBody" onscroll="updateReadingProgress(this)">
         <!-- Content dynamically inserted -->
       </div>
 
       <!-- Modal Footer -->
       <div
-        class="bg-gray-800/90 border-t border-gray-700 px-4 py-2.5 flex justify-between items-center flex-shrink-0 text-xs text-gray-400">
-        <span class="text-[11px] text-gray-400">අපේ දේ Story Reader</span>
-        <button onclick="closeStoryReaderModal()"
-          class="px-3.5 py-1.5 bg-gray-700 hover:bg-gray-600 text-white rounded-lg font-bold text-xs">
-          වසන්න (Close)
-        </button>
+        class="bg-gray-800/95 border-t border-gray-700 px-4 py-2.5 flex justify-between items-center flex-shrink-0 text-xs text-gray-300">
+        <div class="flex items-center gap-2">
+          <span id="modalReadingStats" class="text-[11px] text-gray-400">අපේ දේ Story Reader</span>
+          <span id="readingProgressPercent" class="text-[11px] font-bold text-cyan-400 bg-cyan-950/60 px-2 py-0.5 rounded border border-cyan-800/50">0%</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <button onclick="scrollReaderToTop()" class="px-2.5 py-1 bg-gray-700 hover:bg-gray-600 text-gray-200 rounded-lg text-xs font-semibold transition flex items-center gap-1">
+            <i class="fa fa-arrow-up text-[10px]"></i> මුලට
+          </button>
+          <button onclick="closeStoryReaderModal()"
+            class="glow-btn btn-red-gradient px-4 py-1 text-white rounded-lg font-bold text-xs shadow transition">
+            වසන්න (Close)
+          </button>
+        </div>
       </div>
 
     </div>
@@ -506,6 +646,8 @@
     }
 
     // --- TIMING & SCHEDULE HANDLING ---
+    let suggestedNextSlotDate = null;
+
     function setTimingMode(mode) {
       timingMode = mode;
       const btnNow = document.getElementById('timingModeNow');
@@ -513,18 +655,19 @@
       const controls = document.getElementById('scheduleControls');
 
       if (mode === 'now') {
-        btnNow.className = 'px-3.5 py-1.5 rounded-md transition bg-emerald-600 text-white shadow font-bold';
-        btnSch.className = 'px-3.5 py-1.5 rounded-md transition text-gray-400 hover:text-white font-bold';
+        btnNow.className = 'px-3.5 py-1.5 rounded-md transition glow-btn btn-emerald-gradient text-white shadow font-bold';
+        btnSch.className = 'px-3.5 py-1.5 rounded-md transition text-gray-300 hover:text-white font-bold';
         controls.classList.add('hidden');
       } else {
-        btnSch.className = 'px-3.5 py-1.5 rounded-md transition bg-amber-500 text-gray-900 shadow font-bold';
-        btnNow.className = 'px-3.5 py-1.5 rounded-md transition text-gray-400 hover:text-white font-bold';
+        btnSch.className = 'px-3.5 py-1.5 rounded-md transition glow-btn btn-orange-gradient text-white shadow font-bold';
+        btnNow.className = 'px-3.5 py-1.5 rounded-md transition text-gray-300 hover:text-white font-bold';
         controls.classList.remove('hidden');
         if (!document.getElementById('scheduleDateInput').value) {
           setScheduleDateQuick('today');
         } else {
           updateScheduleSummary();
         }
+        updateSlotLatestPostInfo();
       }
     }
 
@@ -538,11 +681,158 @@
         const btn = document.getElementById(id);
         if (!btn) return;
         if (s === slot) {
-          btn.className = 'time-slot-btn p-2 sm:p-3 rounded-xl border text-center transition flex flex-col items-center justify-center gap-1 bg-amber-500/20 border-amber-400 text-amber-300 font-bold shadow-sm';
+          if (s === '07:00') {
+            btn.className = 'time-slot-btn p-2.5 sm:p-3.5 rounded-xl border text-center transition flex flex-col items-center justify-center gap-1 glow-btn btn-orange-gradient text-white font-bold shadow';
+          } else if (s === '13:00') {
+            btn.className = 'time-slot-btn p-2.5 sm:p-3.5 rounded-xl border text-center transition flex flex-col items-center justify-center gap-1 glow-btn btn-cyan-gradient text-white font-bold shadow';
+          } else {
+            btn.className = 'time-slot-btn p-2.5 sm:p-3.5 rounded-xl border text-center transition flex flex-col items-center justify-center gap-1 glow-btn btn-purple-gradient text-white font-bold shadow';
+          }
         } else {
-          btn.className = 'time-slot-btn p-2 sm:p-3 rounded-xl border text-center transition flex flex-col items-center justify-center gap-1 bg-gray-800 border-gray-700 text-gray-400 hover:border-gray-500 hover:text-gray-200 font-bold';
+          btn.className = 'time-slot-btn p-2.5 sm:p-3.5 rounded-xl border text-center transition flex flex-col items-center justify-center gap-1 bg-gray-800/80 border-gray-700 text-gray-300 hover:border-gray-500 hover:text-white font-bold';
         }
       });
+
+      updateSlotLatestPostInfo();
+      updateScheduleSummary();
+    }
+
+    function updateSlotLatestPostInfo() {
+      const now = new Date();
+      const slots = [
+        { key: '07:00', name: '07:00 AM (උදෑසන 7:00)', miniId: 'slotMini_0700', checkH: h => h < 11 },
+        { key: '13:00', name: '01:00 PM (දහවල් 1:00)', miniId: 'slotMini_1300', checkH: h => h >= 11 && h < 16 },
+        { key: '18:00', name: '06:00 PM (හවස 6:00)', miniId: 'slotMini_1800', checkH: h => h >= 16 }
+      ];
+
+      // Update mini indicators on all 3 slot buttons
+      slots.forEach(s => {
+        const slotPosts = allStoriesCache.filter(p => {
+          const d = new Date(p.publishAt || 0);
+          return d > now && s.checkH(d.getHours());
+        });
+
+        const miniEl = document.getElementById(s.miniId);
+        if (!miniEl) return;
+
+        if (slotPosts.length > 0) {
+          slotPosts.sort((a, b) => new Date(b.publishAt) - new Date(a.publishAt));
+          const latest = slotPosts[0];
+          const d = new Date(latest.publishAt);
+          const m = String(d.getMonth() + 1).padStart(2, '0');
+          const day = String(d.getDate()).padStart(2, '0');
+          miniEl.innerText = `අන්තිම: ${m}/${day}`;
+          miniEl.title = `අන්තිම: ${latest.title} (${d.toLocaleDateString('si-LK')})`;
+        } else {
+          miniEl.innerText = 'හිස් (කතා නැත)';
+          miniEl.title = 'මෙම වේලාවට ඉදිරියට කතා Schedule කර නැත';
+        }
+      });
+
+      // Populate main active card for current selected slot
+      const activeSlotObj = slots.find(s => s.key === currentSlot) || slots[0];
+      const titleEl = document.getElementById('slotCardSlotTitle');
+      const badgeEl = document.getElementById('slotCardBadge');
+      const contentEl = document.getElementById('slotCardContent');
+
+      if (!titleEl || !contentEl || !badgeEl) return;
+
+      titleEl.innerHTML = `<i class="fa fa-history text-amber-400"></i> ${activeSlotObj.name} වේලාවේ අන්තිම කතාව:`;
+
+      // Find future scheduled posts for this slot
+      const activeSlotPosts = allStoriesCache.filter(p => {
+        const d = new Date(p.publishAt || 0);
+        return d > now && activeSlotObj.checkH(d.getHours());
+      });
+
+      if (activeSlotPosts.length > 0) {
+        // Sort descending by publishAt (furthest date into the future)
+        activeSlotPosts.sort((a, b) => new Date(b.publishAt) - new Date(a.publishAt));
+        const latest = activeSlotPosts[0];
+        const pubDate = new Date(latest.publishAt);
+        const dateFormatted = pubDate.toLocaleDateString('si-LK', {
+          weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+        });
+        const timeFormatted = pubDate.toLocaleTimeString('si-LK', {
+          hour: '2-digit', minute: '2-digit', hour12: true
+        });
+
+        // Calculate suggested next date (day after the latest scheduled date)
+        const nextDate = new Date(pubDate);
+        nextDate.setDate(nextDate.getDate() + 1);
+        const nextY = nextDate.getFullYear();
+        const nextM = String(nextDate.getMonth() + 1).padStart(2, '0');
+        const nextD = String(nextDate.getDate()).padStart(2, '0');
+        suggestedNextSlotDate = `${nextY}-${nextM}-${nextD}`;
+
+        badgeEl.className = 'text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-amber-950 text-amber-300 border border-amber-600 shadow-sm';
+        badgeEl.innerHTML = `📅 අන්තිම දිනය: ${nextDate.getFullYear()}-${String(pubDate.getMonth()+1).padStart(2,'0')}-${String(pubDate.getDate()).padStart(2,'0')}`;
+
+        contentEl.innerHTML = `
+          <div class="flex items-center gap-3 min-w-0 flex-1">
+            <img src="${latest.imageUrl || 'https://images.unsplash.com/photo-1544717305-2782549b5136?w=600'}" class="w-12 h-12 sm:w-14 sm:h-14 object-cover rounded-xl border border-gray-700 shadow flex-shrink-0" onerror="this.src='https://images.unsplash.com/photo-1544717305-2782549b5136?w=600'">
+            <div class="min-w-0 space-y-0.5">
+              <div class="flex items-center gap-2">
+                <span class="text-[10px] font-extrabold px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/40">⏳ අන්තිමට Schedule කළ කතාව</span>
+                <span class="text-[11px] text-cyan-400 font-semibold truncate">${escapeHtml(latest.seriesName)}</span>
+              </div>
+              <h4 class="text-sm font-bold text-white truncate">${escapeHtml(latest.title)}</h4>
+              <p class="text-[11px] text-amber-200/90 font-medium">
+                <i class="fa fa-calendar-check mr-1 text-amber-400"></i> ${dateFormatted} (${timeFormatted})
+              </p>
+            </div>
+          </div>
+
+          <div class="flex flex-row sm:flex-col items-stretch sm:items-end justify-between w-full sm:w-auto gap-2 flex-shrink-0 pt-2 sm:pt-0 border-t sm:border-0 border-gray-700/60">
+            <button type="button" onclick="previewStoryById('${latest._id}')" class="glow-btn btn-purple-gradient text-white px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center justify-center gap-1 shadow flex-1 sm:flex-initial" title="බලන්න">
+              <i class="fa fa-eye"></i> <span>බලන්න</span>
+            </button>
+            <button type="button" onclick="setSuggestedNextDate('${suggestedNextSlotDate}')" class="glow-btn btn-emerald-gradient text-white px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center justify-center gap-1.5 shadow flex-1 sm:flex-initial" title="ඊළඟ දිනය Set කරන්න">
+              <i class="fa fa-calendar-plus"></i> <span>ඊළඟ දිනය Set කරන්න (${nextM}/${nextD})</span>
+            </button>
+          </div>
+        `;
+      } else {
+        // No future posts scheduled for this slot. Check most recent past post
+        const pastPosts = allStoriesCache.filter(p => {
+          const d = new Date(p.publishAt || p.createdAt || 0);
+          return activeSlotObj.checkH(d.getHours());
+        });
+
+        let pastNote = '';
+        if (pastPosts.length > 0) {
+          pastPosts.sort((a, b) => new Date(b.publishAt) - new Date(a.publishAt));
+          const lastPast = pastPosts[0];
+          const d = new Date(lastPast.publishAt);
+          pastNote = `<div class="text-[11px] text-gray-400 pt-0.5">පසුගිය අන්තිම කතාව: <strong class="text-gray-200 font-semibold">${escapeHtml(lastPast.title)}</strong> (${d.toLocaleDateString('si-LK')})</div>`;
+        }
+
+        badgeEl.className = 'text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-emerald-950 text-emerald-300 border border-emerald-600 shadow-sm';
+        badgeEl.innerHTML = `🟢 ඉදිරියට හිස්ව ඇත`;
+
+        contentEl.innerHTML = `
+          <div class="space-y-1 py-1 min-w-0 flex-1">
+            <p class="text-xs text-emerald-300 font-bold flex items-center gap-1.5">
+              <i class="fa fa-check-circle text-emerald-400"></i> මෙම වේලාවට (${activeSlotObj.name}) ඉදිරියට කිසිදු කතාවක් Schedule කර නැත.
+            </p>
+            <p class="text-[11px] text-gray-400">ඔබට කැමති දිනයක් තෝරාගෙන මෙම වේලාවට අලුත් කතාවක් දැමිය හැක.</p>
+            ${pastNote}
+          </div>
+          <div class="flex items-center gap-2 pt-1 sm:pt-0 flex-shrink-0">
+            <button type="button" onclick="setScheduleDateQuick('today')" class="glow-btn btn-cyan-gradient text-white px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1 shadow">
+              <i class="fa fa-calendar-day"></i> අදට Set කරන්න
+            </button>
+            <button type="button" onclick="setScheduleDateQuick('tomorrow')" class="glow-btn btn-purple-gradient text-white px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1 shadow">
+              <i class="fa fa-calendar-plus"></i> හෙටට Set කරන්න
+            </button>
+          </div>
+        `;
+      }
+    }
+
+    function setSuggestedNextDate(dateStr) {
+      if (!dateStr) return;
+      document.getElementById('scheduleDateInput').value = dateStr;
       updateScheduleSummary();
     }
 
@@ -594,9 +884,14 @@
       const btnPub = document.getElementById('tabBtnPublished');
       const btnAll = document.getElementById('tabBtnAll');
 
-      btnSch.className = tab === 'scheduled' ? 'px-2.5 sm:px-4 py-2 rounded-lg text-xs font-bold transition bg-amber-500 text-gray-900 shadow text-center truncate' : 'px-2.5 sm:px-4 py-2 rounded-lg text-xs font-bold transition text-gray-400 hover:text-white text-center truncate';
-      btnPub.className = tab === 'published' ? 'px-2.5 sm:px-4 py-2 rounded-lg text-xs font-bold transition bg-emerald-500 text-gray-900 shadow text-center truncate' : 'px-2.5 sm:px-4 py-2 rounded-lg text-xs font-bold transition text-gray-400 hover:text-white text-center truncate';
-      btnAll.className = tab === 'all' ? 'px-2.5 sm:px-4 py-2 rounded-lg text-xs font-bold transition bg-blue-600 text-white shadow text-center truncate' : 'px-2.5 sm:px-4 py-2 rounded-lg text-xs font-bold transition text-gray-400 hover:text-white text-center truncate';
+      const activeClassOrange = 'px-3 sm:px-4 py-2 rounded-lg text-xs font-bold transition glow-btn btn-orange-gradient text-white shadow text-center truncate flex items-center justify-center gap-1.5';
+      const activeClassEmerald = 'px-3 sm:px-4 py-2 rounded-lg text-xs font-bold transition glow-btn btn-emerald-gradient text-white shadow text-center truncate flex items-center justify-center gap-1.5';
+      const activeClassBlue = 'px-3 sm:px-4 py-2 rounded-lg text-xs font-bold transition glow-btn btn-blue-gradient text-white shadow text-center truncate flex items-center justify-center gap-1.5';
+      const inactiveClass = 'px-3 sm:px-4 py-2 rounded-lg text-xs font-bold transition text-gray-300 hover:text-white text-center truncate flex items-center justify-center gap-1.5 hover:bg-gray-700/50';
+
+      btnSch.className = tab === 'scheduled' ? activeClassOrange : inactiveClass;
+      btnPub.className = tab === 'published' ? activeClassEmerald : inactiveClass;
+      btnAll.className = tab === 'all' ? activeClassBlue : inactiveClass;
 
       renderStoriesView();
     }
@@ -605,6 +900,11 @@
       e.preventDefault();
       const editId = document.getElementById('editStoryId').value;
       const isEdit = !!editId;
+
+      const submitBtn = document.getElementById('submitBtn');
+      const originalText = submitBtn.innerHTML;
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<i class="fa fa-spinner fa-spin mr-1.5"></i> සුරැකෙමින් පවතී...';
 
       const publishAtDate = getSelectedPublishAtDate();
 
@@ -633,18 +933,48 @@
       })
         .then(res => res.json())
         .then(data => {
-          alert(data.message || 'Saved successfully!');
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = originalText;
+          alert(data.message || 'සාර්ථකව සුරැකිණි!');
           resetForm();
           loadAdminStories();
+        })
+        .catch(err => {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = originalText;
+          alert('දෝෂයක් සිදුවිය! කරුණාකර නැවත උත්සාහ කරන්න.');
         });
     }
 
     function loadAdminStories() {
+      const list = document.getElementById('postsList');
+      if (allStoriesCache.length === 0) {
+        list.innerHTML = `
+          <div class="flex flex-col items-center justify-center py-12 gap-3">
+            <div class="w-10 h-10 border-4 border-cyan-400 border-t-transparent rounded-full animate-spin"></div>
+            <p class="text-sm font-semibold text-cyan-400 animate-pulse">කතා දත්ත පූරණය වෙමින් පවතී...</p>
+          </div>
+          <div class="space-y-3 animate-pulse">
+            <div class="h-20 bg-gray-800/80 rounded-xl border border-gray-700/60"></div>
+            <div class="h-20 bg-gray-800/80 rounded-xl border border-gray-700/60"></div>
+          </div>
+        `;
+      }
+
       fetch('/api/admin/articles', { headers: { 'Authorization': token } })
         .then(res => res.json())
         .then(data => {
           allStoriesCache = data || [];
           renderStoriesView();
+          updateSlotLatestPostInfo();
+        })
+        .catch(err => {
+          list.innerHTML = `
+            <div class="bg-red-950/40 border border-red-800 rounded-xl p-6 text-center text-red-300 text-sm space-y-3">
+              <p>කතා ලබා ගැනීමේදී දෝෂයක් සිදුවිය. කරුණාකර නැවත උත්සාහ කරන්න.</p>
+              <button onclick="loadAdminStories()" class="glow-btn btn-cyan-gradient px-4 py-2 rounded-xl text-white font-bold text-xs">නැවත Load කරන්න</button>
+            </div>
+          `;
         });
     }
 
@@ -661,14 +991,14 @@
       document.getElementById('allCount').innerText = allStoriesCache.length;
 
       if (allStoriesCache.length === 0) {
-        list.innerHTML = '<div class="text-gray-500 text-sm text-center py-10">තවමත් කිසිදු කතාවක් දමා නැත.</div>';
+        list.innerHTML = '<div class="text-gray-400 text-sm text-center py-10 bg-gray-800/40 rounded-xl border border-gray-800">තවමත් කිසිදු කතාවක් දමා නැත. ඉහත Form එකෙන් අලුත් කතාවක් එකතු කරන්න.</div>';
         return;
       }
 
       // 1. SCHEDULED TAB - GROUPED BY EXACT DATE
       if (activeViewTab === 'scheduled') {
         if (scheduledPosts.length === 0) {
-          list.innerHTML = '<div class="text-gray-500 text-sm text-center py-10 bg-gray-800/40 rounded-xl border border-gray-800">⏳ Schedule කළ කතා කිසිවක් නැත. (සියල්ල දැනටමත් Live වී ඇත)</div>';
+          list.innerHTML = '<div class="text-gray-400 text-sm text-center py-10 bg-gray-800/40 rounded-xl border border-gray-800">⏳ Schedule කළ කතා කිසිවක් නැත. (සියල්ල දැනටමත් Live වී ඇත)</div>';
           return;
         }
 
@@ -700,17 +1030,17 @@
 
             // Time Slot Indicator (Morning 7am / Noon 1pm / Evening 6pm)
             const hours = pTime.getHours();
-            let slotBadge = '<span class="px-2 py-0.5 rounded bg-blue-950 text-blue-300 text-[10px] font-bold border border-blue-800">🌅 07:00 AM</span>';
+            let slotBadge = '<span class="px-2.5 py-1 rounded-lg bg-amber-500/20 text-amber-300 text-xs font-bold border border-amber-500/50">🌅 07:00 AM</span>';
             if (hours >= 11 && hours < 16) {
-              slotBadge = '<span class="px-2 py-0.5 rounded bg-amber-950 text-amber-300 text-[10px] font-bold border border-amber-800">☀️ 01:00 PM</span>';
+              slotBadge = '<span class="px-2.5 py-1 rounded-lg bg-cyan-500/20 text-cyan-300 text-xs font-bold border border-cyan-500/50">☀️ 01:00 PM</span>';
             } else if (hours >= 16) {
-              slotBadge = '<span class="px-2 py-0.5 rounded bg-purple-950 text-purple-300 text-[10px] font-bold border border-purple-800">🌙 06:00 PM</span>';
+              slotBadge = '<span class="px-2.5 py-1 rounded-lg bg-purple-500/20 text-purple-300 text-xs font-bold border border-purple-500/50">🌙 06:00 PM</span>';
             }
 
             itemsHtml += `
-              <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center bg-gray-900/80 p-3 sm:p-3.5 rounded-xl border border-gray-700/60 hover:border-amber-500/50 transition gap-3">
+              <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center bg-gray-900/90 p-3 sm:p-3.5 rounded-xl border border-gray-700 hover:border-amber-500/60 transition gap-3 shadow-sm">
                 <div class="flex items-center gap-3 min-w-0">
-                  <img src="${p.imageUrl}" class="w-12 h-12 object-cover rounded-lg border border-gray-700 flex-shrink-0" onerror="this.src='https://images.unsplash.com/photo-1544717305-2782549b5136?w=600'">
+                  <img src="${p.imageUrl}" class="w-12 h-12 object-cover rounded-lg border border-gray-700 flex-shrink-0 shadow" onerror="this.src='https://images.unsplash.com/photo-1544717305-2782549b5136?w=600'">
                   <div class="min-w-0">
                     <h4 class="font-bold text-white text-sm truncate">${escapeHtml(p.title)}</h4>
                     <p class="text-xs text-gray-400 mt-0.5 truncate">
@@ -723,16 +1053,20 @@
                 <div class="flex items-center gap-2 w-full sm:w-auto justify-between sm:justify-end flex-wrap pt-2 sm:pt-0 border-t sm:border-0 border-gray-800">
                   <div class="flex items-center gap-1.5">
                     ${slotBadge}
-                    <span class="text-amber-400 font-bold text-xs bg-amber-950/40 px-2 py-0.5 rounded-md border border-amber-800/80">
-                      <i class="fa fa-clock text-[10px] mr-1"></i> ${timeString}
+                    <span class="text-amber-300 font-bold text-xs bg-amber-950/60 px-2 py-1 rounded-md border border-amber-800/80">
+                      <i class="fa fa-clock text-[10px] mr-1 text-amber-400"></i> ${timeString}
                     </span>
                   </div>
-                  <div class="flex items-center gap-1.5">
-                    <button onclick="previewStoryById('${p._id}')" class="px-2.5 py-1.5 bg-purple-600/20 hover:bg-purple-600 text-purple-300 hover:text-white rounded-lg text-xs font-bold transition flex items-center gap-1" title="කියවන්න (Preview)">
-                      <i class="fa fa-eye"></i> <span>කියවන්න</span>
+                  <div class="flex items-center gap-2">
+                    <button onclick="previewStoryById('${p._id}')" class="glow-btn btn-purple-gradient text-white px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow" title="කියවන්න (Preview)">
+                      <i class="fa fa-book-reader"></i> <span>කියවන්න</span>
                     </button>
-                    <button onclick="startEditStory('${p._id}')" class="p-1.5 sm:p-2 bg-blue-600/20 text-blue-400 hover:bg-blue-600 hover:text-white rounded-lg text-xs font-bold transition" title="Edit"><i class="fa fa-edit"></i></button>
-                    <button onclick="deleteStory('${p._id}')" class="p-1.5 sm:p-2 bg-red-600/20 text-red-400 hover:bg-red-600 hover:text-white rounded-lg text-xs font-bold transition" title="Delete"><i class="fa fa-trash"></i></button>
+                    <button onclick="startEditStory('${p._id}')" class="glow-btn btn-blue-gradient text-white px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow" title="Edit">
+                      <i class="fa fa-edit"></i> <span>Edit</span>
+                    </button>
+                    <button onclick="deleteStory('${p._id}')" class="glow-btn btn-red-gradient text-white px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow" title="Delete">
+                      <i class="fa fa-trash"></i> <span>Delete</span>
+                    </button>
                   </div>
                 </div>
               </div>
@@ -761,7 +1095,7 @@
       else {
         const postsToRender = activeViewTab === 'published' ? publishedPosts : allStoriesCache;
         if (postsToRender.length === 0) {
-          list.innerHTML = '<div class="text-gray-500 text-sm text-center py-10">කතා කිසිවක් නැත.</div>';
+          list.innerHTML = '<div class="text-gray-400 text-sm text-center py-10 bg-gray-800/40 rounded-xl border border-gray-800">කතා කිසිවක් නැත.</div>';
           return;
         }
 
@@ -775,33 +1109,33 @@
           });
 
           const statusBadge = isScheduled
-            ? `<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] sm:text-[11px] font-bold bg-amber-950/80 text-amber-300 border border-amber-600"><i class="fa fa-clock"></i> ⏳ Scheduled: ${formattedDateTime}</span>`
-            : `<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] sm:text-[11px] font-bold bg-emerald-950/80 text-emerald-300 border border-emerald-600"><i class="fa fa-check-circle"></i> 🟢 Live: ${formattedDateTime}</span>`;
+            ? `<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-bold bg-amber-950/80 text-amber-300 border border-amber-600 shadow-sm"><i class="fa fa-clock"></i> ⏳ Scheduled: ${formattedDateTime}</span>`
+            : `<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-bold bg-emerald-950/80 text-emerald-300 border border-emerald-600 shadow-sm"><i class="fa fa-check-circle"></i> 🟢 Live: ${formattedDateTime}</span>`;
 
           list.innerHTML += `
-            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center bg-gray-800 p-3.5 sm:p-4 rounded-xl border border-gray-700 gap-3.5">
-              <div class="flex items-center gap-3 min-w-0">
-                <img src="${img}" class="w-12 h-12 sm:w-14 sm:h-14 object-cover rounded-lg border border-gray-700 flex-shrink-0" onerror="this.src='https://images.unsplash.com/photo-1544717305-2782549b5136?w=600'">
-                <div class="space-y-0.5 min-w-0">
-                  <h4 class="font-bold text-white text-sm truncate">${escapeHtml(p.title)}</h4>
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center bg-gray-800/90 p-3.5 sm:p-4 rounded-xl border border-gray-700 hover:border-cyan-500/50 transition gap-3.5 shadow-sm">
+              <div class="flex items-center gap-3.5 min-w-0">
+                <img src="${img}" class="w-14 h-14 object-cover rounded-xl border border-gray-700 flex-shrink-0 shadow" onerror="this.src='https://images.unsplash.com/photo-1544717305-2782549b5136?w=600'">
+                <div class="space-y-1 min-w-0">
+                  <h4 class="font-bold text-white text-sm sm:text-base truncate">${escapeHtml(p.title)}</h4>
                   <p class="text-xs text-gray-400 truncate">
                     Main: <span class="text-pink-400 font-semibold">${escapeHtml(p.mainCategory)}</span> | 
                     Series: <span class="text-cyan-400 font-semibold">${escapeHtml(p.seriesName)}</span> | 
-                    By: ${escapeHtml(p.author)} | 
-                    <span class="text-amber-400 font-semibold"><i class="fa fa-eye text-[10px]"></i> ${p.views || 0}</span>
+                    By: <span class="text-gray-300 font-semibold">${escapeHtml(p.author)}</span> | 
+                    <span class="text-amber-400 font-semibold"><i class="fa fa-eye text-[11px]"></i> ${p.views || 0}</span>
                   </p>
-                  <div class="pt-1">${statusBadge}</div>
+                  <div class="pt-0.5">${statusBadge}</div>
                 </div>
               </div>
-              <div class="flex gap-2 w-full sm:w-auto justify-end flex-wrap pt-2 sm:pt-0 border-t sm:border-0 border-gray-700">
-                <button onclick="previewStoryById('${p._id}')" class="px-3 py-1.5 bg-purple-600/20 hover:bg-purple-600 text-purple-300 hover:text-white rounded-lg text-xs font-bold transition flex items-center gap-1">
-                  <i class="fa fa-eye"></i> කියවන්න
+              <div class="flex items-center gap-2 w-full sm:w-auto justify-end flex-wrap pt-2 sm:pt-0 border-t sm:border-0 border-gray-700">
+                <button onclick="previewStoryById('${p._id}')" class="glow-btn btn-purple-gradient text-white px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow" title="කියවන්න">
+                  <i class="fa fa-book-reader"></i> <span>කියවන්න</span>
                 </button>
-                <button onclick="startEditStory('${p._id}')" class="px-3 py-1.5 bg-blue-600/20 text-blue-400 hover:bg-blue-600 hover:text-white rounded-lg text-xs font-bold transition flex items-center gap-1">
-                  <i class="fa fa-edit"></i> Edit
+                <button onclick="startEditStory('${p._id}')" class="glow-btn btn-blue-gradient text-white px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow" title="Edit">
+                  <i class="fa fa-edit"></i> <span>Edit</span>
                 </button>
-                <button onclick="deleteStory('${p._id}')" class="px-3 py-1.5 bg-red-600/20 text-red-400 hover:bg-red-600 hover:text-white rounded-lg text-xs font-bold transition flex items-center gap-1">
-                  <i class="fa fa-trash"></i> Delete
+                <button onclick="deleteStory('${p._id}')" class="glow-btn btn-red-gradient text-white px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow" title="Delete">
+                  <i class="fa fa-trash"></i> <span>Delete</span>
                 </button>
               </div>
             </div>
@@ -851,7 +1185,7 @@
       }
 
       document.getElementById('formTitle').innerHTML = '<i class="fa fa-edit text-blue-400"></i> කතාව Edit කරන්න';
-      document.getElementById('submitBtn').innerText = 'කතාව Update කරන්න';
+      document.getElementById('submitBtn').innerHTML = '<i class="fa fa-sync-alt mr-1.5"></i> කතාව Update කරන්න';
       document.getElementById('cancelEditBtn').classList.remove('hidden');
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
@@ -868,7 +1202,7 @@
       document.getElementById('allPartsLink').value = '';
       setTimingMode('now');
       document.getElementById('formTitle').innerHTML = '<i class="fa fa-plus-circle text-emerald-400"></i> අලුත් කතාවක් එකතු කරන්න';
-      document.getElementById('submitBtn').innerText = 'කතාව පළ කරන්න';
+      document.getElementById('submitBtn').innerHTML = '<i class="fa fa-paper-plane mr-1.5"></i> කතාව පළ කරන්න';
       document.getElementById('cancelEditBtn').classList.add('hidden');
     }
 
@@ -885,7 +1219,10 @@
         });
     }
 
-    // --- STORY PREVIEW / READER MODAL LOGIC ---
+    // --- LUXURY STORY PREVIEW / READER MODAL LOGIC (ZERO HORIZONTAL SCROLL) ---
+    let readerTheme = localStorage.getItem('admin_reader_theme') || 'dark';
+    let isReaderFullscreen = false;
+
     function previewStoryById(id) {
       const story = allStoriesCache.find(s => s._id === id);
       if (!story) return;
@@ -921,6 +1258,27 @@
       openStoryReaderModal(draftStory);
     }
 
+    function formatParagraphsHtml(rawText) {
+      if (!rawText) return '';
+      // Normalize line endings
+      const normalized = rawText.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+      // Split by double newlines or single newlines that act as paragraphs
+      const paragraphs = normalized.split(/\n\s*\n/);
+      
+      return paragraphs.map(p => {
+        const trimmed = p.trim();
+        if (!trimmed) return '';
+        // If single newlines exist inside paragraph, replace with <br>
+        const safeText = escapeHtml(trimmed).replace(/\n/g, '<br>');
+        return `<p class="story-paragraph leading-relaxed">${safeText}</p>`;
+      }).filter(Boolean).join('');
+    }
+
+    function countWords(str) {
+      if (!str) return 0;
+      return str.trim().split(/\s+/).filter(Boolean).length;
+    }
+
     function openStoryReaderModal(story) {
       document.getElementById('modalStoryTitleHeader').innerText = story.title;
 
@@ -931,8 +1289,8 @@
       });
 
       const statusBadge = isScheduled
-        ? `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold bg-amber-950/80 text-amber-300 border border-amber-500/60"><i class="fa fa-clock"></i> ⏳ Scheduled: ${dateFormatted}</span>`
-        : `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-950/80 text-emerald-300 border border-emerald-500/60"><i class="fa fa-check-circle"></i> 🟢 Live: ${dateFormatted}</span>`;
+        ? `<span class="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-bold bg-amber-950/80 text-amber-300 border border-amber-500/60 shadow-sm"><i class="fa fa-clock"></i> ⏳ Scheduled: ${dateFormatted}</span>`
+        : `<span class="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-bold bg-emerald-950/80 text-emerald-300 border border-emerald-500/60 shadow-sm"><i class="fa fa-check-circle"></i> 🟢 Live: ${dateFormatted}</span>`;
 
       if (currentPreviewStoryId) {
         document.getElementById('modalEditBtn').classList.remove('hidden');
@@ -940,48 +1298,83 @@
         document.getElementById('modalEditBtn').classList.add('hidden');
       }
 
+      // Reading statistics
+      const fullText = (story.previewContent || '') + ' ' + (story.storyContent || '');
+      const totalWords = countWords(fullText);
+      const readingMinutes = Math.max(1, Math.ceil(totalWords / 160));
+      document.getElementById('modalReadingStats').innerText = `⏱️ විනාඩි ~${readingMinutes} ක කියවීමක් | 📝 වචන ${totalWords}`;
+
+      const previewHtml = formatParagraphsHtml(story.previewContent);
+      const storyHtml = formatParagraphsHtml(story.storyContent);
+
       const modalBody = document.getElementById('modalStoryBody');
       modalBody.innerHTML = `
-        <div class="space-y-4">
-          <div class="flex flex-wrap items-center justify-between gap-2 border-b border-gray-800 pb-3">
+        <div class="story-reading-container space-y-6">
+          
+          <!-- Story Header Info -->
+          <div class="flex flex-wrap items-center justify-between gap-2.5 border-b border-gray-700/80 pb-3">
             ${statusBadge}
-            <span class="text-xs text-cyan-400 font-semibold bg-cyan-950/40 px-2.5 py-1 rounded-md border border-cyan-800/60">
-              ${escapeHtml(story.mainCategory)} &bull; ${escapeHtml(story.seriesName)}
-            </span>
+            <div class="flex items-center gap-2">
+              <span class="text-xs text-cyan-300 font-bold bg-cyan-950/60 px-3 py-1 rounded-lg border border-cyan-800/80">
+                ${escapeHtml(story.mainCategory)} &bull; ${escapeHtml(story.seriesName)}
+              </span>
+            </div>
           </div>
 
-          <h1 class="text-lg sm:text-2xl font-extrabold text-white leading-snug">${escapeHtml(story.title)}</h1>
-
-          <div class="flex items-center gap-2.5 text-xs text-gray-400 pb-1">
-            <span><strong class="text-gray-300 font-medium">කර්තෘ:</strong> ${escapeHtml(story.author || 'Admin')}</span>
-            ${story.authorEmail ? `<span>&bull;</span><span class="text-gray-400 font-mono">${escapeHtml(story.authorEmail)}</span>` : ''}
+          <!-- Title & Author -->
+          <div class="space-y-2">
+            <h1 class="text-xl sm:text-3xl font-extrabold text-white leading-snug tracking-tight">${escapeHtml(story.title)}</h1>
+            <div class="flex flex-wrap items-center gap-3 text-xs text-gray-400">
+              <span><strong class="text-gray-300 font-semibold">කර්තෘ:</strong> ${escapeHtml(story.author || 'Admin')}</span>
+              ${story.authorEmail ? `<span>&bull;</span><span class="text-gray-400 font-mono">${escapeHtml(story.authorEmail)}</span>` : ''}
+              <span>&bull;</span>
+              <span class="text-amber-400 font-semibold"><i class="fa fa-clock mr-1"></i> විනාඩි ~${readingMinutes} ක කියවීමක්</span>
+            </div>
           </div>
 
-          <div class="rounded-xl overflow-hidden bg-gray-950 border border-gray-800 flex justify-center p-2 max-w-xs mx-auto shadow">
-            <img src="${story.imageUrl}" class="w-full h-auto max-h-[260px] object-contain rounded-lg" onerror="this.src='https://images.unsplash.com/photo-1544717305-2782549b5136?w=600'">
+          <!-- Feature Image -->
+          <div class="rounded-2xl overflow-hidden bg-gray-950 border border-gray-800 flex justify-center p-2 max-w-sm mx-auto shadow-lg">
+            <img src="${story.imageUrl}" class="w-full h-auto max-h-[280px] object-cover rounded-xl" onerror="this.src='https://images.unsplash.com/photo-1544717305-2782549b5136?w=600'">
           </div>
 
+          <!-- Free Preview Section (If exists) -->
           ${story.previewContent ? `
-            <div class="p-3.5 sm:p-4 rounded-xl bg-amber-950/25 border border-amber-800/50 space-y-1.5">
-              <div class="text-[11px] font-bold text-amber-400 uppercase tracking-wider flex items-center gap-1.5">
+            <div class="p-4 sm:p-5 rounded-2xl bg-amber-950/20 border border-amber-500/40 space-y-2 shadow-sm">
+              <div class="text-xs font-extrabold text-amber-400 uppercase tracking-wider flex items-center gap-2">
                 <i class="fa fa-star text-amber-400"></i> නොමිලේ පෙන්වන මුල් කොටස (Free Preview)
               </div>
-              <div class="text-amber-100/90 text-sm sm:text-base leading-relaxed whitespace-pre-line reader-text font-normal">
-                ${escapeHtml(story.previewContent)}
+              <div class="text-amber-100 reader-text text-sm sm:text-base leading-relaxed tracking-wide pt-1" style="font-size: ${readerFontSize}px;">
+                ${previewHtml}
               </div>
             </div>
           ` : ''}
 
-          <div class="p-3.5 sm:p-5 rounded-xl bg-gray-800/50 border border-gray-700/60 space-y-2">
-            <div class="text-[11px] font-bold text-emerald-400 uppercase tracking-wider flex items-center gap-1.5 border-b border-gray-700 pb-1.5">
-              <i class="fa fa-book-open text-emerald-400"></i> සම්පූර්ණ කතාව (Story Content)
+          <!-- Full Story Main Reading Section -->
+          <div class="p-4 sm:p-7 rounded-2xl bg-gray-800/60 border border-gray-700/80 space-y-4 shadow-sm">
+            <div class="text-xs font-extrabold text-emerald-400 uppercase tracking-wider flex items-center gap-2 border-b border-gray-700/80 pb-2.5">
+              <i class="fa fa-book-open text-emerald-400 text-sm"></i> සම්පූර්ණ කතාව (Full Story Content)
             </div>
-            <div class="text-gray-100 text-sm sm:text-base leading-relaxed whitespace-pre-line reader-text font-normal pt-1" style="font-size: ${readerFontSize}px; line-height: 1.8;">
-              ${escapeHtml(story.storyContent)}
+            <div id="storyMainTextContainer" class="story-reading-container reader-text text-sm sm:text-base tracking-wide pt-2" style="font-size: ${readerFontSize}px;">
+              ${storyHtml}
             </div>
           </div>
+
+          <!-- End of story badge -->
+          <div class="text-center py-4 border-t border-gray-800">
+            <span class="text-xs font-bold text-gray-500 bg-gray-800/80 px-4 py-1.5 rounded-full border border-gray-700">
+              &bull; &bull; &bull; කතාවේ අවසානය &bull; &bull; &bull;
+            </span>
+          </div>
+
         </div>
       `;
+
+      // Apply saved theme
+      setReaderTheme(readerTheme);
+
+      // Reset scroll position and progress bar
+      modalBody.scrollTop = 0;
+      updateReadingProgress(modalBody);
 
       document.getElementById('storyReaderModal').classList.remove('hidden');
       document.body.classList.add('overflow-hidden');
@@ -990,14 +1383,76 @@
     function closeStoryReaderModal() {
       document.getElementById('storyReaderModal').classList.add('hidden');
       document.body.classList.remove('overflow-hidden');
+      if (isReaderFullscreen) {
+        toggleReaderFullscreen();
+      }
     }
 
     function adjustReaderFontSize(delta) {
-      readerFontSize = Math.min(24, Math.max(13, readerFontSize + delta));
+      readerFontSize = Math.min(26, Math.max(14, readerFontSize + delta));
       const elements = document.querySelectorAll('.reader-text');
       elements.forEach(el => {
         el.style.fontSize = `${readerFontSize}px`;
       });
+    }
+
+    function setReaderTheme(theme) {
+      readerTheme = theme;
+      localStorage.setItem('admin_reader_theme', theme);
+
+      const modalCard = document.getElementById('modalCard');
+      const themeDarkBtn = document.getElementById('themeDarkBtn');
+      const themeSepiaBtn = document.getElementById('themeSepiaBtn');
+      const themeBlackBtn = document.getElementById('themeBlackBtn');
+
+      modalCard.classList.remove('reader-theme-dark', 'reader-theme-sepia', 'reader-theme-black');
+
+      themeDarkBtn.className = 'px-2 py-1 rounded text-gray-400 hover:text-white transition';
+      themeSepiaBtn.className = 'px-2 py-1 rounded text-gray-400 hover:text-amber-200 transition';
+      themeBlackBtn.className = 'px-2 py-1 rounded text-gray-400 hover:text-white transition';
+
+      if (theme === 'sepia') {
+        modalCard.classList.add('reader-theme-sepia');
+        themeSepiaBtn.className = 'px-2 py-1 rounded text-amber-300 bg-amber-950 font-bold transition border border-amber-600/50';
+      } else if (theme === 'black') {
+        modalCard.classList.add('reader-theme-black');
+        themeBlackBtn.className = 'px-2 py-1 rounded text-white bg-gray-800 font-bold transition border border-gray-600';
+      } else {
+        modalCard.classList.add('reader-theme-dark');
+        themeDarkBtn.className = 'px-2 py-1 rounded text-cyan-400 bg-gray-800 font-bold transition border border-cyan-700/60';
+      }
+    }
+
+    function toggleReaderFullscreen() {
+      const modalCard = document.getElementById('modalCard');
+      const icon = document.getElementById('modalFullscreenIcon');
+      isReaderFullscreen = !isReaderFullscreen;
+
+      if (isReaderFullscreen) {
+        modalCard.className = 'bg-gray-900 text-gray-100 w-full h-full rounded-none border-0 shadow-2xl overflow-hidden flex flex-col transition-all duration-200';
+        icon.className = 'fa fa-compress';
+      } else {
+        modalCard.className = 'bg-gray-900 text-gray-100 w-full max-w-4xl h-full sm:h-[92vh] sm:rounded-3xl border border-gray-700/80 shadow-2xl overflow-hidden flex flex-col transition-all duration-200';
+        icon.className = 'fa fa-expand';
+      }
+      setReaderTheme(readerTheme);
+    }
+
+    function updateReadingProgress(el) {
+      if (!el) return;
+      const scrollMax = el.scrollHeight - el.clientHeight;
+      const percent = scrollMax > 0 ? Math.min(100, Math.max(0, Math.round((el.scrollTop / scrollMax) * 100))) : 0;
+      const bar = document.getElementById('readingProgressBar');
+      const label = document.getElementById('readingProgressPercent');
+      if (bar) bar.style.width = percent + '%';
+      if (label) label.innerText = percent + '%';
+    }
+
+    function scrollReaderToTop() {
+      const modalBody = document.getElementById('modalStoryBody');
+      if (modalBody) {
+        modalBody.scrollTo({ top: 0, behavior: 'smooth' });
+      }
     }
 
     function editStoryFromModal() {
@@ -1027,5 +1482,6 @@
     checkAuth();
   </script>
 </body>
+</html>
 
 </html>
