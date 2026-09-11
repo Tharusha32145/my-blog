@@ -639,11 +639,22 @@
     let currentPreviewStoryId = null;
     let readerFontSize = 16;
 
+    function handleAuthExpiry() {
+      localStorage.removeItem('admin_token');
+      token = '';
+      alert("ඔබගේ Admin Session කාලය ඉකුත් වී ඇත (Session Expired). කරුණාකර නැවත Login වන්න.");
+      document.getElementById('dashboard-container').classList.add('hidden');
+      document.getElementById('login-container').classList.remove('hidden');
+    }
+
     function checkAuth() {
       if (token) {
         document.getElementById('login-container').classList.add('hidden');
         document.getElementById('dashboard-container').classList.remove('hidden');
         loadAdminStories();
+      } else {
+        document.getElementById('dashboard-container').classList.add('hidden');
+        document.getElementById('login-container').classList.remove('hidden');
       }
     }
 
@@ -960,7 +971,13 @@
         headers: { 'Content-Type': 'application/json', 'Authorization': token },
         body: JSON.stringify(payload)
       })
-        .then(res => res.json())
+        .then(res => {
+          if (res.status === 401 || res.status === 403) {
+            handleAuthExpiry();
+            throw new Error("AUTH_EXPIRED");
+          }
+          return res.json();
+        })
         .then(data => {
           submitBtn.disabled = false;
           submitBtn.innerHTML = originalText;
@@ -971,7 +988,9 @@
         .catch(err => {
           submitBtn.disabled = false;
           submitBtn.innerHTML = originalText;
-          alert('දෝෂයක් සිදුවිය! කරුණාකර නැවත උත්සාහ කරන්න.');
+          if (err.message !== "AUTH_EXPIRED") {
+            alert('දෝෂයක් සිදුවිය! කරුණාකර නැවත උත්සාහ කරන්න.');
+          }
         });
     }
 
@@ -991,13 +1010,26 @@
       }
 
       fetch('/api/admin/articles', { headers: { 'Authorization': token } })
-        .then(res => res.json())
+        .then(res => {
+          if (res.status === 401 || res.status === 403) {
+            handleAuthExpiry();
+            throw new Error("AUTH_EXPIRED");
+          }
+          if (!res.ok) {
+            throw new Error("SERVER_ERROR");
+          }
+          return res.json();
+        })
         .then(data => {
+          if (!Array.isArray(data)) {
+            throw new Error("INVALID_DATA");
+          }
           allStoriesCache = data || [];
           renderStoriesView();
           updateSlotLatestPostInfo();
         })
         .catch(err => {
+          if (err.message === "AUTH_EXPIRED") return;
           list.innerHTML = `
             <div class="bg-red-950/40 border border-red-800 rounded-xl p-6 text-center text-red-300 text-sm space-y-3">
               <p>කතා ලබා ගැනීමේදී දෝෂයක් සිදුවිය. කරුණාකර නැවත උත්සාහ කරන්න.</p>
@@ -1241,10 +1273,21 @@
         method: 'DELETE',
         headers: { 'Authorization': token }
       })
-        .then(res => res.json())
+        .then(res => {
+          if (res.status === 401 || res.status === 403) {
+            handleAuthExpiry();
+            throw new Error("AUTH_EXPIRED");
+          }
+          return res.json();
+        })
         .then(data => {
           alert(data.message);
           loadAdminStories();
+        })
+        .catch(err => {
+          if (err.message !== "AUTH_EXPIRED") {
+            alert('Delete කිරීමට නොහැකි විය.');
+          }
         });
     }
 
