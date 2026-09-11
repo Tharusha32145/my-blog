@@ -20,13 +20,28 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
   <style>
+    * { box-sizing: border-box; }
+    html, body {
+      width: 100%;
+      max-width: 100%;
+      overflow-x: hidden;
+      margin: 0;
+      padding: 0;
+    }
     /* Smooth Scrolling */
     html {
       scroll-behavior: smooth;
     }
 
     body { 
-      font-family: 'Inter', sans-serif; 
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+      max-width: 100%;
+    }
+
+    img, video, iframe {
+      max-width: 100%;
+      height: auto;
     }
 
     /* Guaranteed Instant-Load Solid Gradients */
@@ -386,3 +401,4 @@
   </script>
 </body>
 </html>
+
